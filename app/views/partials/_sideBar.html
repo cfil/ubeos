@@ -1,0 +1,202 @@
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+%{
+
+		boolean hasAccepted;
+		boolean hasClosed;
+		boolean hasIgnored = false;
+		if(helpers.UserTypeHelper.isConsumer(session)){
+			hasAccepted = models.TravelRequest.findForPendingTab(user_logged);
+			hasClosed = models.TravelRequest.findForClosedTab(user_logged);;
+		} else if (helpers.UserTypeHelper.isProvider(session)){
+			hasAccepted = models.Proposal.findForPendingTab(user_logged);
+			hasClosed = models.Proposal.findForClosedTab(user_logged);;
+			hasIgnored = models.Proposal.findForIgnoredTab(user_logged);;
+		}
+		
+}%
+
+
+        <!-- Start: Sidebar -->
+        <aside id="sidebar_left" class="nano nano-primary" >
+            <div class="nano-content" >
+
+                <!-- sidebar menu -->
+                <ul class="nav sidebar-menu sidebar-custom">
+				%{ if (user_logged.userRole.name == models.UserRole.CONSUMER){ }%
+					
+					<li>
+						<div id="big_sidebar" class="wrapper-sidebar-btn" hidden="hidden">
+							<button onclick="location.href='@{TravelRequests.createStep1}'" type="button" class="btn btn-info btn-block custom-btn">
+								&{'views.create.request'}
+							</button>
+						</div>
+						
+						<div id="small_sidebar" class="wrapper-sidebar-btn sm" hidden="hidden">
+							<button onclick="location.href='@{TravelRequests.createStep1}'" type="button" class="btn btn-info btn-block custom-btn">
+								<span class="ic ic-ub_plus"></span>
+							</button>
+						</div>
+					</li>
+					
+                    
+                  <!-- Divider -->
+                    
+                    <li class="sidebar-label pt20 mb5">&{'views.counsumer.dashboard'}</li>
+                    <li class="mb5 #{if activeTab=='index'} active #{/if}">
+                        <a href="@{TravelRequests.index}">
+                            <span class="ic ic-ub_briefcase"></span>
+                            <span class="sidebar-title">&{'state.active'}</span>
+                   			%{ int total = helpers.RequestHelper.getNewOrEditedProposals(user_logged); }%
+                           	%{ if (total > 0) { }%
+                    			<span class="label badge-danger float-right mr20 w19 pn sidebar"><p>${total}</p></span>
+							%{ } }%
+                        </a>
+                    </li>
+                    #{if hasAccepted}
+                    <li class="mb5 #{if activeTab=='accepted'} active #{/if}">
+                        <a href="@{TravelRequests.accepted}">
+                            <span class="ic ic-ub_accept"></span>
+                            <span class="sidebar-title">&{'state.pending'}</span>
+                            %{ int total_pending = helpers.RequestHelper.getPendingFeedback(user_logged); }%
+                           	%{ if (total_pending > 0) { }%
+                    			<span class="label badge-danger float-right mr20 w19 pn sidebar"><p>${total_pending}</p></span>
+							%{ } }%
+                        </a>
+                    </li>
+                    #{/if}
+                    #{if hasClosed}
+                    <li class="mb5 #{if activeTab=='history'} active #{/if}">
+                        <a href="@{TravelRequests.history}">
+                            <span class="ic ic-ub_calendar"></span>
+                            <span class="sidebar-title">&{'tab.history'}</span>
+                        </a>
+                    </li>
+                    #{/if}
+				%{ } }%
+                %{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+                	<li>
+						<div id="big_sidebar" class="wrapper-sidebar-btn" >
+							<button onclick="location.href='@{TravelRequests.search}'" type="button" class="btn btn-info btn-block custom-btn">
+								&{'views.find.requests'}
+							</button>
+						</div>
+						
+						<div id="small_sidebar" class="wrapper-sidebar-btn sm">
+							<button onclick="location.href='@{TravelRequests.search}'" type="button" class="btn btn-info btn-block custom-btn">
+								<span class="ic ic-ub_search"></span>
+							</button>
+						</div>
+					</li>
+					
+					<!-- Divider -->
+                    
+                    <li class="sidebar-label pt20 mb5">&{'views.providers.dashboard'}</li>
+                    <li class="mb5 #{if activeTab=='index'} active #{/if}">
+                        <a href="@{Proposals.index}">
+                            <span class="ic ic-ub_board"></span>
+                            <span class="sidebar-title">&{'state.active'}</span>
+                        </a>
+                    </li>
+                    #{if hasAccepted}
+                    <li class="mb5 #{if activeTab=='accepted'} active #{/if}">
+                        <a href="@{Proposals.accepted}">
+                            <span class="ic ic-ub_accept"></span>
+                            <span class="sidebar-title">&{'state.pending'}</span>
+                            %{ int total_pending_p = helpers.ProposalHelper.getPendingFeedback(user_logged); }%
+                           	%{ if (total_pending_p > 0) { }%
+                    			<span class="label badge-danger float-right mr20 w19 pn sidebar"><p>${total_pending_p}</p></span>
+							%{ } }%
+                        </a>
+                    </li>
+                    #{/if}
+                    #{if hasClosed}
+                    <li class="mb5 #{if activeTab=='history'} active #{/if}">
+                        <a href="@{Proposals.history}">
+                            <span class="ic ic-ub_calendar"></span>
+                            <span class="sidebar-title">&{'tab.history'}</span>
+                        </a>
+                    </li>
+					#{/if}
+					#{if hasIgnored}
+                    <li class="mb5 #{if activeTab=='ignored'} active #{/if}">
+                        <a href="@{Proposals.ignored}">
+                            <span class="ic ic-ub_block"></span>
+                            <span class="sidebar-title">&{'tab.ignored'}</span>
+                        </a>
+                    </li>
+					#{/if}
+					
+                %{ } }%
+                %{ if (user_logged.userRole.name == models.UserRole.ADMIN){ }%
+                	<li>
+						<div id="big_sidebar" class="wrapper-sidebar-btn" >
+							<button onclick="location.href='@{TravelRequests.search}'" type="button" class="btn btn-info btn-block custom-btn">
+								&{'views.find.requests'}
+							</button>
+						</div>
+						
+						<div id="small_sidebar" class="wrapper-sidebar-btn sm">
+							<button onclick="location.href='@{TravelRequests.search}'" type="button" class="btn btn-info btn-block custom-btn">
+								<span class="ic ic-ub_search"></span>
+							</button>
+						</div>
+					</li>
+				%{ } }%   
+                   
+                   <li class="sidebar-label pt20 mb5">&{'views.messages.sidebar'}</li>
+                    <li class="mb5 #{if activeTab=='messagesInbox'} active #{/if}">
+                        <a href="@{UbeosMessages.inbox}">
+                            <span class="ic ic-ub_inbox"></span>
+                            <span class="sidebar-title">&{'views.messages.inbox'}</span>
+                            %{ int total_m = helpers.MessagesHelper.getNewMessages(user_logged); }%
+                           	%{ if (total_m > 0) { }%
+                    			<span id="messages_total" class="label badge-danger float-right mr20 w19 pn sidebar"><p>${total_m}</p></span>
+							%{ } }%
+                        </a>
+                    </li>
+                    <li class="mb5 #{if activeTab=='messagesSent'} active #{/if}">
+                        <a href="@{UbeosMessages.sent}">
+                            <span class="ic ic-ub_sent"></span>
+                            <span class="sidebar-title">&{'views.messages.sent'}</span>
+                        </a>
+                    </li>
+                    
+<!--                     BEGIN PROMOTION -->
+#{if helpers.TemplatesHelper.hasLastMinute() }
+                    %{ if (user_logged.userRole.name == models.UserRole.CONSUMER){ }%
+                    
+                    <li class="sidebar-label pt20 mb5">&{'views.promotions.sidebar'}</li>
+                    <li class="mb5 #{if activeTab=='messagesSent'} active #{/if}">
+                        <a class="promotions" href="@{Application.lastMinutePromo}">
+                            <span class="ic ic-ub_offer"></span>
+                            <span class="sidebar-title">&{'views.promotions.lastminute'}</span>
+                            <span class="label badge-danger float-right mr20 pl5 pr5 pn sidebar"><p>New</p></span>
+                        </a>
+                    </li>
+                    
+                    %{ } }%
+#{/if}
+<!--                     END PROMOTION -->
+                    
+                   </ul>
+                   
+                   <div class="wrapper-social">
+                   <ul class="nav sidebar-menu">
+                   <li>
+		            <a class="custom-a-wrapper">
+		              <span class="ic ic-ub_world footer-icon"></span>
+		              <span class="sidebar-title">
+						<span class="fa fa-facebook-square custom-a-icon" onclick="window.open('https://www.facebook.com/ubeos', '_blank')"></span>
+						<span class="fa fa-twitter custom-a-icon" onclick="window.open('https://twitter.com/ubeosdotcom', '_blank')"></span>
+						<span class="fa fa-instagram custom-a-icon" onclick="window.open('https://www.instagram.com/ubeos', '_blank')"></span>
+					  </span>
+		            </a>
+		          </li>
+                    
+                </ul>
+                </div>
+                
+            </div>
+                
+        </aside>
+        

@@ -1,0 +1,57 @@
+#{extends 'main_front.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+	<script type="text/javascript">
+		$('.grid').masonry({
+			  // options
+			  itemSelector: '.grid-item',
+
+		});
+	</script>
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+
+#{/set}
+
+#{set pageTitle:messages.get('views.title.testimonials') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.testimonials') /}
+
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center mt60">
+	<div class="row">
+	
+	<div class="grid" style="margin-right: 2px !important;">
+	#{list items:testimonials, as:'testimonial'} 
+		<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mw500 grid-item">
+			<div class="panel panel-visible" id="spy1">
+				<div class="panel-body pn">
+	               	<table class="table text-center" id="datatable" cellspacing="0" width="100%">
+	                    <tbody>                          
+	                    	<tr>
+	                        	<td class="p20">
+	                         		<div class="color-warning testimonials fs21 mb20">
+								    	<i class="fa fa-star"></i>
+								    	<i class="fa fa-star"></i>
+								    	<i class="fa fa-star"></i>
+								    	<i class="fa fa-star"></i>
+								    	<i class="fa fa-star"></i>
+									</div>
+									<h4 class="mb20">#{verbatim}${testimonial.getKey()}#{/verbatim}</h4>
+	                         		<div>"${testimonial.getValue()}"</div>
+	                        	</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>	
+		#{/list}
+	</div>
+	</div>
+		</div>
+		

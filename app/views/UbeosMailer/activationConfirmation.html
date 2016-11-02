@@ -1,0 +1,21 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.welcome.ubeos'}, ${user.firstName}!
+<br><br>
+&{'mail.welcome.user.comunity'}
+<br><br>
+&{'mail.confirm.mail.text'} 
+<br><br>
+@@{Users.activate(activation.token)}
+<br><br>
+&{'mail.link.not.working'}
+<br>
+&{'mail.link.confirm.valid'}
+<br><br>
+&{'mail.after.click.info'}
+<br><br>
+&{'mail.user.question'}
+<br><br>
+&{'mail.user.welcome.board'}
+<br>
+UBEOS

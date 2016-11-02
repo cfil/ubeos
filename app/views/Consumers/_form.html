@@ -1,0 +1,184 @@
+
+<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon">
+			      <i class="ic-ub ic-ub_settings"></i>
+			    </span>
+                <span class="panel-title">&{'views.settings'}</span>
+              </div>
+              <div class="panel-body">
+			#{form @Consumers.update(user.id), id:'createForm', method: 'PUT', class: 'form-horizontal'}
+
+
+
+ <div class="wrapper-form">
+      <input type="hidden" name="consumer.id" value="${consumer?.id}"/>
+</div>
+
+ <div class="wrapper-form">
+      <input type="hidden" name="consumer.user.id" value="${consumer?.user?.id}"/>
+</div>
+
+ <div class="wrapper-form">
+      <input type="hidden" name="user.id" value="${user?.id}"/>
+</div>
+
+ <div class="row" hidden=true>
+  		<input type="text" name="user.userType" value="consumer"/>
+</div>
+
+ <div class="row" hidden=true>
+  		<input type="text" name="user.userRole.id" value="2"/>
+  </div>
+                  
+                
+                  <div class="form-group #{ifError 'user.firstName'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.firstName'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.firstName" name="user.firstName" value="${user?.firstName}" class="form-control #{ifError 'user.firstName'} error #{/ifError}" placeholder="&{'users.firstName'}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'user.lastName'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.lastName'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.lastName" name="user.lastName" value="${user?.lastName}" class="form-control #{ifError 'user.firstName'} error #{/ifError}" placeholder="&{'users.lastName'}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'consumer.gender'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'consumer.gender'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="consumer-gender" name="consumer.gender" class="form-control #{ifError 'consumer.gender'} error #{/ifError}">
+                          %{ if (consumer?.gender == models.Consumer.MALE) { }%
+						  		<option value="male" selected >&{'consumer.male'}</option>
+						  		<option value="female" >&{'consumer.female'}</option>
+					  		%{ } else if (consumer?.gender == models.Consumer.FEMALE) { }%
+						  		<option value="male"  >&{'consumer.male'}</option>
+						  		<option value="female" selected >&{'consumer.female'}</option>
+					  		%{ } else { }%
+					  			<option value="" selected >&{'consumer.gender'}</option>
+					  			<option value="male" >&{'consumer.male'}</option>
+						  		<option value="female" >&{'consumer.female'}</option>
+					  		%{ }  }%
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group #{ifError 'user.birthDate'} has-error #{/ifError}">
+	                  <label class="col-lg-3 control-label" for="datetimepicker2">&{'users.birthDate'}</label>
+    		            <div class="col-lg-8">
+    		            	<div class="col-md-3 left">
+								<select name="user.birth_day" id="days" class="form-control"></select>
+							</div>
+							<div class="col-md-3 left">
+								<select name="user.birth_month" id="months" class="form-control"></select>
+							</div>
+							<div class="col-md-6 right">
+								<select name="user.birth_year" id="years" class="form-control"></select>
+							</div>
+						</div>
+                  </div>
+                  
+                  <div class="form-group #{ifError 'user.email'} has-error #{/ifError}">
+                    <label for="disabledInput" class="col-lg-3 control-label">&{'users.email'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input class="form-control #{ifError 'user.email'} error #{/ifError}" name="user.email" value="${user?.email}" type="text" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'user.address'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.address'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.address" name="user.address" value="${user?.address}" class="form-control #{ifError 'user.address'} error #{/ifError}" placeholder="&{'users.address'}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'user.city'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.city'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.city" name="user.city" value="${user?.city}" class="form-control #{ifError 'user.city'} error #{/ifError}" placeholder="&{'users.city'}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'user.zipcode'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.zipcode'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.zipcode" name="user.zipcode" value="${user?.zipcode}" class="form-control #{ifError 'user.zipcode'} error #{/ifError}" placeholder="&{'users.zipcode'}">
+                      </div>
+                    </div>
+                  </div>
+				  <div class="form-group #{ifError 'user.country'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'users.country'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-country" name="user.country.id" class="form-control #{ifError 'user.country'} error #{/ifError}">
+                         <option disabled selected>&{'select.option'}</option>
+  	#{list items:countries, as:'country'}
+  		%{ if (user?.country?.id ==country.id) { }%
+  		<option value="${country.id}" selected >&{'country.'+country.code}</option>
+  		%{ } else { }%
+  		<option value="${country.id}" >&{'country.'+country.code}</option>
+  		%{ } }%
+  	#{/list}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group #{ifError 'user.phone'} has-error #{/ifError}">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'users.phone'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="user.phone" name="user.phone" value="${user?.phone}" class="form-control #{ifError 'user.zipcode'} error #{/ifError}" placeholder="&{'users.phone'}">
+                      </div>
+                    </div>
+                  </div>
+                  #{if request.action != "Billings.create"}
+                  <div class="form-group #{ifError 'user.language'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'users.language'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-lang" name="user.lang" class="form-control #{ifError 'user.lang'} error #{/ifError}">
+%{ if (user?.lang == 'en') { }%
+	      	<option value="en" description="English" selected>&{'application.language.en'}</option>
+	      	<option value="pt" description="Portugu�s" >&{'application.language.pt'}</option>
+  		%{ } else if (user?.lang == 'pt'){ }%
+  			<option value="en" description="English" >&{'application.language.en'}</option>
+	      	<option value="pt" description="Portugu�s" selected >&{'application.language.pt'}</option>
+  		%{ } else { }%
+  			<option disabled selected>&{'select.option'}</option>
+  			<option value="en" description="English" >&{'application.language.en'}</option>
+	      	<option value="pt" description="Portugu�s"  >&{'application.language.pt'}</option>
+  		%{ } }%
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  #{/if}
+                  
+                  </div>
+      
+      <div class="panel-footer">
+
+<div class="bs-component">
+	<div class="col-lg-3"></div>
+	<div class="col-lg-3 col-padding single">
+		<input type="submit" name="submit" value="&{'views.save'}" class="btn btn-info btn-block"/>
+	</div>
+	</div>
+	#{/form}
+              </div>
+            </div>
+
+
+
+

@@ -1,0 +1,130 @@
+#{extends 'main_front.html' /}
+
+#{set pageTitle:messages.get('views.title.contact.us') + " | UBEOS"   /}
+#{set pageDescription:messages.get('views.description.contact.us') /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set}
+
+
+<div class="tray tray-center mt60">
+#{if flash.success || flash.error}
+	#{include 'partials/_flashNotices.html'/}
+#{/if}
+<div class="row mt20">
+
+
+<div class="col-md-6">
+
+        <div class="">
+
+
+          <!-- Contact Form 1 -->
+       <div class="admin-form active" id="contact1" role="tabpanel">
+         <div class="panel">
+         <div class="panel-heading custom">
+      	<span class="panel-icon"><i class="ic-ub ic-ub_message"></i></span>
+          <span class="panel-title custom">&{'application.contact.us'}</span>
+         </div>
+<!--                   <div class="panel-heading"> -->
+<!--                     <span class="panel-title"> -->
+<!--                       <i class="ic-ub ic-ub_message"></i>&{'application.contact.us.title'}</span> -->
+<!--                   </div> -->
+           <!-- end .form-header section -->
+
+           
+           #{form @Application.contactUs(), id:'form-contact1', class:'form-horizontal', method: 'post'}
+             <div class="panel-body p25">
+               <div class="section ">
+                 <label for="names" class="field prepend-icon">
+                   <input type="text" name="name" id="names" class="gui-input error" placeholder="&{'views.enter.name'}" value="${name}">
+                   <label for="names" class="field-icon">
+                     <i class="ic-ub ic-ub_profile"></i>
+                   </label>
+                 </label>
+               </div>
+               <!-- end section -->
+
+               <div class="section">
+                 <label for="email" class="field prepend-icon">
+                   <input type="email" name="email" id="email" class="gui-input" placeholder="&{'views.enter.email'}" value="${email}">
+                   <label for="email" class="field-icon">
+                     <i class="ic-ub ic-ub_message"></i>
+                   </label>
+                 </label>
+               </div>
+            
+               <!-- end section -->
+
+               <div class="section">
+                 <label for="subject" class="field prepend-icon">
+                   <input type="text" name="subject" id="subject" class="gui-input" placeholder="&{'views.enter.subject'}" value="${subject}">
+                   <label for="subject" class="field-icon">
+                     <i class="ic-ub ic-ub_inbox"></i>
+                   </label>
+                 </label>
+               </div>
+               <!-- end section -->
+
+               <div class="section">
+                 <label for="comment" class="field prepend-icon">
+                   <textarea class="gui-textarea" id="comment" name="message" placeholder="&{'views.enter.message'}" maxlength="300">${message}</textarea>
+                   <label for="comment" class="field-icon">
+                     <i class="ic-ub ic-ub_chat"></i>
+                   </label>
+                 </label>
+               </div>
+               <!-- end section -->
+
+             </div>
+             <!-- end .form-body section -->
+             <div class="panel-footer clearfix">
+             	<div class="col-md-4 col-xs-0"></div>
+             	<button type="submit" class="btn btn-info mr10 col-md-4 col-xs-12">&{'views.submit'}</button>
+             	<div class="col-md-4 col-xs-0"></div>
+             </div>
+             <!-- end .form-footer section -->
+           #{/form}
+         </div>
+         <!-- end .panel -->
+       </div>
+       <!-- end: .admin-form -->
+
+     </div>
+     </div>
+
+<div class="col-md-6">    
+     <div class="panel panel-visible" id="spy2">
+	<div class="panel-heading">
+		<span class="panel-icon"><i class="ic-ub ic-ub_home"></i></span>
+		<span class="panel-title">&{'application.address.title'}</span>
+	</div>
+	<div class="panel-body">
+		<div class="">
+			<div class="col-md-6 text-center">
+				<img src="@{'/public/images/img_address_aveiro.png'}" class="img-responsive mw200 margin-center mb40 mt10" title="Aveiro">
+				<h4>Aveiro</h4><br>
+				<p>Rua Eng. Carlos Bóia, nº 29<br>3810-702 Aveiro</p>
+			</div>
+			<div class="col-md-6 text-center">
+				<img src="@{'/public/images/img_address_lisboa.png'}" class="img-responsive mw200 margin-center mb40 mt10" title="Aveiro">
+				<h4>Lisboa</h4><br>
+				<p>Avenida 5 de Outubro, nº 72 9ºB<br>1050-059 Lisboa</p>
+			</div>
+		</div>
+	</div>
+</div>
+</div> 
+
+</div>
+ </div>
+

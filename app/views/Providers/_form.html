@@ -1,0 +1,235 @@
+
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'provider.description'}</div>
+  <div class="field">
+      <textarea name="provider.description" class="form-row">${provider?.description}</textarea></
+  </div>
+  <span class="error-text">${errors.forKey('entity.company.name')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.firstName'}</div>
+  <input type="text" name="user.firstName" value="${user?.firstName}" class="form-row #{ifError 'user.firstName'} error #{/ifError}"/>
+  <span class="error-text">${errors.forKey('user.firstName')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.lastName'}</div>
+  <input type="text" name="user.lastName" value="${user?.lastName}" class="form-row #{ifError 'user.lastName'} error #{/ifError}"/>
+  <span class="error-text">${errors.forKey('user.lastName')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.email'}</div>
+  <input type="text" name="user.email" value="${user?.email}" class="form-row" readonly="readonly"/>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.address'}</div>
+  <input type="text" name="user.address" value="${user?.address}" class="form-row #{ifError 'user.address'} error #{/ifError}"/>
+  <span class="error-text">${errors.forKey('user.address')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form" #{if request.actionMethod!="edit"} hidden="true" #{/if}>
+  <div class="form-label">&{'users.city'}</div>
+  <div class="field">
+      <input type="text" name="user.city" value="${user?.city}" class="form-row"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.city')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form" #{if request.actionMethod!="edit"} hidden="true" #{/if}>
+  <div class="form-label">&{'users.zipcode'}</div>
+  <div class="field">
+      <input type="text" name="user.zipcode" value="${user?.zipcode}" class="form-row #{ifError 'user.zipcode'} error #{/ifError}"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.zipcode')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form" #{if request.actionMethod!="edit"} hidden="true" #{/if}>
+  <div class="form-label">&{'users.country'}</div>
+  <div class="field">
+  	<select id="user-country" name="user.country.id" class="chzn-select form-row">
+  	#{list items:countries, as:'country'}
+  		%{ if (provider.user?.country?.id ==country.id) { }%
+  		<option value="${country.id}" selected >&{'country.'+country.code}</option>
+  		%{ } else { }%
+  		<option value="${country.id}" >&{'country.'+country.code}</option>
+  		%{ } }%
+  	#{/list}
+  	</select>
+  </div>
+  <span class="error-text">${errors.forKey('user.country')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.language'}</div>
+  <div class="field">
+      <select id="user-lang" name="user.lang" class="chzn-select form-row">
+      	<option value="en" description="English" ${selected ? 'selected'.raw() : ''}>&{'application.language.en'}</option>
+      	<option value="pt" description="Portugu�s" ${selected ? 'selected'.raw() : ''}>&{'application.language.pt'}</option>
+      </select>
+    
+  </div>
+  <span class="error-text">${errors.forKey('user.lang')}</span>
+  <div class="clear"></div>
+</div>
+
+
+#{if request.actionMethod != "create"}
+<div class="wrapper-form" hidden="true">
+#{/if}
+#{else}
+<div class="wrapper-form">
+#{/else}
+  <div class="form-label">&{'users.password'}</div>
+  <div class="field">
+      <input type="password" name="user.password" value="${user?.password}" class="form-row"/>
+    
+  </div>
+  <span class="error-text">${errors.forKey('user.password')}</span>
+  <div class="clear"></div>
+</div>
+
+
+#{if request.actionMethod != "create"}
+<div class="wrapper-form" hidden="true">
+#{/if}
+#{else}
+<div class="wrapper-form">
+#{/else}
+  <div class="form-label">&{'users.password.confirm'}</div>
+  <div class="field">
+      <input type="password" name="user.passwordConfirm" value="${user?.passwordConfirm}" class="form-row"/>
+    
+  </div>
+  <span class="error-text">${errors.forKey('user.passwordConfirm')}</span>
+  <div class="clear"></div>
+</div>
+
+
+ <div class="wrapper-form" hidden="true">
+  <div class="field">
+      <input type="password" name="user.hashPassword" value="${user?.hashPassword}" class="form-row"/>
+    
+  </div>
+  <span class="error-text">${errors.forKey('user.hashPassword')}</span>
+  <div class="clear"></div>
+</div>
+
+
+ <div class="wrapper-form" hidden="true">
+  <div class="field">
+    
+      <input type="checkbox" name="user.enable" class="ckeckbox"
+        ${user?.enable ? 'checked':''}
+      />
+  </div>
+  <span class="error-text">${errors.forKey('user.enable')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form" hidden=true>
+  <div class="field">
+  		<input type="text" name="user.userType" value="provider"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.userType')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form" hidden=true>
+  <div class="field">
+  		<input type="text" name="user.userRole.id" value="3"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.userType')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'provider.company.name'}</div>
+  <div class="field">
+      <input type="text" name="provider.company.name" value="${provider?.company.name}" class="form-row"/>
+  </div>
+  <span class="error-text">${errors.forKey('entity.company.name')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'provider.company.rnavt'}</div>
+  <div class="field">
+      <input type="text" name="company.rnavt" value="${company?.rnavt}" class="form-row"/>
+  </div>
+  <span class="error-text">${errors.forKey('company.rnavt')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'company.address'}</div>
+  <div class="field">
+      <input type="text" name="company.address" value="${company?.address}" class="form-row"/>
+  </div>
+  <span class="error-text">${errors.forKey('company.address')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form" hidden="true">
+  <div class="field">
+        <input type="text" name="provider.user.id" value="${provider?.user?.id}" />
+  </div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label"></div>
+  <div class="field">
+      <input type="hidden" name="provider.company.id" value="${provider?.company?.id}"/>
+  </div>
+  <span class="error-text">${errors.forKey('provider.company.id')}</span>
+  <div class="clear"></div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label"></div>
+  <div class="field">
+      <input type="hidden" name="provider.id" value="${provider?.id}"/>
+  </div>
+  <span class="error-text">${errors.forKey('provider.id')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label"></div>
+  <div class="field">
+      <input type="hidden" name="user.id" value="${user?.id}"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.id')}</span>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label"></div>
+  <div class="field">
+      <input type="hidden" name="company.id" value="${company?.id}"/>
+  </div>
+  <span class="error-text">${errors.forKey('company.id')}</span>
+  <div class="clear"></div>
+</div>
+
+#{if request.actionMethod=="edit"}
+ <div class="wrapper-form" >
+  <div class="form-label">&{'users.avatar'}</div>
+  <div class="field">
+  		<img src="@{Users.Image(provider.user.id)}" width="100px" height="100px">
+  		<input type="file" name="user.avatar"/>
+  </div>
+  <span class="error-text">${errors.forKey('user.avatar')}</span>
+  <div class="clear"></div>
+</div>
+ #{/if}

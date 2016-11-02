@@ -1,0 +1,277 @@
+#{extends 'main.html' /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	
+	 <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datepicker/css/bootstrap-datetimepicker.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	#{script 'orderListAlpha.js'/}
+	#{script 'qty_changer.js'/}
+	#{script 'qty_changer_people.js'/}
+	
+	  <!-- DateTime Plugin -->
+   <script src="@{'/public/theme/vendor/plugins/moment/moment.min.js'}"></script>
+  <script src="@{'/public/theme/vendor/plugins/datepicker/js/bootstrap-datetimepicker.js'}"></script>
+	
+	<script>
+	function makeChildrenReq(){
+		if($("#qtyval-children").val() > 0){
+			$("#children-req").removeAttr("hidden");
+		} else {
+			$("#children-req").attr("hidden","hidden");
+			$("#descriptionPeople").val("");
+		}
+
+	}
+	
+	
+	function nigthChecker(){
+    	
+    	if( ($('#datetimepicker2').data("DateTimePicker").getDate())!= null && ($('#datetimepicker1').data("DateTimePicker").getDate())  ){
+    	
+	    	var a = $('#datetimepicker1').data("DateTimePicker").getDate();//$("#date_from").datepicker('getDate');
+	        b = $('#datetimepicker2').data("DateTimePicker").getDate();//$("#date_to").datepicker('getDate');
+	        
+	        c = 24*60*60*1000,
+	        diffDays = Math.round(Math.abs((a - b)/(c)));
+	    	var nights = $("#qtyval").val();
+	    	if( nights < diffDays){
+	    		if($("#alert-dates-inferior").attr("hidden")){
+	    			$("#alert-dates-inferior").removeAttr("hidden");
+	    		}
+	    		$("#alert-dates-superior").attr("hidden","hidden");
+	    	}
+	    	else if( nights == diffDays){
+	    		$("#alert-dates-inferior").attr("hidden","hidden");
+	    		$("#alert-dates-superior").attr("hidden","hidden")
+	    	}
+	    	else if( nights > diffDays){
+	    		$("#alert-dates-inferior").attr("hidden","hidden");
+	    		$("#alert-dates-superior").removeAttr("hidden");
+	    	}
+    	}
+
+    }
+	
+    $(document).ready(function() {
+		orderList("#user-country_to");
+		
+		 %{
+			    java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy");
+	    		java.util.Date date = new Date();
+			    String today = dateFormat.format(date); 
+			  }%
+		
+		$('#datetimepicker1').datetimepicker({
+			format: "DD/MM/YYYY",
+			viewMode: "days", 
+		    minViewMode: "days",
+		    pickTime: false,
+		    minDate: "${today}"
+        });
+		
+		$('#datetimepicker2').datetimepicker({
+			format: "DD/MM/YYYY",
+			viewMode: "days", 
+		    minViewMode: "days",
+		    pickTime: false
+        });
+		
+		$("#datetimepicker1").on('dp.change', function (selected) {
+        	$('#datetimepicker2').data("DateTimePicker").setMinDate(selected.date);
+        	nigthChecker();
+        });
+		
+        $("#datetimepicker2").on('dp.change', function (selected) {
+        	$('#datetimepicker1').data("DateTimePicker").setMaxDate(selected.date);
+        	nigthChecker();
+        });
+		
+		
+	});
+	</script>
+
+#{/set} 
+
+
+#{set pageTitle:messages.get('views.title.request.create') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.create') /}
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_calendar"></i></span>
+                <span class="panel-title">&{'views.create.request.step2'}</span>
+              </div>
+              <div class="panel-body">
+	              #{form @TravelRequests.saveStep2(), id:'createForm', class: 'form-horizontal'}
+
+		           	 <div class="form-group #{ifError 'travelRequest.country_to'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'users.country'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-country_to" name="travelRequest.country_to.id" class="form-control ">
+                         %{if (travelRequest.country_to == null) { }%
+								  	#{list items:countries, as:'country'}
+								  		%{ if (country.id == 176) { }%
+								  		<option value="${country.id}" selected="selected" >&{'country.'+country.code}</option>
+								  		%{ } else { }%
+								  		<option value="${country.id}" >&{'country.'+country.code}</option>
+								  		%{ } }%
+								  	#{/list}
+						%{ } else { }%
+								  	#{list items:countries, as:'country'}
+								  		%{ if (travelRequest?.country_to?.id == country.id) { }%
+								  		<option value="${country.id}" selected="selected" >&{'country.'+country.code}</option>
+								  		%{ } else { }%
+								  		<option value="${country.id}" >&{'country.'+country.code}</option>
+								  		%{ } }%
+								  	#{/list}
+						%{ } }%
+		                        </select>
+		                      </div>
+		                    </div>
+						</div>		           
+
+				<div class="form-group #{ifError 'travelRequest.city_to'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'application.city'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input type="text" id="travelRequest.city_to" name="travelRequest.city_to" value="${travelRequest?.city_to}" class="form-control ">
+	               </div>
+	             </div>
+	           	</div>
+				
+				  <div class="form-group #{ifError 'travelRequest.dateFrom'} has-error #{/ifError}">
+                    <label class="col-md-3 control-label" for="datetimepicker1">&{'request.dateFrom'} <span>*</span></label>
+                    <div class="col-md-8">
+                      <div class="input-group date " id="datetimepicker1" >
+                        <span class="input-group-addon cursor ic-ub">
+                          <i class="ic-ub_calendar"></i>
+                        </span>
+                        <input type="text" name="travelRequest.date_from" value="${travelRequest?.date_from}" class="form-control ">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group #{ifError 'travelRequest.dateTo'} has-error #{/ifError}">
+                    <label class="col-md-3 control-label" for="datetimepicker2">&{'request.dateTo'} <span>*</span></label>
+                    <div class="col-md-8">
+                      <div class="input-group date " id="datetimepicker2" >
+                        <span class="input-group-addon cursor ic-ub">
+                          <i class="ic-ub_calendar"></i>
+                        </span>
+                        <input type="text" name="travelRequest.date_to" value="${travelRequest?.date_to}" class="form-control ">
+                      </div>
+                    </div>
+                  </div>
+
+
+				<div class="form-group #{ifError 'travelRequest.nights'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.nights'} <span>*</span></label>
+	        
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+		               	<div class="input-group">
+			               	<span id="qtyminus" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_minus"></i>
+		                    </span>
+			                 <input type="text" id="qtyval" name="travelRequest.nights" value="${travelRequest.nights}" class="form-control " onchange="nigthChecker();">
+			                <span id="qtyplus" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_plus"></i>
+		                    </span>
+	                    </div>
+			<label id="alert-dates-inferior" hidden="hidden" class="step-alert inform mt10 "> &{'views.alert.less.nights'}</label>
+		
+			<label id="alert-dates-superior" hidden="hidden" class="step-alert invalid mt10 text-danger"> &{'views.alert.more.nights'}</label>
+	               </div>
+	             </div>
+	           	</div>
+
+
+		 		<div class="form-group #{ifError 'travelRequest.flexible'} has-error #{/ifError}">
+          		  <label for="inputSelect" class="col-lg-3 control-label">&{'views.request.flexible'} <span>*</span></label>
+                    <div class="col-lg-8">
+                		<div class="bs-component">
+                            <div class="checkbox-custom #{ifError 'travelRequest.flexible'} checkbox-danger #{/ifError} #{else}checkbox-primary #{/else} mb5 mt10">
+                              <input type="checkbox" #{if travelRequest.flexible} checked #{/if} id="travelRequest.flexible" name="travelRequest.flexible" >
+                              <label for="travelRequest.flexible">&{'views.request.flexible'}</label>
+      						</div> 
+      						<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.flexible.explanation'}</span>                     
+                          </div>
+                         </div>
+           		  </div>
+		
+		
+				<div class="form-group #{ifError 'travelRequest.adults'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.adults'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	               	<div class="input-group">
+	               		<span id="qtyminus-adults" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_minus"></i>
+		                    </span>
+	                 <input id="qtyval-adults" type="text"  name="travelRequest.adults" value="${travelRequest.adults}" class="form-control ">
+	                 	               		<span id="qtyplus-adults" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_plus"></i>
+		                    </span>
+	                 </div>
+	               </div>
+	             </div>
+	           	</div>
+
+				<div class="form-group #{ifError 'travelRequest.children'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.children'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	               <div class="input-group">
+	               			<span id="qtyminus-children" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_minus"></i>
+		                    </span>
+	               	 
+	                 <input id="qtyval-children" type="text"  name="travelRequest.children" value="${travelRequest.children}" class="form-control ">
+	                 		<span id="qtyplus-children" class="input-group-addon cursor ic-ub">
+		                          <i class="ic-ub_plus"></i>
+		                    </span>
+	                 </div>
+	               </div>
+	             </div>
+	           	</div>
+
+
+				<div id="children-req" #{if travelRequest.children == 0 } hidden="hidden" #{/if} class="form-group #{ifError 'travelRequest.descriptionPeople'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.descriptionPeople'} <span >*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input type="text" id="descriptionPeople" name="travelRequest.descriptionPeople" value="${travelRequest?.descriptionPeople}" class="form-control " placeholder="&{'views.form.descriptionPeople'}">
+	               </div>
+	             </div>
+	           	</div>
+	           	
+	           	</div>
+      
+      <div class="panel-footer">   
+
+<div class="bs-component">
+	<div class="col-lg-3 col-md-0"></div>
+	<div class="col-lg-3 col-md-4 col-padding top">
+		<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep1}'"/>
+	</div>
+	<div class="col-lg-3 col-md-4 col-padding">
+		<input type="submit" name="submit" value="&{'views.next'}" class="btn btn-info btn-block"/>
+	</div>
+</div>
+
+	              #{/form}
+              </div>
+            </div>
+    </div>
+</div>
+

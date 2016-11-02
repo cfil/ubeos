@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+   
+#{/set}
+
+#{set pageTitle:messages.get('views.title.report.user') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.report.user') /}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_flag"></i></span>
+           		<span class="panel-title">&{'views.report.user'}</span>
+              </div>
+              <div class="panel-body">
+              	<div class="col-lg-2 col-md-0"></div>
+              	<div class="col-lg-10 col-padding">
+              		<div class="text-danger"><b>&{'views.modal.report.user'}</b></div><br>
+              	</div>
+              	
+                #{form @Users.reportSave(user_reported.id), id:'createForm', class:'form-horizontal', method: 'post'}
+                
+                <div class="form-group #{ifError 'message'} has-error #{/ifError} ">
+					  <label class="col-lg-2 control-label" for="textArea">&{'views.message'}</label>
+					  <div class="col-lg-9">
+					    <div class="bs-component">
+					      <textarea class="form-control" id="textArea" rows="3" name="message" placeholder="&{'views.send.message.here'}">${message}</textarea>
+					    </div>
+					  </div>
+					</div>
+            
+            </div>
+            
+            <div class="panel-footer">
+              
+              <div class="bs-component">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-3 col-md-3 col-padding top">
+	 <button type="submit" class="btn btn-danger btn-block">&{'application.report'}</button>
+	 	</div>
+	 	<div class="col-lg-3 col-md-3 col-padding">
+	 <input type="button" id="cancel" value="&{'application.cancel'}" class="btn btn-dark btn-block" onclick="location.href='@{Application.index()}'"/>
+		</div>
+	</div>
+              #{/form}
+            </div>
+         </div>
+    </div>
+</div>
+

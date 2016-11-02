@@ -1,0 +1,403 @@
+#{extends 'main.html' /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set} 
+
+#{set pageTitle:messages.get('views.title.request.create') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.create') /}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_briefcase"></i></span>
+                <span class="panel-title">&{'views.create.request.resume'}</span>
+              </div>
+              <div class="panel-body">
+              #{form @TravelRequests.saveResume(), id:'createForm', method: 'POST', class: 'form-horizontal'}
+
+				<div class="form-group #{ifError 'travelRequest.title'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.title'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input type="text" id="travelRequest.title" name="travelRequest.title" value="${travelRequest?.title}" class="form-control " placeholder="&{'views.title.not.public'}" disabled>
+	                 <span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.title.not.public'}</span>
+	               </div>
+	             </div>
+	           	</div>
+	           	
+	           	 <div class="form-group #{ifError 'travelRequest.country_location'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'application.location'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      <input  type="text" name="" value="&{'country.'+travelRequest.country_location?.code}" class="form-control" disabled/>
+                      </div>
+                    </div>
+                  </div>
+                <select id="" name="travelRequest.country_location.id" class="form-row" hidden="hidden">
+		 			<option value="${travelRequest.country_location.id}" selected ></option>
+		 		</select>
+
+                  <div class="form-group #{ifError 'travelRequest.location'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'users.location'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      <input  type="text" name="" value="${travelRequest?.location?.name}" class="form-control"  disabled/>
+		  	<select id="user-location" name="travelRequest.location.id" class=" form-row " hidden="hidden">
+		  		<option value="${travelRequest?.location?.id}" selected="selected" >${travelRequest?.location?.name}</option>
+		  	</select>
+		  	<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.location.help'}</span> 
+                      </div>
+                    </div>
+                  
+                  </div>
+                  <div class="form-group #{ifError 'travelRequest.maxBudget'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.budget.preference'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="" name="travelRequest.maxBudget" class="form-control " disabled="disabled">
+							<option value="50" #{if travelRequest.maxBudget == 50} selected #{/if} >&{'request.best.price'}</option>
+		  					<option value="1000" #{if travelRequest.maxBudget == 1000} selected #{/if}>&{'request.balanced'}</option>
+		  					<option value="5000" #{if travelRequest.maxBudget == 5000} selected #{/if} >&{'request.quality'}</option>
+                        </select>
+                        <span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.budget.help'}</span> 
+                      </div>
+                    </div>
+                  </div>
+           			
+           			
+           		  <div class="form-group #{ifError 'travelRequest.validTo'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.valid.to'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="" name="travelRequest.validTo" class="form-control " disabled>
+							<option value="0" #{if travelRequest.validTo == 0} selected #{/if} >&{'request.valid.to.3days'}</option>
+		  					<option value="1" #{if travelRequest.validTo == 1} selected #{/if}>&{'request.valid.to.1week'}</option>
+<!-- 		  					<option value="2" #{if travelRequest.validTo == 2} selected #{/if} >&{'request.valid.to.2week'}</option> -->
+<!-- 		  					<option value="3" #{if travelRequest.validTo == 3} selected #{/if} >&{'request.valid.to.3week'}</option> -->
+<!-- 		  					<option value="4" #{if travelRequest.validTo == 4} selected #{/if} >&{'request.valid.to.1month'}</option> -->
+<!-- 		  					<option value="5" #{if travelRequest.validTo == 5} selected #{/if} >&{'request.valid.to.2month'}</option> -->
+                        </select>
+                        <span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.valid.to.help'}</span> 
+                      </div>
+                    </div>
+                  </div>
+           			
+           		  	
+          		  <div class="form-group #{ifError 'travelRequest.wants'} has-error #{/ifError}">
+          		  <label for="inputSelect" class="col-lg-3 control-label">&{'request.what.need'} <span>*</span></label>
+                    <div class="col-lg-8">
+                		<div class="bs-component">
+                            <div class="checkbox-custom checkbox-disabled mb5 mt10" #{if !travelRequest.wantTransportation} hidden="hidden" #{/if}>
+                              <input disabled type="checkbox" #{if travelRequest.wantTransportation} checked #{/if} id="travelRequest.wantTransportation" name="travelRequest.wantTransportation" >
+                              <label for="travelRequest.wantTransportation">&{'request.transport'}</label>
+                              <div>&{'views.what.need.help.transportation'}</div>
+      </div>                      
+                            <div class="checkbox-custom checkbox-disabled mb5" #{if !travelRequest.wantAccommodation} hidden="hidden" #{/if}>  
+                              <input disabled type="checkbox" #{if travelRequest.wantAccommodation} checked #{/if} id="travelRequest.wantAccommodation" name="travelRequest.wantAccommodation" >
+                              <label for="travelRequest.wantAccommodation">&{'request.accommodation'}</label>
+                              <div>&{'views.what.need.help.accommodation'}</div>
+</div>
+<div class="checkbox-custom checkbox-disabled mb5" #{if !travelRequest.wantActivities} hidden="hidden" #{/if}>
+                              <input disabled type="checkbox" #{if travelRequest.wantActivities} checked #{/if} id="travelRequest.wantActivities" name="travelRequest.wantActivities"  >
+                              <label for="travelRequest.wantActivities">&{'request.experiences'}</label>
+<div>&{'views.what.need.help.activities'}</div>
+                            </div>
+                          </div>
+                         </div>
+           		  </div>
+				 
+				  <div class="form-tab"></div>				 
+				 
+				  <div class="form-group #{ifError 'travelRequest.country_to'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'application.destination'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      <input  type="text" name="" value="&{'country.'+travelRequest.country_to?.code}" class="form-control"  disabled/>
+		<select id="" name="travelRequest.country_to.id" class="form-row" hidden="hidden">
+  			<option value="${travelRequest.country_to.id}" selected ></option>
+  		</select>
+                      
+		                      </div>
+		                    </div>
+						</div>		           
+
+				<div class="form-group #{ifError 'travelRequest.city_to'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'application.city'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input type="text" id="travelRequest.city_to" name="travelRequest.city_to" value="${travelRequest?.city_to}" class="form-control " disabled>
+	               </div>
+	             </div>
+	           	</div>
+				
+				  <div class="form-group #{ifError 'travelRequest.dateFrom'} has-error #{/ifError}">
+                    <label class="col-md-3 control-label" for="datetimepicker1">&{'request.dateFrom'} <span>*</span></label>
+                    <div class="col-md-8">
+                      <div class="input-group date " id="datetimepicker1" >
+                        <span class="input-group-addon cursor ic-ub">
+                          <i class="ic-ub_calendar"></i>
+                        </span>
+                        <input type="text" name="travelRequest.date_from" value="${travelRequest?.date_from}" class="form-control " disabled>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group #{ifError 'travelRequest.dateTo'} has-error #{/ifError}">
+                    <label class="col-md-3 control-label" for="datetimepicker2">&{'request.dateTo'} <span>*</span></label>
+                    <div class="col-md-8">
+                      <div class="input-group date " id="datetimepicker2" >
+                        <span class="input-group-addon cursor ic-ub">
+                          <i class="ic-ub_calendar"></i>
+                        </span>
+                        <input type="text" name="travelRequest.date_to" value="${travelRequest?.date_to}" class="form-control " disabled>
+                      </div>
+                    </div>
+                  </div>
+
+				<div class="form-group #{ifError 'travelRequest.nights'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.nights'} <span>*</span></label>
+	    
+	    
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+			<label id="alert-dates-inferior" hidden="hidden">&{'views.alert.less.nights'}</label>
+			<label id="alert-dates-superior" hidden="hidden">&{'views.alert.more.nights'}</label>
+	                 <input type="text" id="qtyval" name="travelRequest.nights" value="${travelRequest.nights}" class="form-control " disabled>
+	               </div>
+	             </div>
+	           	</div>
+
+
+		 		<div class="form-group #{ifError 'travelRequest.flexible'} has-error #{/ifError}">
+          		  <label for="inputSelect" class="col-lg-3 control-label">&{'views.request.flexible'}</label>
+                    <div class="col-lg-8">
+                		<div class="bs-component">
+                            <div class="checkbox-custom checkbox-disable mb5 mt10">
+                              <input disabled type="checkbox" #{if travelRequest.flexible} checked #{/if} id="travelRequest.flexible" name="travelRequest.flexible" >
+                              <label for="travelRequest.flexible">&{'views.request.flexible'}</label>
+      						</div>  
+      						<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.flexible.explanation'}</span>                    
+                          </div>
+                         </div>
+           		  </div>
+		
+		
+				<div class="form-group #{ifError 'travelRequest.adults'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.adults'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input id="qtyval-adults" type="text"  name="travelRequest.adults" value="${travelRequest.adults}" class="form-control " disabled>
+	               </div>
+	             </div>
+	           	</div>
+				
+				#{if travelRequest.children > 0}
+				<div class="form-group #{ifError 'travelRequest.children'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.children'} <span>*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input id="qtyval-children" type="text"  name="travelRequest.children" value="${travelRequest.children}" class="form-control " disabled>
+	               </div>
+	             </div>
+	           	</div>
+				#{/if}
+				
+				#{if !utils.StringUtils.isNullOrEmpty(travelRequest.descriptionPeople) }
+				<div class="form-group #{ifError 'travelRequest.descriptionPeople'} has-error #{/ifError}">
+	             <label for="inputStandard" class="col-lg-3 control-label">&{'request.descriptionPeople'} <span id="children-req" #{if travelRequest.children == 0 } hidden="hidden" #{/if} >*</span></label>
+	             <div class="col-lg-8">
+	               <div class="bs-component">
+	                 <input type="text" id="descriptionPeople" name="travelRequest.descriptionPeople" value="${travelRequest?.descriptionPeople}" class="form-control " placeholder="&{'views.form.descriptionPeople'}" disabled>
+	               </div>
+	             </div>
+	           	</div>
+				#{/if}
+#{if travelRequest.wantTransportation }
+				<div class="form-tab"></div>
+				
+                <div class="form-group #{ifError 'travelRequest.transport'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.transport'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      <input  type="text" name="" value="&{travelRequest?.transport?.name}" class="form-control " disabled/>
+	  	<select id="" name="travelRequest.transport.id" class="form-row" hidden="hidden">
+  			<option value="${travelRequest?.transport?.id}" selected ></option>
+  		</select>
+                      </div>
+                    </div>
+             </div>
+             
+             #{if !utils.StringUtils.isNullOrEmpty(travelRequest.descriptionThree) }
+            <div class="form-group #{ifError 'travelRequest.descriptionThree'} has-error #{/ifError}"">
+                    <label class="col-lg-3 control-label" for="textArea2">&{'request.customize'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <textarea name="travelRequest?.descriptionThree" class="form-control" rows="3"  placeholder="&{'views.step3.details'}" disabled>#{verbatim}${travelRequest?.descriptionThree}#{/verbatim}</textarea>
+                      </div>
+                    </div>
+                  </div> 
+             #{/if}
+#{/if}
+#{if travelRequest.wantAccommodation }
+	<div class="form-tab"></div>
+	
+    <div class="form-group #{ifError 'travelRequest.accommodation'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.accommodation'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      <input  type="text" name="" value="&{travelRequest?.accommodation?.name}" class="form-control" disabled/>
+  	<select id="" name="travelRequest.accommodation.id" class="form-row" hidden="hidden">
+  			<option value="${travelRequest?.accommodation?.id}" selected ></option>
+  		</select>
+                      </div>
+                    </div>
+             	</div>
+             	
+             	#{if !utils.StringUtils.isNullOrEmpty(travelRequest.roomType) }
+            	<div class="form-group #{ifError 'travelRequest.roomType'} has-error #{/ifError}"">
+                    <label class="col-lg-3 control-label" for="textArea3">&{'request.rooms'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <textarea name="travelRequest.roomType" class="form-control" rows="3" placeholder="&{'views.form.rooms'}" disabled>#{verbatim}${travelRequest?.roomType}#{/verbatim}</textarea>
+                      </div>
+                    </div>
+                </div> 
+                #{/if}
+
+                <div class="form-group #{ifError 'travelRequest.meal'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.meal'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                      
+                      <input  type="text" name="" value="&{travelRequest?.meal?.name}" class="form-control " disabled/>
+    	<select id="" name="travelRequest.meal.id" class="form-row" hidden="hidden">
+  			<option value="${travelRequest?.meal?.id}" selected ></option>
+  		</select>
+                        
+                      </div>
+                    </div>
+             	</div>
+            
+                <div class="form-group #{ifError 'travelRequest.stars'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.stars'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-stars" name="travelRequest.stars" class="form-control " disabled>
+							<option value='' disabled selected style='display:none;'>&{'select.option'}</option>
+					  		<option value="1" #{if travelRequest?.stars == 1}selected #{/if}>1</option>
+					  		<option value="2" #{if travelRequest?.stars == 2}selected #{/if}>2</option>
+					  		<option value="3" #{if travelRequest?.stars == 3}selected #{/if}>3</option>
+					  		<option value="4" #{if travelRequest?.stars == 4}selected #{/if}>4</option>
+					  		<option value="5" #{if travelRequest?.stars == 5}selected #{/if}>5</option>
+                        </select>
+                      </div>
+                    </div>
+             	</div>
+ #{/if}
+ #{if travelRequest.wantActivities }           
+                <div class="form-tab"></div>
+                
+              	<div class="wrapper-form" hidden="true">
+			 	<div class="form-label">&{'request.experiences'}</div>
+					<select id="travelRequest-experiences" name="travelRequest.experiences.id"  class="chzn-select" multiple >
+			        %{ experiences.sort{ it.toString() }.each() { }%
+			          %{ 
+			            selected = false;
+			            travelRequest?.experiences.each() { f ->
+			              if (f.id == it?.id)
+			                selected = true;
+			            }
+			          }%
+			 		  <option id="${it?.id}_select"  value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it.name}</option>
+			
+			        %{ } }%
+			        </select>
+			</div>
+
+
+          		  <div class="form-group #{ifError 'travelRequest.wants'} has-error #{/ifError}">
+          		  <label for="inputSelect" class="col-lg-3 control-label">&{'request.what.need'} <span>*</span></label>
+                    <div class="col-lg-8">
+                		<div class="bs-component mt10">
+				        %{ int i = 1; experiences.sort{ it.toString() }.each() { }%
+				          %{ 
+				            selected = false;
+				            travelRequest?.experiences.each() { f ->
+				              if (f.id == it?.id)
+				                selected = true;
+				            }
+				          }%
+				          %{ if (selected){ }%
+				                            <div class="checkbox-custom checkbox-disabled mb5">
+				                              <input disabled class="experiences_check" type="checkbox" id="${it.id}" name="${it.id}" value="${it.id}"${selected ? 'checked'.raw() : ''} onkeyup="descrp();">
+				                              <label class="checkbox-label" for="${it.id}">&{it.name}</label>
+				      						</div>                      
+				 		  %{ } }%
+				        %{ i++;} }%
+				                            
+				                          </div>
+				
+				</div>
+				</div>
+#{if !utils.StringUtils.isNullOrEmpty(travelRequest.descriptionFour) }
+            	<div class="form-group #{ifError 'travelRequest.descriptionFour'} has-error #{/ifError}"">
+                    <label class="col-lg-3 control-label" for="textArea3">&{'request.customize'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <textarea disabled name="travelRequest.descriptionFour" class="form-control" rows="3"  placeholder="&{'views.step4.details'}">#{verbatim}${travelRequest?.descriptionFour}#{/verbatim}</textarea>
+                      </div>
+                    </div>
+                </div> 
+                #{/if}
+#{/if}
+
+</div>
+      
+      <div class="panel-footer">   
+
+			 	<div class="bs-component">
+					<div class="col-lg-3 col-md-0"></div>
+			  #{if stepBack == 5 }
+			  		<div class="col-lg-2 col-md-4 col-padding top">
+			 			<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep5}'"/>
+             		</div>
+              #{/if}
+
+              #{elseif stepBack == 4 }
+              		<div class="col-lg-2 col-md-4 col-padding top">
+			 			<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep4}'"/>
+            		</div>
+              #{/elseif}
+              #{elseif stepBack == 3}
+              		<div class="col-lg-2 col-md-4 col-padding top">
+						<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep3}'"/>		
+         			</div>
+              #{/elseif}
+              #{else}	
+              		<div class="col-lg-2 col-md-4 col-padding top">
+             		 	<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep2}'"/>
+             		</div>
+              #{/else}
+					<div class="col-lg-2 col-md-4 col-padding">
+						<input type="submit" name="submit" value="&{'views.done'}" class="btn btn-info btn-block"/>
+					</div>
+              #{/form}
+				</div>
+            </div>
+	    </div>
+	</div>
+</div>
+
+
+
+
+

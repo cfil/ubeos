@@ -1,0 +1,121 @@
+#{extends 'main_front.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	<!-- Magnific Popup core JS file -->
+	<script src="@{'/public/javascripts/jquery.magnific-popup.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+	
+	<script>
+	       
+	    $('.video').magnificPopup({
+	  	  type: 'iframe',
+	  	  
+	  	  iframe: {
+	  	  markup: '<div class="mfp-iframe-scaler">'+
+	        '<div class="mfp-close"></div>'+
+	        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+	        '<div class="mfp-title">UBEOS	</div>'+
+	      '</div>'
+	  	  }
+	  	  
+	  	});
+	    
+	    $('.popup-iframe').magnificPopup({
+	        type: 'iframe'
+	    }); 
+	</script>
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Magnific Popup core CSS file -->
+	<!-- <link rel="stylesheet" href="magnific-popup/magnific-popup.css">  -->
+	#{stylesheet 'magnific-popup.css' /} 
+#{/set}  
+
+#{set pageTitle:"UBEOS - " + messages.get('views.title.base')/}
+#{set pageDescription:messages.get('views.description.base') /}
+
+<div class="wrapper-landing">
+
+	<section>
+		<div class="section-01 mt60">
+			<div class="wrapper-title"><h1>&{'views.landing.newbase'}</h1></div>
+			<a class="video" href="https://vimeo.com/120146270">
+				<div class="p20"><img src="@{'/public/images/transparent.png'}" class="img-responsive margin-center macbook" title="video"></div>
+				<div class="macbook-preload"></div>
+			</a>
+			<div class="col-md-4 col-sm-2"></div>
+			<div class="col-md-4 col-sm-8">
+				<button type="button" class="btn btn-info btn-block mt50 mb80 mw250 p20 h60 margin-center landing" onclick="location.href='@{Consumers.create}'">&{'views.landing.start'}</button>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<div class="section-02">
+			<div><h2 class="text-center pt50 fw700">&{'views.landing.howitworks'}</h2></div>
+			<div class="landing-tab"></div>
+			<div class="mw1000 row margin-center">
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_landing_a.png'}" class="img-responsive mw250 margin-center" title="TELL US WHAT YOU NEED">
+					<h4 class="text-center fw800 up mt40">&{'views.landing.concept1.title'}</h4>
+					<p class="text-center p10">&{'views.landing.concept1.text'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_landing_b.png'}" class="img-responsive mw250 margin-center" title="THE OFFERS WILL COME TO YOU">
+					<h4 class="text-center fw800 up mt40">&{'views.landing.concept2.title'}</h4>
+					<p class="text-center p10">&{'views.landing.concept2.text'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_landing_c.png'}" class="img-responsive mw250 margin-center" title="ENJOY YOUR TRAVEL">
+					<h4 class="text-center fw800 up mt40">&{'views.landing.concept3.title'}</h4>
+					<p class="text-center p10">&{'views.landing.concept3.text'}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<div class="section-02 testimonials pt10">
+			<div><h2 class="text-center fw700 pt50">&{'views.landing.testimonials'}</h2></div>
+			<div class="landing-tab"></div>
+			
+			<div class="mw1000 row margin-center">
+			#{list items:testimonials, as:'testimonial'} 
+				<div class="col-md-4 mb20 text-center">
+					<div class="pl10 color-warning testimonials mb15 fs21">
+				    	<i class="fa fa-star"></i>
+				    	<i class="fa fa-star"></i>
+				    	<i class="fa fa-star"></i>
+				    	<i class="fa fa-star"></i>
+				    	<i class="fa fa-star"></i>
+					</div>
+					<h4>#{verbatim}${testimonial.getKey()}#{/verbatim}</h4>
+					<p class="p10"><i>"${testimonial.getValue()}"</i></p>
+				</div>
+				#{/list}
+			</div>
+				<div class="text-center pb80"><a href="@{Application.testimonials}">&{'views.landing.testimonials.all'} &rarr;</a></div>
+		</div>
+	</section>
+
+</div>
+
+#{if helpers.TemplatesHelper.hasLastMinute() }
+<a href="@{Application.lastMinutePromo}" class="hidden-xs"> 
+	<div class="lastminute-wrapper">
+		<div></div>
+		<p>&{'last.minute.warning.badge'}</p>
+	</div>
+</a>
+
+
+<a href="@{Application.lastMinutePromo}" class="visible-xs"> 
+	<div class="lastminute-wrapper-small">
+		<div></div>
+		<i class="fa fa-star"></i>
+	</div>
+</a>
+#{/if}
+

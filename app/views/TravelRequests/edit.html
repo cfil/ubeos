@@ -1,0 +1,339 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.request.resume') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.resume') /}
+
+
+<div class="wrapper-medium">
+
+	<div class="title-big">&{'views.request.edit'}</div>
+
+#{form @TravelRequests.update(travelRequest.id), id:'update'}
+
+	<input id="travelRequest.id" type="text" name="travelRequest.id" value="${travelRequest?.id}" class="form-row"/>
+
+		<div class="form-label title">&{'views.create.request.step1'}</div>
+							
+		 <div class="wrapper-form">
+		  <div class="form-label">&{'request.title'}</div>
+		  <div class="label-grey">&{'views.title.not.public'}</div>
+		  <input id="travelRequest.title" type="text" name="travelRequest.title" value="${travelRequest?.title}" class="form-row"/>
+		</div>
+	
+		<div class="clear"></div>
+		
+	<div class="wrapper-form">
+			  <div class="form-label">&{'application.location'} </div>
+			 </div>
+		<div class="wrapper-form-medium">
+			 <select id="" name="travelRequest.country_location.id" class="form-row" >
+		 			%{if (travelRequest.country_location == null) { }%
+		  	#{list items:countries, as:'country'}
+		  		%{ if (country.id == 176) { }%
+		  		<option value="${country.id}" selected="selected" >&{'country.'+country.code}</option>
+		  		%{ } else { }%
+		  		<option value="${country.id}" >&{'country.'+country.code}</option>
+		  		%{ } }%
+		  	#{/list}
+%{ } else { }%
+		  	#{list items:countries, as:'country'}
+		  		%{ if (travelRequest?.country_location?.id == country.id) { }%
+		  		<option value="${country.id}" selected="selected" >&{'country.'+country.code}</option>
+		  		%{ } else { }%
+		  		<option value="${country.id}" >&{'country.'+country.code}</option>
+		  		%{ } }%
+		  	#{/list}
+%{ } }%
+		 		</select>
+		  
+		</div>
+		
+		
+		<div class="wrapper-form-medium right">
+		
+		  	<select id="user-location" name="travelRequest?.location?.id" class=" form-row " >
+		  		#{list items:locations, as:'location'}
+		  		%{ if (travelRequest?.location?.id == location.id) { }%
+		  		<option value="${location.id}" selected="selected" >#{verbatim}${location.name}#{/verbatim}</option>
+		  		%{ } else { }%
+		  		<option value="${location.id}" >#{verbatim}${location.name}#{/verbatim}</option>
+		  		%{ } }%
+		  	#{/list}
+		  	</select>
+		</div>
+		
+			<div class="clear"></div>
+	<div class="tab-line"></div>
+	<div class="clear"></div>
+		
+		<div class="wrapper-form-medium">
+		  <div class="form-label">&{'application.origin'} </div>
+		 <select id="" name="travelRequest.country_from.id" class="form-row" >
+  			#{list items:countries, as:'country'}
+		  		%{ if (travelRequest?.country_from?.id == country.id) { }%
+		  		<option value="${country.id}" selected="selected" >&{'country.'+country.code}</option>
+		  		%{ } else { }%
+		  		<option value="${country.id}" >&{'country.'+country.code}</option>
+		  		%{ } }%
+		  	#{/list}
+  		</select>
+		</div>
+		
+		<div class="wrapper-form-medium right">
+		  <div class="form-label">&nbsp;</div>
+		  <input type="text" name="travelRequest.city_from" value="${travelRequest?.city_from}" class="form-row "/>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="wrapper-form-medium">
+		  <div class="form-label">&{'application.destination'}</div>
+		<select id="" name="travelRequest.country_to.id" class="form-row" >
+  			#{list items:countries, as:'country'}
+		  		%{ if (travelRequest?.country_to?.id ==country.id) { }%
+		  		<option value="${country.id}" selected >&{'country.'+country.code}</option>
+		  		%{ } else { }%
+		  		<option value="${country.id}" >&{'country.'+country.code}</option>
+		  		%{ } }%
+		  	#{/list}
+  		</select>
+		</div>
+		
+		<div class="wrapper-form-medium right">
+		  <div class="form-label">&nbsp;</div>
+		  <input type="text" name="travelRequest.city_to" value="${travelRequest?.city_to}" class="form-row " />
+		</div>
+		
+		<div class="clear"></div>
+		
+	<div class="wrapper-form-medium ">
+	  <div class="form-label">&{'request.transport'} </div>
+	  <div class="field">
+	  	<select id="" name="travelRequest.transport.id" class="form-row" >
+  			#{list items:transports, as:'transport'}
+	  		%{ if (travelRequest?.transport?.id ==transport.id) { }%
+	  		<option value="${transport.id}" selected >&{transport.name}</option>
+	  		%{ } else { }%
+	  		<option value="${transport.id}" >&{transport.name}</option>
+	  		%{ } }%
+	  	#{/list}
+  		</select>
+	  </div>
+	</div>
+		
+		<div class="clear"></div>
+		
+		#{if !utils.StringUtils.isNullOrEmpty(travelRequest.description) }				
+			<div class="wrapper-form">
+			<div class="form-label">&{'request.customize'}</div>
+			      <textarea  name="travelRequest.description" class="form-row " rows="3" maxlength="1024" >${travelRequest?.description}</textarea>
+			
+			</div>
+			
+		#{/if}
+		
+
+		
+		<div class="clear"></div>
+		<div class="form-label title">&{'views.create.request.step2'}</div>
+		<div class="clear"></div>
+		
+			<div class="wrapper-form-medium ">
+	  <div class="form-label">&{'request.nights'}</div>
+	  <input type="text" name="travelRequest.nights" value="${travelRequest?.nights}" id="" class="form-row " ></input>  
+	  
+	</div> 
+		
+		<div class="wrapper-form-medium">
+		  <div class="form-label">&{'request.dateFrom'}</div>
+		  <input type="date"  name="travelRequest.dateFrom" value="${(travelRequest.dateFrom)?.format('yyyy-MM-dd')}"  class="form-row " />
+		</div>
+		
+		<div class="wrapper-form-medium right">
+		  <div class="form-label">&{'request.dateTo'}</div>
+		  <input type="date"  name="travelRequest.dateTo" value="${(travelRequest.dateTo)?.format('yyyy-MM-dd')}" class="form-row " />
+		</div>
+		
+		<div class="clear"></div>
+		
+		
+		<div class="wrapper-form">
+			<input name="travelRequest.flexible"  id="A" type="checkbox"  ${travelRequest.flexible ? 'checked'.raw() : ''}/><label class="" for="A"></label>
+			<label >&{'views.request.flexible'}</label>
+			<div class="clear"></div>
+			<div class="label-grey">&{'views.flexible.explanation'}</div>
+		</div>		
+		
+		<div class="clear"></div>
+				
+		<div class="wrapper-form">
+		<div class="form-label">&{'request.customize'}</div>
+		      <textarea  name="travelRequest.descriptionTwo" class="form-row " rows="3" maxlength="1024" >${travelRequest?.descriptionTwo}</textarea>
+		</div>
+	
+	
+	<div class="clear"></div>
+	
+	<div class="clear"></div>
+	<div class="form-label title">&{'views.create.request.step3'}</div>
+	<div class="clear"></div>
+	
+		<div class="wrapper-form-medium budget">
+		  <div class="form-label">&{'request.min.budget'}</div>
+ 		  <select id="" name="travelRequest.minBudget" class="form-row">
+		  	<option value="50" selected >50 &#8364;</option>
+		  	<option value="75" #{if travelRequest.minBudget == 75} selected #{/if}>75 &#8364;</option>
+		  	<option value="100" #{if travelRequest.minBudget == 100} selected #{/if} >100 &#8364;</option>
+		  	<option value="150" #{if travelRequest.minBudget == 150} selected #{/if} >150 &#8364;</option>
+		  	<option value="200" #{if travelRequest.minBudget == 200} selected #{/if} >200 &#8364;</option>
+		  	<option value="300" #{if travelRequest.minBudget == 300} selected #{/if}>300 &#8364;</option>
+		  	<option value="400" #{if travelRequest.minBudget == 400} selected #{/if} >400 &#8364;</option>
+		  	<option value="500" #{if travelRequest.minBudget == 500} selected #{/if} >500 &#8364;</option>
+		  	<option value="750" #{if travelRequest.minBudget == 750} selected #{/if} >750 &#8364;</option>
+		  	<option value="1000" #{if travelRequest.minBudget == 1000} selected #{/if} >1000 &#8364;</option>
+		  	<option value="1500" #{if travelRequest.minBudget == 1500} selected #{/if} >1500 &#8364;</option>
+		  	<option value="2000" #{if travelRequest.minBudget == 2000} selected #{/if} >2000 &#8364;</option>
+		  	<option value="3000" #{if travelRequest.minBudget == 3000} selected #{/if} >3000 &#8364;</option>
+		  	<option value="5000" #{if travelRequest.minBudget == 5000} selected #{/if} >&{'budget.unlimited'}</option>
+		  </select>
+		</div>
+		
+		<div class="wrapper-form-medium right budget">
+		  <div class="form-label">&{'request.max.budget'}</div>
+		  <select id="" name="travelRequest.maxBudget" class="form-row">
+		  	<option value="50" #{if travelRequest.maxBudget == 50} selected #{/if} >50 &#8364;</option>
+		  	<option value="75" #{if travelRequest.maxBudget == 75} selected #{/if}>75 &#8364;</option>
+		  	<option value="100" #{if travelRequest.maxBudget == 100} selected #{/if} >100 &#8364;</option>
+		  	<option value="150" #{if travelRequest.maxBudget == 150} selected #{/if} >150 &#8364;</option>
+		  	<option value="200" #{if travelRequest.maxBudget == 200} selected #{/if} >200 &#8364;</option>
+		  	<option value="300" #{if travelRequest.maxBudget == 300} selected #{/if}>300 &#8364;</option>
+		  	<option value="400" #{if travelRequest.maxBudget == 400} selected #{/if} >400 &#8364;</option>
+		  	<option value="500" #{if travelRequest.maxBudget == 500} selected #{/if} >500 &#8364;</option>
+		  	<option value="750" #{if travelRequest.maxBudget == 750} selected #{/if} >750 &#8364;</option>
+		  	<option value="1000" #{if travelRequest.maxBudget == 1000} selected #{/if} >1000 &#8364;</option>
+		  	<option value="1500" #{if travelRequest.maxBudget == 1500} selected #{/if} >1500 &#8364;</option>
+		  	<option value="2000" #{if travelRequest.maxBudget == 2000} selected #{/if} >2000 &#8364;</option>
+		  	<option value="3000" #{if travelRequest.maxBudget == 3000} selected #{/if} >3000 &#8364;</option>
+		  	<option value="5000" #{if travelRequest.maxBudget == 5000 || travelRequest.maxBudget == 0} selected #{/if} >&{'budget.unlimited'}</option>
+		  </select>
+		</div> 
+		
+	
+	<div class="clear"></div>
+	
+	<div class="wrapper-form-medium">
+  <div class="form-label">&{'request.accommodation'} </div>
+ 
+  	<select id="" name="travelRequest.accommodation.id" class="form-row" >
+  			#{list items:accommodations, as:'accommodation'}
+  		%{ if (travelRequest?.accommodation?.id ==accommodation.id) { }%
+  		<option value="${accommodation.id}" selected >&{accommodation.name}</option>
+  		%{ } else { }%
+  		<option value="${accommodation.id}" >&{accommodation.name}</option>
+  		%{ } }%
+  	#{/list}
+  		</select>
+</div>
+	
+	<div class="wrapper-form-medium right">
+  <div class="form-label">&{'request.meal'} </div>
+  <div class="field">
+    	<select id="" name="travelRequest.meal.id" class="form-row" >
+  			  	#{list items:meals, as:'meal'}
+  		%{ if (travelRequest?.meal?.id ==meal.id) { }%
+  		<option value="${meal.id}" selected >&{meal.name}</option>
+  		%{ } else { }%
+  		<option value="${meal.id}" >&{meal.name}</option>
+  		%{ } }%
+  	#{/list}
+  		</select>
+  </div>
+</div>
+	
+		<div class="wrapper-form">
+		  <div class="form-label">&{'request.rooms'}</div>
+		  <input type="text" name="travelRequest.roomType" value="${travelRequest?.roomType}" class="form-row " ></input>  
+		  
+		</div>
+	
+	
+		<div class="wrapper-form-medium">
+		  <div class="form-label">&{'request.adults'}</div>
+		  <input type="text" name="travelRequest.adults" value="${travelRequest?.adults}" class="form-row " ></input>  
+		  
+		</div>
+	
+	<div class="wrapper-form-medium right">
+		  <div class="form-label">&{'request.children'}</div>
+		  <input type="text" name="travelRequest.children" value="${travelRequest?.children}" class="form-row " ></input>  
+		  
+		</div>
+	
+		<div class="wrapper-form">
+		<div class="form-label">&{'request.descriptionPeople'}</div>
+		      <textarea  name="travelRequest.descriptionPeople" class="form-row " rows="3" maxlength="1024" >${travelRequest?.descriptionPeople}</textarea>
+		
+		</div>
+	
+		<div class="wrapper-form">
+		<div class="form-label">&{'request.customize'}</div>
+		      <textarea  name="travelRequest.descriptionThree" class="form-row " rows="3" maxlength="1024" >${travelRequest?.descriptionThree}</textarea>
+		</div>
+	
+	
+	<div class="wrapper-form" hidden="true">
+ 	<div class="form-label">&{'request.experiences'}</div>
+		<select id="travelRequest-experiences" name="travelRequest.experiences.id"  class="chzn-select" multiple>
+        %{ experiences.sort{ it.toString() }.each() { }%
+          %{ 
+            selected = false;
+            travelRequest?.experiences.each() { f ->
+              if (f.id == it?.id)
+                selected = true;
+            }
+          }%
+ 		  <option id="${it?.id}_select"  value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it.name}</option>
+
+        %{ } }%
+        </select>
+</div>
+
+<div class="form-label title">&{'views.create.request.step4'}</div>
+
+<div class="wrapper-form" >
+       
+       %{ int i = 1; experiences.sort{ it.toString() }.each() { }%
+          %{ 
+            selected = false;
+            travelRequest?.experiences.each() { f ->
+              if (f.id == it?.id)
+                selected = true;
+            }
+          }%
+          
+          <div class="wrapper-experiences #{if i%2==0} right #{/if}">
+	 		  <input type="checkbox" name="${it.id}" id="${it.id}" value="${it?.id}" ${selected ? 'checked'.raw() : ''} /><label for="${it.id}" onkeyup="descrp();"></label>
+	 		  <label class="checkbox-label">&{it.name}</label>
+ 		  </div>
+ 		  
+        %{ i++;} }%
+       
+        <div class="clear"></div>
+</div>
+
+	<div class="wrapper-form">
+  	<div class="form-label">&{'request.customize'}</div>
+      <textarea  name="travelRequest.descriptionFour" class="form-row "  rows="3" maxlength="1024">${travelRequest?.descriptionFour}</textarea>
+	</div>
+	
+	<div class="clear"></div>
+	<div class="tab-line"></div>
+	<div class="clear"></div>
+	
+		<input type="submit" name="submit" value="&{'views.save'}" class="btn"/>
+	#{/form}
+			<a class="btn black" href="@{TravelRequests.show(travelRequest.id)}">&{'views.back'}</a>
+	<div class="clear"></div>
+	
+</div>
+	

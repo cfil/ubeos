@@ -1,0 +1,12 @@
+.project
+.classpath
+.settings/*
+eclipse/*
+logs/*
+tmp/*
+db/dev.*
+test-result/
+application.log
+modules/*
+server.pid
+data/

@@ -1,0 +1,34 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${company?.name},
+<br><br>
+Parabéns! Tem uma pessoa interessada na sua promoção para o dia dos namorados em Chaves!
+<br><br>
+&{'mail.user.info'}
+<br><br>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.name'}</div>
+  <div class="field">
+      <input type="text" value="${firstname} ${lastname}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.email'}</div>
+  <div class="field">
+      <input type="text" value="${email}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.phone'}</div>
+  <div class="field">
+      <input type="text" name="phone" value="${phone}"  class="form-row" readonly="readonly"/>
+  </div>
+</div>
+
+<br><br>
+&{'mail.question.partner.make.proposal'}
+<br><br>
+&{'mail.thank.using.ubeos'}

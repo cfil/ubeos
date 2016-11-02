@@ -1,0 +1,88 @@
+#{extends 'main.html' /}
+
+
+<div class="wrapper-big">
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.firstName'}</div>
+  <input type="text" name="" value="${provider.user?.firstName}" class="form-row" readonly="readonly"/>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.lastName'}</div>
+  <input type="text" name="" value="${provider.user?.lastName}" class="form-row " readonly="readonly"/>
+  
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.email'}</div>
+  <input type="text" name="" value="${provider.user?.email}" class="form-row " readonly="readonly"/>
+  
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form-medium ">
+	  <div class="form-label">Restrictions</div>
+	  <div class="field">
+	  	<select name="sourceRestriction.id" class="form-row " multiple>
+	  	#{list items:provider.sourceRestriction?.locations, as:'restriction'}
+	  		<option value="${restriction.id}" selected>${restriction?.name}</option>
+	  	#{/list}
+	  	</select>
+	  </div>
+	</div>
+
+#{form @Providers.saveSourceRestrictions(provider.user.id), id:'updateRestrictionsForm', method: 'POST'}
+		
+
+	<div class="wrapper-form-medium right">
+	  <div class="form-label">Restrictions</div>
+	  <div class="field">
+	  	<select name="locationsList" class="form-row " multiple style="height: 1500px;">
+	  	#{list items:locations, as:'location'}
+	  	%{ if( controllers.Providers.hasLocationRestriction(provider, location)) { }%
+	  		<option value="${location.id}"	selected >${location.name}</option>
+		%{ } else { }%	  		
+			<option value="${location.id}" >${location.name}</option>
+		%{ } }%	
+	  	#{/list}
+	  	</select>
+	  </div>
+	</div>
+
+		<input id="" type="submit" name="submit" value="&{'views.save'}" class="btn" />
+	#{/form}
+	
+	<div class="clear"></div>
+		
+<div class="wrapper-form-medium ">
+	  <div class="form-label">Restrictions Groups</div>
+	  <div class="field">
+	<input type="text" name="" value="${provider.sourceRestriction.countryGroup.name}" class="form-row" readonly="readonly"/>
+	  </div>
+	</div>		
+		
+		
+	#{form @Providers.saveSourceGroupRestrictions(provider.user.id), id:'updateRestrictionsGroupForm', method: 'POST'}
+
+	<div class="wrapper-form-medium right">
+	  <div class="form-label">Restrictions Group</div>
+	  <div class="field">
+	  	<select name="country_group_id" class="form-row " >
+	  	#{list items:countryGroups, as:'countryGroup'}
+	  	%{ if( provider.sourceRestriction.countryGroup.equals(countryGroup) ) { }%
+	  		<option value="${countryGroup.id}"	selected >${countryGroup.name}</option>
+		%{ } else { }%	  		
+			<option value="${countryGroup.id}" >${countryGroup.name}</option>
+		%{ } }%	
+	  	#{/list}
+	  	</select>
+	  </div>
+	</div>
+
+		<input id="" type="submit" name="submit" value="&{'views.save'}" class="btn" />
+	#{/form}
+	
+</div>

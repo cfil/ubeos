@@ -1,0 +1,19 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName},
+<br><br>
+&{'mail.register.no.request.intro1'}
+<br>
+&{'mail.register.no.request.intro2'}
+<br><br>
+&{'mail.register.no.request.text1'} @@{TravelRequests.createStep1()} &{'mail.register.no.request.text2'}
+<br><br>
+&{'mail.register.no.request.text3'}
+<br><br>
+&{'mail.question.base'}
+<br><br>
+&{'mail.all.best'}
+<br>
+UBEOS
+<br><br>
+&{'mail.remember.forgot.password'} @@{Users.recoverPassword()}

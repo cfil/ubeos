@@ -1,0 +1,50 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	#{script 'ratings.js'/}
+	
+
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	  <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.min.css'}">
+  
+#{/set}
+
+#{set pageTitle:messages.get('views.title.rating') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.rating') /}
+
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+                <span class="panel-title">&{'rate.provider'} <a href="@{Providers.show(providerRating.provider.company.name)}">${providerRating.provider.company.name}</a></span>
+              </div>
+              <div class="panel-body">
+              	#{form @ProviderRatings.save(), id:'createForm', class:'form-horizontal', method: 'post'}
+              		#{include 'ProviderRatings/_form.html' /}
+
+                
+              </div>
+      
+      <div class="panel-footer">
+              
+              <div class="bs-component">
+              
+              <div class="col-lg-2"></div>
+              <div class="col-lg-3 col-padding single">
+	 <button type="submit" class="btn btn-info btn-block">&{'application.save'}</button>
+	 	</div>
+	</div>
+              #{/form}
+            </div>
+         </div>
+    </div>
+</div>
+

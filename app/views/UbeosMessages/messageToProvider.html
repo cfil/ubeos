@@ -1,0 +1,104 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	
+	
+    <script type="text/javascript">
+	    $(function() { 
+	        $('html, body').animate({scrollTop: $('#message_builder').offset().top -75 }, 'slow' );
+	    });
+	</script>
+	    
+#{/set}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+   
+#{/set}
+
+#{set pageTitle:messages.get('views.title.request.send.message') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.send.message') /}
+
+
+<div class="row" onload=' location.href="#replyblock" '>
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              <span class="panel-icon"><i class="ic-ub ic-ub_message"></i></span>
+                <span class="panel-title">&{'views.send.message.to'} <a href="@{Providers.show(message?.provider?.company.name)}">${message.provider.company.name}</a></span>
+              </div>
+              <div class="panel-body">
+              #{form @UbeosMessages.sendMessageToProvider(message.travelRequest.id), id:'createForm', class:'form-horizontal', method: 'POST'}
+                #{if message_to_reply }
+                
+                <div class="form-group #{ifError 'message'} has-error #{/ifError} ">
+					  <label class="col-lg-2 control-label" for="textArea">&{'views.old.message'}${old_message?.message}</label>
+					  <div class="col-lg-9">
+					    <div class="bs-component">
+					      <textarea class="form-control" id="textArea"  readonly="readonly">#{verbatim}${message_to_reply}#{/verbatim}</textarea>
+					    </div>
+				  </div>
+				</div>
+				#{/if}
+                <div id="message_builder" class="form-group #{ifError 'message'} has-error #{/ifError} ">
+					  <label class="col-lg-2 control-label" for="textArea">&{'views.message'}</label>
+					  <div class="col-lg-9">
+					    <div class="bs-component">
+					      <textarea maxlength="1024" class="form-control" id="textArea" rows="3" name="message.message" placeholder="&{'views.send.message.here'}">${message.message}</textarea>
+					    </div>
+					  </div>
+					</div>
+                
+            	<div hidden="hidden">
+					<input type="hidden" name="message.provider.id" value="${message.provider.id}" />
+				</div>
+				<div hidden="hidden">
+					<input type="hidden" name="message.travelRequest.id" value="${message.travelRequest.id}" />
+				</div>
+				<div hidden="hidden">
+					<input type="hidden" name="message.direction" value="${message.direction}" />
+				</div>
+				<div hidden="hidden">
+					<input type="hidden" name="message.consumer.id" value="${message.consumer.id}" />
+				</div>
+				<div hidden="hidden">
+					<input type="hidden" name="message.proposal_id" value="${message?.proposal_id}" />
+				</div>
+				
+				<div hidden="hidden">
+					<input type="hidden" name="message.reply_to" value="${message?.reply_to}" />
+				</div>
+				
+				</div>
+				
+				<div class="panel-footer">
+              
+              <div class="bs-component">
+              
+              <div class="col-lg-2 col-md-0"></div>
+              <div class="col-lg-3 col-md-4 col-padding top">
+				 <button type="submit" class="btn btn-info btn-block">&{'views.submit'}</button>
+ 		     </div>
+              <div class="col-lg-3 col-md-4 col-padding">
+	 	            %{ java.lang.String Ourl = flash.get("originalUrl"); %}
+                    #{if Ourl.contains("reply") }
+                    	<button type="button" class="btn btn-dark btn-block" onclick="location.href='@@{UbeosMessages.inbox()}'">&{'application.cancel'}</button>
+                         #{/if}
+                         #{else}
+                       	<button type="button" class="btn btn-dark btn-block" onclick="location.href='@@{Proposals.show(message.proposal_id)}'">&{'application.cancel'}</button>
+                        #{/else}
+      		</div>        
+	</div>
+              
+      
+      
+            </div>
+              #{/form}
+         </div>
+    </div>
+</div>
+
+

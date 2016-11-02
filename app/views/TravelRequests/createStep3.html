@@ -1,0 +1,77 @@
+#{extends 'main.html' /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set} 
+
+
+
+#{set pageTitle:messages.get('views.title.request.create') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.create') /}
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_car"></i></span>
+                <span class="panel-title">&{'views.create.request.step3'}</span>
+              </div>
+              <div class="panel-body">
+              #{form @TravelRequests.saveStep3(), id:'createForm', class: 'form-horizontal'}
+                <div class="form-group #{ifError 'travelRequest.transport'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.transport'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-transport" name="travelRequest.transport.id" class="form-control " >
+<option value='' disabled selected style='display:none;'>&{'select.option'}</option>
+	  	#{list items:transports, as:'transport'}
+	  		%{ if (travelRequest?.transport?.id ==transport.id) { }%
+	  		<option value="${transport.id}" selected >&{transport.name}</option>
+	  		%{ } else { }%
+	  		<option value="${transport.id}" >&{transport.name}</option>
+	  		%{ } }%
+	  	#{/list}
+                        </select>
+                      </div>
+                    </div>
+             </div>
+            <div class="form-group #{ifError 'travelRequest.descriptionThree'} has-error #{/ifError}"">
+                    <label class="col-lg-3 control-label" for="textArea2">&{'request.customize'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <textarea name="travelRequest.descriptionThree" class="form-control" rows="3" >#{verbatim}${travelRequest?.descriptionThree}#{/verbatim}</textarea>
+                      	<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.step3.details'}</span>
+                      </div>
+                    </div>
+                  </div> 
+                  
+                  </div>
+      
+      <div class="panel-footer">   
+             
+              
+				<div class="bs-component">
+					<div class="col-lg-3 col-md-0"></div>
+					<div class="col-lg-3 col-md-4 col-padding top">
+						<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep2}'"/>
+					</div>
+					<div class="col-lg-3 col-md-4 col-padding">
+						<input type="submit" name="submit" value="&{'views.next'}" class="btn btn-info btn-block"/>
+					</div>
+				</div>
+              
+              #{/form}
+            </div>
+        </div>
+
+    </div>
+</div>
+

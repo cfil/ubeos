@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.request.send.message') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.send.message') /}
+
+<div class="wrapper-medium">
+
+	<div class="title-big">&{'views.send.message.to'} <a href="@{Providers.show(provider.company.name)}">${provider.company.name}</a></div>
+	
+	#{list items:historic, as:'messageRec'}
+		#{if messageRec_isLast}
+  		<div>
+  			<b>${provider.company.name}:</b> ${messageRec.message}
+  		</div>
+  		<br>
+  		#{/if}
+  	#{/list}
+	
+	#{form @Providers.sendReply(provider.user.id, token), id:'createForm'}
+	
+		<div class="wrapper-form">
+	  		<div class="form-label">&{'views.message'}</div>
+	      	<textarea name="message" class="form-row #{ifError 'message'} error #{/ifError}" rows="3" maxlength="1024" placeholder="&{'views.send.message.here'}">${message}</textarea>
+		</div>
+		
+		<div class="clear"></div>
+
+		<input type="submit" name="submit" value="&{'views.send'}" class="btn"/>
+		<a href="@{Application.index()}">
+			<input type="button" id="cancel" value="&{'application.cancel'}" class="btn black " />
+		</a>
+	#{/form}
+
+		<div class="clear"></div>
+
+</div>

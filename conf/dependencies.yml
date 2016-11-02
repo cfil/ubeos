@@ -1,0 +1,12 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> scaffold head:
+        id: dev
+#    - play -> secure
+    - play -> messages 1.3:
+        id: dev
+    - play -> deadbolt 1.5.4
+    - play -> paginate 0.14
+    - play -> excel 1.2.3

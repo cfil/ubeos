@@ -1,0 +1,137 @@
+#{extends 'partials/_requestBase.html' /}
+
+#{set pageTitle:messages.get('views.title.proposal.create') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.proposal.create') /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+ 	<link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datepicker/css/bootstrap-datetimepicker.css'}">
+ 	
+#{/set}
+
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+   	  <!-- DateTime Plugin -->
+  <script src="@{'/public/theme/vendor/plugins/moment/moment.min.js'}"></script>
+  <script src="@{'/public/theme/vendor/plugins/datepicker/js/bootstrap-datetimepicker.js'}"></script>
+	
+	<script type="text/javascript">
+    $(document).ready(function() {
+		
+		 %{
+			    java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy");
+	    		java.util.Date date = new Date();
+			    String today = dateFormat.format(date); 
+			  }%
+		
+		$('#datetimepicker1').datetimepicker({
+			format: "DD/MM/YYYY",
+			viewMode: "days", 
+		    minViewMode: "days",
+		    pickTime: false,
+		    minDate: "${today}"
+        });
+		
+		$('#datetimepicker2').datetimepicker({
+			format: "DD/MM/YYYY",
+			viewMode: "days", 
+		    minViewMode: "days",
+		    pickTime: false
+        });
+		
+		$("#datetimepicker1").on('dp.change', function (selected) {
+        	$('#datetimepicker2').data("DateTimePicker").setMinDate(selected.date);
+        });
+		
+        $("#datetimepicker2").on('dp.change', function (selected) {
+        	$('#datetimepicker1').data("DateTimePicker").setMaxDate(selected.date);
+        });
+		
+		
+	});
+	</script>
+#{/set}
+
+
+		
+<div class="col-md-8">
+
+
+
+		<div class="panel panel-visible" id="spy2">
+				<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_chat"></i></span>
+               		<span class="panel-title">&{'views.notes'}</span>
+               	</div>
+				<div class="panel-body p15">
+		%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+					%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+			
+			#{form @Comments.save(), id:'createForm', class:'form-horizontal', method: 'post'}
+                
+                #{if c_comments.size() > 0}
+                #{list c_comments, as:'old_comment'}
+				<div class="wrapper-messages-note">
+					<label class="text-grey">#{verbatim}${(old_comment.created_at).format('dd/MM/yyyy HH:mm')} #{/verbatim}</label>
+					<br><label>#{verbatim} ${old_comment.text}#{/verbatim}</label>
+		   		</div>
+				#{/list} 
+				#{/if}
+                <div id="message_builder" class="form-group #{ifError 'message'} has-error #{/ifError} ">
+					  <label class="col-lg-2 control-label" for="textArea">&{'views.notes.add'}</label>
+					  <div class="col-lg-9">
+					    <div class="bs-component">
+					      <textarea class="form-control" id="textArea" rows="3" name="comment.text"></textarea>
+					    </div>
+					  </div>
+					</div>
+				
+				<div hidden="hidden">
+					<input type="hidden" name="comment.request.id" value="${travelRequest.id}" />
+				</div>
+				<div class="col-lg-2"></div>
+				<div class="col-lg-5 col-padding">
+			 		<button type="submit" class="btn btn-info btn-block">&{'views.submit'}</button>
+                </div>
+              
+              #{/form}
+			
+					
+			
+			%{ } }%
+		
+		</div></div>
+
+
+
+	<div class="panel panel-visible" id="spy2">
+		<div class="panel-heading">
+			<span class="panel-icon"><i class="ic-ub ic-ub_board"></i></span>
+            <span class="panel-title">&{'proposals.create'}</span>
+        </div>
+		<div class="panel-body">
+			
+			#{form @Proposals.save(), id:'createForm', class:'form-horizontal'}
+				#{include 'Proposals/_form.html' /}
+				
+				</div>
+				
+				<div class="panel-footer">
+
+	              <div class="bs-component">
+	              	<div class="col-lg-2 col-md-0"></div>
+	              	<div class="col-lg-5 col-md-6 col-padding top">
+	                	<button type="submit" class="btn btn-info btn-block">&{'views.submit'}</button>
+					</div>
+			#{/form}		
+             		<div class="col-lg-4 col-md-6 col-padding right">
+             			<button type="button" class="btn btn-dark btn-block" onclick="location.href='@@{Proposals.index}'">&{'application.cancel'}</button>
+           			</div>
+           		</div>
+		</div>
+	</div>
+</div>
+
+

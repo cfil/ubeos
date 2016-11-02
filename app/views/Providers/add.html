@@ -1,0 +1,160 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+    <!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+  
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	// Init tray navigation smooth scroll
+            $('.tray-nav a').smoothScroll({
+                offset: -145
+            });
+            
+            $('#datatable1').dataTable({
+            	"order": [[ 2, "desc" ]],
+            	responsive: true,
+            	language : data_i18n,
+                "iDisplayLength": 5,
+                bInfo: false,
+                "pagingType": "simple_numbers",
+                "aLengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
+                "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+                "oTableTools": {
+                    "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+                }
+            });
+        });
+	</script>
+
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+  
+#{/set}
+
+#{include 'partials/_ubeos_js_objects.html' /}
+	
+#{set pageTitle:messages.get('views.title.add.provider') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.add.provider') /}
+
+
+
+<div class="row">
+	<div class="col-md-8">
+	
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_profile"></i></span>
+                <span class="panel-title">&{'views.providers.managment'} ${company.name}</span>
+              </div>
+              <div class="panel-body">
+			#{form action:@Providers.saveAdd(), method:'post', class: 'form-horizontal'} 
+                
+           <div class="form-group">
+             <label for="inputStandard" class="col-lg-3 control-label">&{'users.email'}</label>
+             <div class="col-lg-8">
+               <div class="bs-component">
+                 <input type="text" name="email" value="${email}" class="form-control #{ifError 'email'} error #{/ifError}" placeholder="&{'users.email'}">
+               </div>
+             </div>
+           </div>
+                  
+                  </div>
+                  
+                  <div class="panel-footer">
+
+			<div class="bs-component">
+				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-lg-3 col-md-4 col-padding top">
+					<input type="submit" name="submit" value="&{'views.save'}" class="btn btn-info btn-block"/>
+				</div>
+				<div class="col-lg-3 col-md-4 col-padding">
+					<input type="button" id="login" value="&{'application.cancel'}" class="btn btn-dark btn-block " onclick="location.href='@@{Application.index}'"/>
+				</div>
+			</div>
+	#{/form}
+              </div>
+            </div>
+	
+	</div>
+</div>
+
+           	<div class="panel panel-visible" id="spy2">
+           	<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_team"></i></span>
+					<span class="panel-title">&{'views.manage.team'}</span> 
+            	</div>
+				<div class="panel-body pn">			
+		<table class="table table-hover table-custom nowrap" id="datatable1" cellspacing="0" width="100%">
+        	<thead>
+            	<tr class="tr-custom">
+                	<th>&{'views.provider'}</th>
+					<th>&{'views.rating'}</th>
+					<th>&{'views.email'}</th>
+					<th>&{'request.state'}</th>
+               </tr>
+			</thead>
+            <tbody>
+            #{list items:providers, as:'provider'}
+            	<tr class="clickable #{if entity_parity == 'even' }even #{/if} table-custom" onclick="location.href='@{Providers.show(provider.company.name)}'">
+					<td class="p15">
+						<a href="@{Providers.show(provider.company.name)}">${provider.user.firstName} ${provider.user.lastName}</a>
+					</td>
+					<td class="p15">
+						%{ double rating =  models.ProviderRating.getProviderRating(provider); }%
+						#{if rating == 0.0 }
+							<label><i>&{'views.no.rating'}</i></label>
+						#{/if}
+						#{else}
+							<div class="admin-form theme-warning float-left">
+					            <input class="rating-input" id="${provider.id}r5" type="radio"  #{if (Math.round(rating) == 5) }checked #{/if} disabled="disabled">
+					            <label class="rating-star" for="${provider.id}r5"><i class="fa fa-star"></i>
+					            </label>
+					            <input class="rating-input" id="${provider.id}r4" type="radio" #{if (Math.round(rating) == 4) }checked #{/if} disabled="disabled">
+					            <label class="rating-star" for="${provider.id}r4"><i class="fa fa-star"></i>
+					            </label>
+					            <input class="rating-input" id="${provider.id}r3" type="radio" #{if (Math.round(rating) == 3) }checked #{/if} disabled="disabled">
+					            <label class="rating-star" for="${provider.id}r3"><i class="fa fa-star"></i>
+					            </label>
+					            <input class="rating-input" id="${provider.id}r2" type="radio" #{if (Math.round(rating) == 2) }checked #{/if} disabled="disabled">
+					            <label class="rating-star" for="${provider.id}r2"><i class="fa fa-star"></i>
+					            </label>
+					            <input class="rating-input" id="${provider.id}r1" type="radio" #{if (Math.round(rating) == 1) }checked #{/if} disabled="disabled">
+					            <label class="rating-star" for="${provider.id}r1"><i class="fa fa-star"></i>
+					            </label>
+							</div>
+						#{/else}
+					</td>
+					<td class="p15">${provider.user.email}</td>
+					#{if provider.user.enable }
+						<td class="p15"><span class="label bg-success">&{'state.active'}</span></td>
+					#{/if}
+					#{else}
+						<td class="p15"><span class="label bg-danger">&{'state.disabled'}</span></td>
+					#{/else}
+
+							</tr>
+						#{/list} 								
+						</tbody>
+                      	</table>
+		
+	</div>
+</div>

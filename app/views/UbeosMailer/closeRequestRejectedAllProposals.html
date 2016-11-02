@@ -1,0 +1,13 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName},
+<br><br>
+&{'mail.alert.user.no.proposal.intro', travelRequest.title}
+<br><br>
+&{'mail.alert.user.no.proposal.text'}
+<br><br>
+&{'mail.no.proposal.accepted.question'}
+<br><br>
+&{'mail.thank.you'}
+<br>
+UBEOS

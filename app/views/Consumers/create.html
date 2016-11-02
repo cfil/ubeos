@@ -1,0 +1,84 @@
+#{extends 'main_front.html' /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  
+#{/set}
+
+#{set pageTitle:messages.get('views.title.register.consumer') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.register.consumer') /}
+
+
+  <div class="admin-form theme-primary mw600 margin-center mt60" style="margin-top: 3%;" id="register">
+
+			#{if flash.success || flash.error}
+				#{include 'partials/_flashNotices.html'/}
+			#{/if}
+
+          <!-- Registration Logo -->
+          <div class="row table-layout mt20">
+          </div>
+
+          <!-- Registration Panel/Form -->
+          <div class="panel">
+
+            #{form @Consumers.save(), id:'createForm', enctype:'multipart/form-data'}
+              <div class="panel-body bg-light p25 pb15">
+
+ 				#{include 'Consumers/_formRegister.html' /}
+
+              </div>
+
+              <div class="panel-footer clearfix">
+              	<div class="col-md-4 col-xs-0"></div>
+                <button type="submit" class="btn btn-info mr10 col-md-4 col-xs-12">&{'views.lets.start'}</button>
+                <div class="col-md-4 col-xs-0"></div>
+	            
+
+                
+              </div>
+
+			#{/form}
+            
+          </div>
+          
+
+          <!--  Divider -->
+
+<!--           Registration Social Links -->
+<!--           <div class="section row center-block" style="width: 550px;"> -->
+<!--             <div class="col-md-4"> -->
+<!--               <a href="#" class="button btn-social facebook span-left btn-block"> -->
+<!--                 <span> -->
+<!--                   <i class="fa fa-facebook"></i> -->
+<!--                 </span>Facebook</a> -->
+<!--             </div> -->
+<!--             <div class="col-md-4"> -->
+<!--               <a href="#" class="button btn-social twitter span-left btn-block"> -->
+<!--                 <span> -->
+<!--                   <i class="fa fa-twitter"></i> -->
+<!--                 </span>Twitter</a> -->
+<!--             </div> -->
+<!--             <div class="col-md-4"> -->
+<!--               <a href="#" class="button btn-social googleplus span-left btn-block"> -->
+<!--                 <span> -->
+<!--                   <i class="fa fa-google-plus"></i> -->
+<!--                 </span>Google+</a> -->
+<!--             </div> -->
+<!--           </div> -->
+
+          <!-- Registration Links -->
+	        <div class="login-links text-center">
+	          <p>
+	            <a href="@{Users.forgotPassword}" class="active" title="Sign In">&{'application.forgotPassword'}</a>
+	          </p>
+	          <p>&{'views.reagister.as.provider'}
+	            <a href="@{Application.agencybase}" class="active" title="Sign In">&{'views.provider'}</a>
+	        </p>
+	        </div>
+
+
+        </div>
+
+

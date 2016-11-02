@@ -1,0 +1,279 @@
+#{extends 'main.html' /}
+
+#{set pageTitle: 'ADMIN DASHBOARD - Stats' /}
+
+  <!-- Admin Forms CSS -->
+  <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+
+	<div class="row mb10">
+		<div class="col-sm-6 col-md-3">
+			<div class="panel bg-alert light of-h mb10">
+    			<div class="pn pl20 p5">
+      				<h2 class="mt15 lh15">
+        				<b>${total_users}</b>
+      				</h2>
+      				<h5 class="text-muted">Total Users</h5>
+    		</div>
+		</div>
+	</div>
+
+		<div class="col-sm-6 col-md-3">
+			<div class="panel bg-alert light of-h mb10">
+    			<div class="pn pl20 p5">
+      				<h2 class="mt15 lh15">
+        				<b>${total_requests}</b>
+      				</h2>
+      				<h5 class="text-muted">Total Requests</h5>
+    			</div>
+			</div>
+		</div>
+	
+		<div class="col-sm-6 col-md-3">
+			<div class="panel bg-danger light of-h mb10">
+				<div class="pn pl20 p5">
+					<h2 class="mt15 lh15">
+						<b>${total_proposals}</b>
+					</h2>
+					<h5 class="text-muted">Total Proposals</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Begin: Content -->
+
+       
+        <!-- Admin-panels -->
+        <div class="admin-panels fade-onload">
+
+
+          <div class="row">
+            #{list items:reply_stats, as:'r_stat'}
+            <div class="col-md-6 col-lg-4 admin-grid">
+		              <!-- Circle Stats -->
+		              <div class="panel" id="travel_requests">
+		                <div class="panel-heading">
+		                  <span class="panel-title">Reply Stat</span>
+		                </div>
+		                <div class="panel-body">
+		                  <div class="mb20 text-right">
+		                    <span class="fs11 text-muted ml10">
+		                      <i class="fa fa-circle text-primary fs12 pr5"></i> ${r_stat.getKey()}</span>
+		                  </div>
+		                  <div class="row">
+		
+		                    <div class="col-xs-4 text-center">
+		                      <div class="info-circle" id="${r_stat?.getKey()}" value="{r_stat.getValue()}" data-circle-color="primary"></div>
+		                    </div>
+		
+		                  </div>
+		                </div>
+		              </div>
+            </div>
+            #{/list}
+            <!-- end: .col-md-4-->
+            
+
+          </div>
+          <!-- end: .row -->
+
+        </div>
+       
+
+
+<!-- Browser List -->
+              <div class="panel" id="p18">
+                <div class="panel-heading">
+                  <span class="panel-title">Travel Requests</span>
+                </div>
+                <div class="panel-body pn">
+                  <table class="table mbn tc-med-1 tc-bold-2">
+                    <thead>
+                      <tr class="hidden">
+                        <th>#</th>
+                        <th>First Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Accepted Requests</td>
+                        <td>${accept_reqs}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Pending Requests</td>
+                        <td>${pend_reqs}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Feedback Requests</td>
+                        <td>${feedb_reqs}</td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+<!-- Browser List -->
+              <div class="panel" id="p18">
+                <div class="panel-heading">
+                  <span class="panel-title">Proposals</span>
+                </div>
+                <div class="panel-body pn">
+                  <table class="table mbn tc-med-1 tc-bold-2">
+                    <thead>
+                      <tr class="hidden">
+                        <th>#</th>
+                        <th>First Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Active Proposals</td>
+                        <td>${active_props}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Accepted Proposals</td>
+                        <td>${accept_props}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="favicons chrome va-t mr10"></span>Feedback Proposals</td>
+                        <td>${feedb_props}</td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+
+<h2>Stats</h2>
+<div>
+	#{list items:stats, as:'stat'}
+		<label><b>${stat.getKey()}</b></label>: <label>${stat.getValue()}</label> 
+		<br>
+	#{/list}
+</div>
+
+ 
+ 
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+	
+	
+	  <!-- Simple Circles Plugin -->
+  	<script src="@{'/public/theme/vendor/plugins/circles/circles.js'}"></script>
+  	
+    <!-- JvectorMap Plugin + US Map (more maps in plugin/assets folder) -->
+  <script src="@{'/public/theme/vendor/plugins/jvectormap/jquery.jvectormap.min.js'}"></script>
+  <script src="@{'/public/theme/vendor/plugins/jvectormap/assets/jquery-jvectormap-us-lcc-en.js'}"></script> 	
+  	
+  	
+  	<!-- Widget Javascript -->
+  <script src="@{'/public/theme/assets/js/demo/widgets.js'}"></script>
+  
+  
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+    // Init Admin Panels on widgets inside the ".admin-panels" container
+    $('.admin-panels').adminpanel({
+      grid: '.admin-grid',
+      draggable: true,
+      preserveGrid: true,
+      mobile: false,
+      onFinish: function() {
+        $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+
+        // Init the rest of the plugins now that the panels
+        // have had a chance to be moved and organized.
+        // It's less taxing to organize empty panels
+        demoHighCharts.init();
+        runVectorMaps(); // function below
+      },
+      onSave: function() {
+        $(window).trigger('resize');
+      }
+    });
+
+    // Widget VectorMap
+    function runVectorMaps() {
+
+      // Jvector Map Plugin
+      var runJvectorMap = function() {
+        // Data set
+        var mapData = [900, 700, 350, 500];
+        // Init Jvector Map
+        $('#WidgetMap').vectorMap({
+          map: 'us_lcc_en',
+          //regionsSelectable: true,
+          backgroundColor: 'transparent',
+          series: {
+            markers: [{
+              attribute: 'r',
+              scale: [3, 7],
+              values: mapData
+            }]
+          },
+          regionStyle: {
+            initial: {
+              fill: '#E5E5E5'
+            },
+            hover: {
+              "fill-opacity": 0.3
+            }
+          },
+          markerStyle: {
+            initial: {
+              fill: '#a288d5',
+              stroke: '#b49ae0',
+              "fill-opacity": 1,
+              "stroke-width": 10,
+              "stroke-opacity": 0.3,
+              r: 3
+            },
+            hover: {
+              stroke: 'black',
+              "stroke-width": 2
+            },
+            selected: {
+              fill: 'blue'
+            },
+            selectedHover: {}
+          },
+        });
+        // Manual code to alter the Vector map plugin to 
+        var colors = [bgWarningLr, bgPrimaryLr, bgInfoLr, bgAlertLr];
+        var colors2 = [bgWarning, bgPrimary, bgInfo, bgAlert];
+        $.each(states, function(i, e) {
+          $("#WidgetMap path[data-code=" + e + "]").css({
+            fill: colors[i]
+          });
+        });
+        $('#WidgetMap').find('.jvectormap-marker')
+          .each(function(i, e) {
+            $(e).css({
+              fill: colors2[i],
+              stroke: colors2[i]
+            });
+          });
+      }
+
+      if ($('#WidgetMap').length) {
+        runJvectorMap();
+      }
+    }
+
+  });
+  </script>
+#{/set}
+
+

@@ -1,0 +1,181 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.request.search') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.search') /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+    <!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+  
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	// Init tray navigation smooth scroll
+            $('.tray-nav a').smoothScroll({
+                offset: -145
+            });
+            
+            $('#datatable1').dataTable({
+            	"order": [[ 5, "id" ],[4, "id"]],
+            	"aoColumns": [ 
+                null,//Disable sorting on this column
+                null,
+                null,//Allow only "asc" sorting in the column 2
+                null,
+                null,
+                { "iDataSort": 6 },//Use column 6 to perform sorting
+                null,
+                null
+            ],
+            	responsive: true,
+            	language : data_i18n,
+                "iDisplayLength": 5,
+                bInfo: false,
+                "pagingType": "simple_numbers",
+                "aLengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
+                "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+                "oTableTools": {
+                    "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+                }
+            });
+        });
+	</script>
+#{/set}  
+
+#{include 'partials/_ubeos_js_objects.html' /}
+
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center">
+	<div class="row">
+			<div class="col-md-12">
+           	<div class="panel panel-visible" id="spy2">
+           		<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_search"></i></span>
+					<span class="panel-title">&{'views.find.requests'}</span> 
+            	</div>
+				<div class="panel-body pn">
+				
+				#{if requests.size() > 0 } 
+                   	<table class="table table-hover nowrap" id="datatable1" cellspacing="0" width="100%">
+                       	<thead>
+                           	<tr class="tr-custom">
+                           		<th>&{'views.consumer'}</th>
+								<th>&{'views.rating'}</th>
+								<th>&{'views.destination'}</th>
+								<th>&{'request.date'}</th>
+								<th>&{'request.budget'}</th>
+								<th>&{'request.expire.at'}</th>
+								<th hidden="hidden">orderData</th>
+								<th>&{'request.state'}</th>
+                            </tr>
+						</thead>
+                           <tbody>
+                           #{list items:requests, as:'entity'}
+                           	<tr onclick="window.document.location='@{TravelRequests.show(entity.id)}';" class="clickable #{if entity_parity == 'even' }even #{/if} table-custom">
+								<td><img class="img-responsive w30 ib mr10 ml5" title="user" src="@{Users.Image(entity?.consumer?.user?.id)}" alt="avatar"">
+									<a href="@{Consumers.show(entity.consumer.alias)}">${entity.consumer.user.firstName} ${entity.consumer.user.lastName}</a>
+								</td>
+								<td>
+								%{ double rating =  models.ConsumerRating.getConsumerRating(entity.consumer); }%
+									#{if rating == 0.0 }
+										<label><i>&{'views.no.rating'}</i></label>
+									#{/if}
+									#{else}
+										<div class="admin-form theme-warning float-left">
+								            <input class="rating-input" id="${entity.id}r5" type="radio"  #{if (Math.round(rating) == 5) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="${entity.id}r5"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="${entity.id}r4" type="radio" #{if (Math.round(rating) == 4) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="${entity.id}r4"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="${entity.id}r3" type="radio" #{if (Math.round(rating) == 3) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="${entity.id}r3"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="${entity.id}r2" type="radio" #{if (Math.round(rating) == 2) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="${entity.id}r2"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="${entity.id}r1" type="radio" #{if (Math.round(rating) == 1) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="${entity.id}r1"><i class="fa fa-star"></i>
+								            </label>
+										</div>
+									#{/else}
+								</td>
+								<td>${entity?.city_to} <br> &{"country."+entity?.country_to?.code}</td>
+								<td>${(entity.dateFrom).format('dd MMM yyyy')} <br> ${(entity.dateTo).format('dd MMM yyyy')}</td>
+								<td>#{if entity.maxBudget == 50} <label hidden="hidden">1</label> &{'request.best.price'} #{/if}
+									#{elseif entity.maxBudget == 1000} <label hidden="hidden">2</label>&{'request.balanced'} #{/elseif}
+									#{elseif entity.maxBudget == 5000} <label hidden="hidden">3</label>&{'request.quality'} #{/elseif}
+
+
+ 								%{
+									    java.lang.Long time_left = helpers.RequestHelper.getTimeLeftOpen(entity);
+									    long days = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(time_left);
+									    long hours = java.util.concurrent.TimeUnit.MILLISECONDS.toHours(time_left); 									    
+									}%
+							%{ if( time_left >0 ){ }%
+
+								#{if days > 1 }
+									<td> ${days} &{'views.days'}</td>				
+								#{/if}
+								#{elseif hours > 0}
+									<td> ${hours} &{'views.hours'}</td>
+								#{/elseif}
+								#{else}
+									<td>-</td>
+								#{/else}
+							%{ } else { }%
+								<td>-</td>
+							%{ }  }%
+							<td hidden="hidden">${time_left}</td>
+
+
+
+								%{ if (helpers.RequestHelper.hasProposalProvider(entity)){ 
+									if (helpers.RequestHelper.hasActiveProposalProvider(entity)){ }%
+										#{if activeTab == "ignored" }
+											<td><span class="label bg-danger">&{'views.search.ignored'}</span></td>
+										#{/if}
+										#{else}
+											<td><span class="label bg-success">&{'views.search.processed'}</span></td>
+										#{/else}
+									%{ } else { }%
+										<td><span class="label bg-danger">&{'views.search.rejected'}</span></td>
+									%{ }  }%
+								%{ } else { }%
+									<td><span class="label bg-info">&{'views.search.new.request'}</span></td>
+								%{ }  }%
+							</tr>
+						#{/list} 								
+						</tbody>
+                      	</table>
+				#{/if}
+				#{else}
+					<div class="illustration-text"><span class="form-label">&{'warning.no.proposals.provider'}</span><br><br>&{'warning.no.proposals.provider.text'}</div>
+				#{/else}
+                  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

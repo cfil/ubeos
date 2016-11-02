@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#" lang="${lang}">
+	<head>
+		<title>#{get 'pageTitle' /}</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="${_response_encoding}">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+		
+		<meta name="Description" content="&{'views.meta.description'}">
+		<meta name="keywords" content="travel, viajar, tourism, turismo, avião, plane, booking, reservas">
+		<meta name="author" content="UBEOS">
+		
+		<meta property="og:site_name" content="UBEOS">
+		<meta property="og:title" content="Make your dream travels a reality through any device with internet access!">
+		<meta property="og:description" content="Make your dream travels a reality through any device with internet access!">
+		<meta property="og:image" content="https://www.ubeos.com/public/images/fb_preview.png" />
+
+		<!-- stylesheet -->
+
+		<!-- Font CSS (Via CDN) -->
+		<link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/fonts/glyphicons-pro/glyphicons-pro.css'}">
+		<link rel="stylesheet" type="text/css" href="@{'/public/fonts/ubeos/css/ubeos.css'}">
+<!-- 		<link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/fonts/open-sans/open-sans.css'}"> -->
+		<link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/fonts/glyphicons/glyphicons.css'}">
+
+		<!-- favicon -->
+		<link rel="shortcut icon" type="image/png"	href="@{'/public/images/favicon.ico'}">
+		
+		<!-- Theme CSS -->
+    	<link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/skin/default_skin/css/theme.css'}">
+    	
+<!--     	<link rel="stylesheet" type="text/css" href="@{'/public/fonts/open-sans/open-sans.css'}"> -->
+    	<link rel="stylesheet" type="text/css" href="@{'/public/fonts/montserrat/montserrat.css'}">
+    	
+    	#{get 'moreStyles' /}
+    	
+    	
+    	<!-- Custom CSS -->
+    	<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/ubeos.css'}">
+
+<!-- Decibel Insight - www.ubeos.com -->
+<script type="text/javascript">
+// <![CDATA[
+	(function(d,e,c,i,b,el,it) {
+		d._da_=d._da_||[];_da_.oldErr=d.onerror;_da_.err=[];
+		d.onerror=function(){_da_.err.push(arguments);_da_.oldErr&&_da_.oldErr.apply(d,Array.prototype.slice.call(arguments));};
+		d.DecibelInsight=b;d[b]=d[b]||function(){(d[b].q=d[b].q||[]).push(arguments);};
+		el=e.createElement(c),it=e.getElementsByTagName(c)[0];el.async=1;el.src=i;it.parentNode.insertBefore(el,it);
+	})(window,document,'script','//cdn.decibelinsight.net/i/43096/di.js','decibelInsight');
+// ]]>
+</script>
+
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+	
+	<body class="blank-page">
+	    <!-- Start: Main -->
+	    <div id="main">
+	
+			#{include 'partials/_menu.html' /}
+		
+		    #{include 'partials/_sideBar.html' /}
+		
+	        <!-- Start: Content-Wrapper -->
+	        
+	        <section id="content_wrapper">
+				
+				#{if flash.success || flash.error}
+					#{include 'partials/_flashNotices.html'/}
+				#{/if}
+				
+				<!-- Begin: Content -->
+	           	
+	           	<section id="content" class=aanimated fadeIn">
+	            
+	            
+					#{doLayout /}
+
+					
+				</section>
+	            <!-- End: Content -->
+				
+			#{include 'partials/_mainFooter.html' /}	
+			
+			</section>
+			<!-- End: Content-Wrapper -->
+			
+			%{ if (!play.mode.isDev()) { }%
+			<script type="text/javascript">
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+				
+				ga('create', 'UA-56387427-1', 'auto');
+				ga('send', 'pageview');
+			</script>
+			%{ } }%	
+		
+		</div>
+	
+	
+		<!-- Javascript -->
+				 		 
+		<!-- jQuery -->
+	    <script type="text/javascript" src="@{'/public/theme/vendor/jquery/jquery-1.11.1.min.js'}"></script>
+	    <script type="text/javascript" src="@{'/public/theme/vendor/jquery/jquery_ui/jquery-ui.min.js'}"></script>
+	    
+	
+	    <!-- Theme Javascript -->
+	    <script type="text/javascript" src="@{'/public/theme/assets/js/utility/utility.js'}"></script>
+	    <script type="text/javascript" src="@{'/public/theme/assets/js/main.js'}"></script>
+
+
+ 		<script type="text/javascript" src="@{'/public/javascripts/jquery.resize.js'}"></script>
+
+		<!-- Page Javascript -->
+	    <script type="text/javascript">
+	        $(document).ready(function() {
+	            "use strict";
+	
+	            // Init Theme Core      
+	            Core.init();
+	            checkSidebar();
+	            checkFooter();
+	        });
+	        
+	        var checkFooter = function() {
+	        	var sizeFooter = $(window).height() - 121;
+	        	if(document.getElementById("content")){
+				    document.getElementById("content").style.minHeight = sizeFooter   +"px";
+	        	}
+	          };
+	        
+	        var checkSidebar = function() {
+	            var size = document.getElementById("sidebar_left").getBoundingClientRect().width;
+	        	
+	        	if (size < 100) {
+	        		$("#big_sidebar").attr("hidden","hidden");
+	        		$("#small_sidebar").removeAttr("hidden");
+	            } else {
+	            	$("#small_sidebar").attr("hidden","hidden");
+	        		$("#big_sidebar").removeAttr("hidden");
+	            }
+	        	
+	          };
+
+	          $('#sidebar_left').resize(checkSidebar);
+	          $('body').resize(checkFooter);
+	        
+	      	$(function () {
+	      	    $("textarea").each(function () {
+	      	        this.style.height = (this.scrollHeight+4)+'px';
+	      	    });
+	      	});
+	          
+	    </script>
+	    
+
+		#{get 'moreScripts' /}
+	
+		
+	</body>
+	
+</html>

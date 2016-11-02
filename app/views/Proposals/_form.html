@@ -1,0 +1,188 @@
+
+
+<div class="form-group">
+	<div class="col-lg-2 col-md-0"></div>
+	<label for="inputStandard" class="col-lg-10 col-md12 control-label" style="text-align: left;"><span>*</span> <i>&{'views.required.fields'}</i></label>
+</div>
+
+<div class="form-group #{ifError 'proposal.price'} has-error #{/ifError}">
+	<label class="col-lg-2 control-label">&{'proposal.price'}  <span>*</span></label>
+	<div class="col-lg-9">
+		<div class="bs-component">
+			<div class="input-group">
+				<input class="form-control" type="text" name="proposal.price" value="${proposal?.price}">
+				<span class="input-group-addon ic-ub">
+					<i class="ic-ub_euro"></i>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="form-group mt10 #{ifError 'proposal.dateFrom'} has-error #{/ifError}">
+  <label class="col-lg-2 control-label" for="datetimepicker1">&{'request.date'} <span>*</span></label>
+  <div class="col-lg-4 col-sm-6 custom #{ifError 'proposal.dateFrom'} has-error #{/ifError}">
+  <div class="input-group date" id="datetimepicker1">
+  	<span class="input-group-addon cursor ic-ub">
+	  <i class="ic-ub_calendar"></i>
+	</span>
+    <input type="text" class="form-control" id="datetimepicker1" name="proposal.date_from" value="${proposal.date_from}">
+	</div>
+  </div>
+
+
+
+  <div class="col-lg-5 col-sm-6 #{ifError 'proposal.dateTo'} has-error #{/ifError}">
+  <div class="input-group date" id="datetimepicker2"">
+  	<span class="input-group-addon cursor ic-ub">
+	  <i class="ic-ub_calendar"></i>
+	</span>
+    <input type="text" class="form-control" id="datetimepicker2" name="proposal.date_to" value="${proposal.date_to}">
+  </div>
+  </div>
+</div>
+
+ #{if travelRequest.wantTransportation }       
+<div class="form-group #{ifError 'proposal.description'} has-error #{/ifError} ">
+  <label class="col-lg-2 control-label" for="textArea">&{'proposal.customize.trasport'} <span>*</span></label>
+  <div class="col-lg-9">
+    <div class="bs-component">
+      <textarea class="form-control" id="textArea" rows="3" name="proposal.description" placeholder="&{'proposal.describe1.placeholder'}">${proposal?.description}</textarea>
+    </div>
+  </div>
+</div>
+#{/if}
+
+ #{if travelRequest.wantAccommodation }       
+<div class="form-group #{ifError 'proposal.descriptionThree'} has-error #{/ifError}">
+  <label class="col-lg-2 control-label" for="textArea2">&{'proposal.customize.accommodation'} <span>*</span></label>
+  <div class="col-lg-9">
+    <div class="bs-component">
+      <textarea class="form-control" id="textArea2" rows="3" name="proposal.descriptionThree" placeholder="&{'proposal.describe3.placeholder'}">${proposal?.descriptionThree}</textarea>
+    </div>
+  </div>
+</div>
+#{/if}
+ #{if travelRequest.wantActivities }       
+<div class="form-group #{ifError 'proposal.descriptionFour'} has-error #{/ifError}">
+  <label class="col-lg-2 control-label" for="textArea3">&{'proposal.customize.activities'} <span>*</span></label>
+  <div class="col-lg-9">
+    <div class="bs-component">
+      <textarea class="form-control" id="textArea3" rows="3" name="proposal.descriptionFour" placeholder="&{'proposal.describe4.placeholder'}">${proposal?.descriptionFour}</textarea>
+    </div>
+  </div>
+</div>
+#{/if}
+
+<div class="form-group #{ifError 'proposal.descriptionTwo'} has-error #{/ifError}">
+  <label class="col-lg-2 control-label" for="textArea4">&{'proposal.customize.details'}</label>
+  <div class="col-lg-9">
+    <div class="bs-component">
+      <textarea class="form-control" id="textArea4" rows="3" name="proposal.descriptionTwo" placeholder="&{'proposal.describe2.placeholder'}">${proposal?.descriptionTwo}</textarea>
+    </div>
+  </div>
+</div>
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+%{ if (user_logged.userRole.name == models.UserRole.PROVIDER || user_logged.userRole.name == models.UserRole.ADMIN ) { }%
+<div class="form-tab"></div>
+
+<div class="form-group #{ifError 'travelRequest.title'} has-error #{/ifError}">
+	<label class="col-lg-2 control-label">&{'request.title'} (&{'views.optional'})</label>
+	<div class="col-lg-9">
+		<div class="bs-component">
+			<input type="text" id="proposal.title" #{if request.actionMethod!="edit"}name="proposal.title"#{/if} value="${proposal?.title}" class="form-control " #{if request.actionMethod=="edit"} readonly="readonly"#{/if}>
+			<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.title.intern.managment'}</span>
+		</div>
+	</div>
+</div>
+%{ } }%
+
+<div hidden="hidden">
+	<input name="request.flexible" type="checkbox" ${travelRequest.flexible ? 'checked'.raw() : ''}/>
+</div>
+
+<div hidden="hidden">
+  <select id="" name="proposal.accommodation.id" hidden="hidden">
+  		<option value="${proposal?.accommodation?.id}" selected ></option>
+  	</select>
+</div>
+
+<div hidden="hidden">
+   <select id="user-meal" name="proposal.meal.id" hidden="hidden">
+  		<option value="${proposal?.meal?.id}" selected ></option>
+  	</select>
+</div>
+
+<div hidden="true">
+	<div class="form-label">&{'request.experiences'}</div>
+	<select id="travelRequest-experiences" name="proposals.experiences.id"  class="chzn-select" multiple>
+       %{ experiences.sort{ it.toString() }.each() { }%
+         %{ 
+           selected = false;
+           proposal?.experiences.each() { f ->
+             if (f.id == it?.id)
+               selected = true;
+           }
+         }%
+		  <option id="${it?.id}_select"  value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it.name}</option>
+
+       %{ } }%
+       </select>
+</div>
+	
+%{ 
+  	 models.Provider provider = models.Provider.find("byUser_id", Long.parseLong(session.ubeos_user)).first();
+  	 Long provider_ID = provider.id; 
+}%
+<input type="number" name="proposal.provider.id" value="${provider_ID}" hidden="hidden"/>
+
+ <div  hidden="true">
+  	<input type="text" name="proposal.request.id" value="${proposal?.request?.id}"/>
+</div>
+
+<div  hidden="hidden">
+      <input type="text" name="proposal.state" value="${proposal?.state}" class="form-control" readonly="readonly"/>
+</div>
+
+<div hidden="hidden">
+	<input type="hidden" name="proposal.id" value="${proposal?.id}"/>
+</div>
+
+
+<div hidden="hidden">
+	<input type="hidden" name="proposal.city_from" value="${travelRequest?.city_from}" />
+</div>
+
+<div hidden="hidden">
+	<select name="travelRequest.country_to.id" hidden="hidden">
+		<option value="${travelRequest.country_to.id}" selected ></option>
+	</select>
+</div>
+
+<div hidden="hidden">
+	<input type="hidden" name="proposal.city_to" value="${travelRequest?.city_to}" />
+</div>
+
+<div hidden="hidden">
+	<select name="travelRequest.country_to.id" hidden="hidden">
+		<option value="${travelRequest.country_to.id}" selected ></option>
+	</select>
+</div>
+
+<div hidden="hidden">
+	<input type="hidden" name="proposal.city_to" value="${travelRequest?.city_to}" />
+</div>
+
+<div hidden="hidden">
+  <select id="" name="proposal.transport.id" hidden="hidden">
+  		<option value="${proposal?.transport?.id}" selected ></option>
+  	</select>
+</div>
+
+<div hidden="hidden">
+	<input type="text" name="proposal.nights" value="${proposal?.nights}" hidden="hidden" ></input>  
+</div>
+
+
+ 

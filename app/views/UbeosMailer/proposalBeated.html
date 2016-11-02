@@ -1,0 +1,25 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName} ${user.lastName},
+<br><br>
+&{'mail.proposal.beated.intro'} @@{TravelRequests.show(proposal.request.id)} &{'mail.proposal.beated.intro2'}
+
+#{if price }
+	<br><br>
+	&{'views.mail.price'}
+#{/if}
+#{if rating }
+	<br><br>
+	&{'views.mail.rating'}
+#{/if}
+
+<br><br>
+&{'mail.proposal.beat.update'} @@{Proposals.edit(proposal.request.id)} &{'mail.proposal.beat.create'} @@{Proposals.create(proposal.request.id)}
+<br>
+&{'mail.links.not.working'}
+<br><br>
+&{'mail.question.partner.standard'}
+<br><br>
+&{'mail.thank.you'}
+<br>
+UBEOS

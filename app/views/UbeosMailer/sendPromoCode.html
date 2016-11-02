@@ -1,0 +1,15 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'},
+<br><br>
+&{'mail.user.invited.you', consumer.user.firstName, consumer.user.lastName}
+<br><br>
+@@{Consumers.createPromo(consumer.promoCode)}
+<br><br>
+&{'mail.link.not.working'}
+<br><br>
+&{'mail.question'}
+<br><br>
+&{'mail.see.you.soon'}
+<br>
+UBEOS

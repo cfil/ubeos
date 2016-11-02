@@ -1,0 +1,10 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+WoooW one proposal was accepted!
+
+Proposal: ${proposal?.id} - ${proposal?.title}
+Request: ${proposal?.request?.id} - ${proposal?.request?.country_to?.code}
+
+Provider: ${proposal?.provider?.company?.name}
+Traveler: ${proposal?.request?.consumer?.user?.firstName} ${proposal?.request?.consumer?.user?.lastName}
+Traveler: ${proposal?.request?.consumer?.user?.id} - ${proposal?.request?.consumer?.user?.email}

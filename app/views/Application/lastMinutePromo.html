@@ -1,0 +1,371 @@
+#{extends 'main_front.html' /}
+
+#{set pageTitle:messages.get('views.title.last.minute.promo') + " | UBEOS"   /}
+#{set pageDescription:messages.get('views.description.last.minute.promo') /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/magnific/magnific-popup.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+  <!-- Page Plugins -->
+  <script src="@{'/public/theme/vendor/plugins/magnific/jquery.magnific-popup.js'}"></script>
+    <script type="text/javascript">
+  jQuery(document).ready(function() {
+
+   var modalContent = $('#modal-content');
+
+    // Form Skin Switcher
+    $('#animation-switcher1 button').on('click', function() {
+      $('#animation-switcher1').find('button').removeClass('active-animation');
+      $(this).addClass('active-animation item-checked');
+
+      // Inline Admin-Form example 
+      $.magnificPopup.open({
+        removalDelay: 500, //delay removal by X to allow out-animation,
+        items: {
+//           src: findActive()
+			src: '#modal-form1'
+        },
+        // overflowY: 'hidden', // 
+        callbacks: {
+          beforeOpen: function(e) {
+            var Animation = $("#animation-switcher1").find('.active-animation').attr('data-effect');
+            this.st.mainClass = Animation;
+          }
+        },
+        midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+      });
+      ga('send', 'event', 'Form', 'register', 'LastMinuteChaves');
+    });
+
+    $('#animation-switcher2 button').on('click', function() {
+        $('#animation-switcher2').find('button').removeClass('active-animation');
+        $(this).addClass('active-animation item-checked');
+
+        // Inline Admin-Form example 
+        $.magnificPopup.open({
+          removalDelay: 500, //delay removal by X to allow out-animation,
+          items: {
+//             src: findActive()
+  			src: '#modal-form2'
+          },
+          // overflowY: 'hidden', // 
+          callbacks: {
+            beforeOpen: function(e) {
+              var Animation = $("#animation-switcher2").find('.active-animation').attr('data-effect');
+              this.st.mainClass = Animation;
+            }
+          },
+          midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+        });
+        ga('send', 'event', 'Form', 'register', 'LastMinuteSMiguel'); 
+      });
+    
+    if("${ischaves}"){
+    	$('#animation-switcher1 button').trigger('click'); 
+    }
+    if("${isacores}"){
+    	$('#animation-switcher1 button').trigger('click'); 
+    }
+    checkFooter();
+  });
+  
+         
+  
+  </script>
+  
+
+  
+#{/set}
+
+<!-- begin: .tray-center -->
+
+<div class="tray tray-center mt60">
+	<div class="row">
+	
+	
+	<!--  chaves -->
+		<div class="grid" style="margin-right: 2px !important;">
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mw500 grid-item">
+				<div class="panel panel-visible image lastminute" id="spy1">
+					<div class="panel-body pn no-border">
+		               	<table class="table" id="datatable" cellspacing="0" width="100%">
+		                   	<thead>
+		                       	<tr>
+		                            <th class="th-image">
+		                            	<img alt="" src="@{'/public/images/lastminute/chaves.png'}" class="img-responsive lastminute">
+		                            </th>
+								</tr>
+							</thead>
+		                    <tbody class="border">                          
+		                    	<tr style="border-bottom: 2px solid #e5e5e5;">
+		                        	<td class="p20">
+		                         		<div class="fs24 text-center pb10"><b>Hotel Casino de Chaves ****</b></div>
+		                         		<div class="price text-center"><b>158&#8364</b></div>
+		                         		<div class="text-center"><b>por casal</b></div>
+		                        	</td>
+		                        </tr>
+		                        <tr style="border-bottom: 2px solid #e5e5e5;">
+		                        	<td class="p20">
+		                        		<div><b>O pre&ccedil;o apresentado inclui:</b><br>
+		                        			- 1 noite em quarto duplo deluxe<br>
+											- Jantar rom&acirc;ntico com espet&aacute;culo/anima&ccedil;&atilde;o ao vivo<br>
+											- Pequeno almo&atilde;o buffet<br>
+											- Porto de boas vindas<br>
+											- Acesso gratuito a spa<br>
+											- Oferta de duas bebidas nos bares das salas de jogos do casino<br>
+											- Estacionamento gratuito<br>
+											- Late checkout at&eacute; &agrave;s 18h<br><br>
+		                        		</div>
+		                        		
+		                        	</td>
+								</tr>
+								
+								<tr>
+		                        	<td class="p20" id="animation-switcher1">
+										<button type="button" class="btn btn-info btn-block" data-effect="mfp-slideUp">&{'application.accept.budget'}</button>
+	
+		                        	</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+			
+		</div>	
+		
+		
+			<!--  acores -->
+		<div class="grid" style="margin-right: 2px !important;">
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mw500 grid-item">
+				<div class="panel panel-visible image lastminute" id="spy1">
+					<div class="panel-body pn no-border">
+		               	<table class="table" id="datatable" cellspacing="0" width="100%">
+		                   	<thead>
+		                       	<tr>
+		                            <th class="th-image">
+		                            	<img alt="" src="@{'/public/images/lastminute/acores.png'}" class="img-responsive lastminute">
+		                            </th>
+								</tr>
+							</thead>
+		                    <tbody class="border">                          
+		                    	<tr style="border-bottom: 2px solid #e5e5e5;">
+		                        	<td class="p20">
+		                         		<div class="fs24 text-center pb10"><b>S&atilde;o Miguel - A&ccedil;ores</b></div>
+		                         		<div class="price text-center"><b>desde 240&#8364</b></div>
+		                         		<div class="text-center"><b>por pessoa</b></div>
+		                        	</td>
+		                        </tr>
+		                        <tr style="border-bottom: 2px solid #e5e5e5;">
+		                        	<td class="p20">
+		                        		<div><b>O pre&ccedil;o apresentado inclui:</b><br>
+		                        			- Voo directo de Porto ou Lisboa<br>
+											- Taxas de aeroporto, seguran&ccedil;a e combust&iacute;vel<br>
+											- Estadia 2 noites em hotel****<br>
+											- Transfer de chegada e sa&iacute;da em S&atilde;o Miguel<br>
+											- Passeio de charrete pelo centro patrimonial de Ponta Delgada<br>
+											- Recep&ccedil;&atilde;o no quarto com flores e chocolates &agrave; chegada no quarto<br>
+											- Seguro de viagem<br><br>
+		                        		</div>
+		                        		
+		                        	</td>
+								</tr>
+								
+								<tr>
+		                        	<td class="p20" id="animation-switcher2">
+										<button type="button" class="btn btn-info btn-block" data-effect="mfp-slideUp">&{'application.accept.budget'}</button>
+	
+		                        	</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+			
+		</div>	
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+        <!-- Admin Form Popup 1-->
+        <div id="modal-form1" class=" popup-basic admin-form theme-info mfp-with-anim mfp-hide">
+          <div class="panel">
+            <div class="panel-heading">
+              <span class="panel-title text-center">&{'application.accept.budget'}</span>
+            </div>
+            <!-- end .panel-heading section -->
+
+			#{form @Application.lastMinutePromoSave(), id:'form-contact1', class:'form-horizontal', method: 'post'}
+<!--             <form method="post" action="/" id="comment"> -->
+
+	<div style="padding: 8px 26px 0 25px;">
+#{if flash.success || flash.error}
+	#{include 'partials/_flashNotices.html'/}
+#{/if}
+	</div>
+              <div class="panel-body p25 pb10">
+                <div class="section row">
+                  <div class="col-md-6">
+                    <label for="firstname" class="field prepend-icon">
+                      <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="&{'users.firstName'}">
+                      <label for="firstname" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+                  
+                  <div class="col-md-6 lm">
+                    <label for="lastname" class="field prepend-icon">
+                      <input type="text" name="lastname" id="lastname" class="gui-input" placeholder="&{'users.lastName'}">
+                      <label for="lastname" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+
+                </div>
+                <!-- end section row section -->
+
+                <div class="section row">
+                  <div class="col-md-12">
+                    <label for="email" class="field prepend-icon">
+                      <input type="email" name="email" id="email" class="gui-input" placeholder="&{'users.email'}">
+                      <label for="email" class="field-icon">
+                        <i class="ic-ub ic-ub_message"></i>
+                      </label>
+                    </label>
+                  </div>
+                  </div>
+                  <!-- end section -->
+ 				<div class="section row">
+                  <div class="col-md-12">
+                    <label for="website" class="field prepend-icon">
+                      <input type="text" name="phone" id="phone" class="gui-input" placeholder="&{'users.phone'}">
+                      <label for="phone" class="field-icon">
+                        <i class="ic-ub ic-ub_phone"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+
+                </div>
+                <!-- end section row section -->
+
+              </div>
+              <!-- end .form-body section -->
+
+              <div class="panel-footer clearix">
+              	<div class="col-md-2 col-xs-0"></div>
+                <button type="submit" class="btn btn-info col-md-8 col-xs-12">&{'views.submit'}</button>
+                <div class="col-md-2 col-xs-0"></div>
+              </div>
+              <!-- end .form-footer section -->
+              #{/form}
+<!--             </form> -->
+          </div>
+          <!-- end: .panel -->
+        </div>
+        <!-- end: .admin-form -->
+
+
+<!-- Admin Form Popup 2-->
+        <div id="modal-form2" class=" popup-basic admin-form theme-info mfp-with-anim mfp-hide">
+          <div class="panel">
+            <div class="panel-heading">
+              <span class="panel-title text-center">&{'application.accept.budget'}</span>
+            </div>
+            <!-- end .panel-heading section -->
+
+			#{form @Application.lastMinutePromoSave2(), id:'form-contact2', class:'form-horizontal', method: 'post'}
+<!--             <form method="post" action="/" id="comment"> -->
+
+	<div style="padding: 8px 26px 0 25px;">
+#{if flash.success || flash.error}
+	#{include 'partials/_flashNotices.html'/}
+#{/if}
+	</div>
+              <div class="panel-body p25 pb10">
+                <div class="section row">
+                  <div class="col-md-6">
+                    <label for="firstname" class="field prepend-icon">
+                      <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="&{'users.firstName'}">
+                      <label for="firstname" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+                  
+                  <div class="col-md-6 lm">
+                    <label for="lastname" class="field prepend-icon">
+                      <input type="text" name="lastname" id="lastname" class="gui-input" placeholder="&{'users.lastName'}">
+                      <label for="lastname" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+
+                </div>
+                <!-- end section row section -->
+
+                <div class="section row">
+                  <div class="col-md-12">
+                    <label for="email" class="field prepend-icon">
+                      <input type="email" name="email" id="email" class="gui-input" placeholder="&{'users.email'}">
+                      <label for="email" class="field-icon">
+                        <i class="ic-ub ic-ub_message"></i>
+                      </label>
+                    </label>
+                  </div>
+                  </div>
+                  <!-- end section -->
+ 				<div class="section row">
+                  <div class="col-md-12">
+                    <label for="website" class="field prepend-icon">
+                      <input type="text" name="phone" id="phone" class="gui-input" placeholder="&{'users.phone'}">
+                      <label for="phone" class="field-icon">
+                        <i class="ic-ub ic-ub_phone"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+
+                </div>
+                <!-- end section row section -->
+
+              </div>
+              <!-- end .form-body section -->
+
+              <div class="panel-footer clearix">
+              	<div class="col-md-2 col-xs-0"></div>
+                <button type="submit" class="btn btn-info col-md-8 col-xs-12">&{'views.submit'}</button>
+                <div class="col-md-2 col-xs-0"></div>
+              </div>
+              <!-- end .form-footer section -->
+              #{/form}
+<!--             </form> -->
+          </div>
+          <!-- end: .panel -->
+        </div>
+        <!-- end: .admin-form -->
+      
+

@@ -1,0 +1,71 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.greeting'} ${user.firstName} ${user.lastName},
+<br><br>
+&{'mail.congrats.proposal.accepted'}
+<br><br>
+@@{TravelRequests.resume(proposal.request.id)}
+<br><br>
+&{'mail.link.not.work'}
+<br><br>
+&{'mail.user.info'}
+<br><br>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.nif'}</div>
+  <div class="field">
+      <input type="text" name="billing.nif" value="${billing?.nif}"  class="form-row" readonly="readonly"/>
+  </div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.name'}</div>
+  <div class="field">
+      <input type="text" name="billing.name" value="${billing?.name}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.phone'}</div>
+  <div class="field">
+      <input type="text" name="billing.phone" value="${billing?.phone}"  class="form-row" readonly="readonly"/>
+  </div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.address'}</div>
+  <div class="field">
+      <input type="text" name="billing.address" value="${billing?.address}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'application.city'}</div>
+  <div class="field">
+      <input type="text" name="billing.city" value="${billing?.city}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+ <div class="wrapper-form">
+  <div class="form-label">&{'users.zipcode'}</div>
+  <div class="field">
+      <input type="text" name="billing.zipcode" value="${billing?.zipcode}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'application.country'}</div>
+  <div class="field">
+  	<input type="text" name="billing.country.id" value="&{'country.'+billing.country.code}" readonly="readonly" class="form-row"/>
+  </div>
+</div>
+
+
+<br><br>
+&{'mail.send.payment.info'}
+<br><br>
+&{'mail.question.partner'}
+<br><br>
+&{'mail.thank'}
+<br>
+UBEOS

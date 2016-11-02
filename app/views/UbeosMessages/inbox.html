@@ -1,0 +1,243 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.messages.inbox') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.messages.inbox') /}
+
+
+#{set 'moreStyles'}
+	<!-- Datatables CSS -->
+   	<link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+	#{get 'moreStyles' /}
+#{/set}
+
+
+#{set 'moreScripts'}
+	<!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+
+	#{include 'partials/_ubeos_js_objects.html' /}
+
+	<script type="text/javascript">
+	
+	    $(document).ready(function() {
+	        	    
+            $('#datatable1').dataTable({
+	        	"order": [[ 2, "desc" ]],
+				language : data_i18n,
+				"columnDefs": [
+					{ "orderable": true }
+			  	],
+	            "iDisplayLength": 5,
+	            bInfo: false,
+	            "pagingType": "simple_numbers",
+	            "aLengthMenu": [
+	                [5, 10, 25, 50, -1],
+	                [5, 10, 25, 50, "All"]
+	            ],
+	            "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+	            "oTableTools": {
+	                "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+	            }
+	        });
+	    });
+	    
+	    function openMessage(tab_id, isNew){
+    	
+//    			$('.messages_hidden').attr('hidden','hidden');
+			$('.messages_hidden').addClass('hide-msg');
+	    	$('#'+tab_id).addClass( 'active' );
+	    	$('#message_group_'+tab_id).removeClass('hide-msg');
+// 	    	$('#message_group_'+tab_id).removeAttr('hidden');
+	    	
+	    	$('tr').removeClass('tr-active');
+	    	$('#tab-'+tab_id).addClass( 'tr-active' );
+	    	
+	    	if( isNew ){
+		    	$('#tab-'+tab_id).css( "font-weight", 400 );
+	 		   	
+		    	var t_msg = $('#messages_total').text();
+	 		   	
+		    	var listAction = #{jsAction @UbeosMessages.readMessage(':id') /}
+	 		   	$('#junk').load( listAction({id: tab_id})   )
+	
+	 		   	
+	 		   	var tot = t_msg-1;
+	 		   	if(tot > 0){
+		 		   	$('#messages_total').html("<p>"+tot+"</p>");
+	 		   	} else {
+	 		   		$('#messages_total').attr('style','visibility:hidden');
+	 		   	}
+	    	}
+	    }
+
+	</script>
+	
+	#{get 'moreScripts' /}
+	
+#{/set}
+
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="panel panel-visible" id="spy1">
+	            <div class="panel-heading">
+	            	<span class="panel-icon">
+				      <i class="ic-ub ic-ub_inbox"></i>
+				    </span>
+	                <span class="panel-title">&{'views.messages.inbox'}</span>
+                </div>
+				<div class="panel-body pn">
+                   	<table class="table " id="datatable1" cellspacing="0" width="100%">
+                       	<thead>
+                           	<tr class="tr-custom">
+                               	<th class="p15">
+                               		#{if activeTab == "messagesInbox"}
+                               			&{'views.message.from'}
+                               		#{/if}
+                               		#{if activeTab == "messagesSent"}
+                               			&{'views.message.to'}
+                               		#{/if}
+								</th>
+                                <th class="p15">
+									&{'views.word.date'}
+                                </th>
+                                <th hidden="hidden"></th>
+							</tr>
+						</thead>
+                           <tbody>
+							#{list items:ubeos_messages, as:'entity'}                           
+							<tr onclick="openMessage(${entity.id}, ${entity.isNew});" class="table-custom " id="tab-${entity.id}" #{if entity.isNew } style="font-weight: 700;" #{/if}>
+								#{if activeTab == "messagesInbox"}
+									%{ if (entity.direction == models.MessagesRec.PROV_2_CONS) { 
+										}%
+										<td class="p15"><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.provider.user.id)}" alt="avatar"">
+											${entity.provider?.company?.name}</td>
+	                               	%{ } else if (entity.direction == models.MessagesRec.CONS_2_PROV) { }%
+		                               	<td class="p15"><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.consumer.user.id)}" alt="avatar"">
+		                               		${entity.consumer.user.firstName} ${entity.consumer.user.lastName}</td>
+	                                %{ } }%
+                                #{/if}
+                                #{if activeTab == "messagesSent"}
+									%{ if (entity.direction == models.MessagesRec.CONS_2_PROV) { 
+										}%
+										<td class="p15"><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.provider.user.id)}" alt="avatar"">
+											${entity.provider?.company?.name}</td>
+	                               	%{ } else if (entity.direction == models.MessagesRec.PROV_2_CONS) { }%
+		                               	<td class="p15"><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.consumer.user.id)}" alt="avatar"">
+		                               		${entity.consumer.user.firstName} ${entity.consumer.user.lastName}</td>
+	                                %{ } }%
+                                #{/if}
+                                <td class="p15">
+                                	${(entity.created_at).format('dd/MM/yyyy HH:mm')}
+                                	</td>
+                                <td hidden="hidden">
+                                	${entity.created_at.getTime()}
+                                </td>
+							</tr>
+							#{/list} 
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+		
+		
+<div class="col-md-7">
+	<div class="panel panel-visible" id="spy2" style="background-color: transparent;">
+
+				#{list items:ubeos_messages, as:'entity'}
+				<div id="message_group_${entity.id}"  class="messages_hidden hide-msg animated animated-shorter fadeIn">
+			<div class="panel-body" style="background-color: white;">	
+			<div class="tab-content" >
+			    <div id="tab5_${entity.id}" class="tab-panel" >
+			      
+					%{ if (entity.direction == models.MessagesRec.PROV_2_CONS) { 
+						}%
+						<p><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.provider.user.id)}" alt="avatar"">
+						<b>${entity.provider?.company?.name}</b><br><label class="message-right text-grey">${(entity.created_at).format('dd/MM/yyyy HH:mm')}</label></p>
+                    %{ } else if (entity.direction == models.MessagesRec.CONS_2_PROV) { }%
+                    	
+						<p><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity.consumer.user.id)}" alt="avatar"">
+						<b>${entity.consumer.user.firstName} ${entity.consumer.user.lastName}</b><br><label class="message-right text-grey">${(entity.created_at).format('dd/MM/yyyy HH:mm')}</label></p>
+                    	
+                    %{ } }%
+                    
+					<p>#{verbatim}${entity.message}#{/verbatim}</p>
+					%{ models.MessagesRec original = helpers.MessagesHelper.getOriginal(entity);}%
+					
+					%{ while (original != null) { }%
+								#{if original != null }
+								
+						<div class="tab-content" >
+							<div class="wrapper-messages-reply">
+			
+								%{ if (original.direction == models.MessagesRec.PROV_2_CONS) { 
+									}%
+									<p><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(original.provider.user.id)}" alt="avatar"">
+									<b>${original.provider?.company?.name}</b><br><label class="message-right text-grey">${(original.created_at).format('dd/MM/yyyy HH:mm')}</label></p>
+			                    %{ } else if (original.direction == models.MessagesRec.CONS_2_PROV) { }%
+			                    	
+									<p><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(original.consumer.user.id)}" alt="avatar"">
+									<b>${original.consumer.user.firstName} ${original.consumer.user.lastName}</b><br><label class="message-right text-grey">${(original.created_at).format('dd/MM/yyyy HH:mm')}</label></p>
+			                    	
+			                    %{ } }%
+			                    
+								<p>#{verbatim}${original.message}#{/verbatim}</p>
+								
+							</div>	
+			  			</div>
+								
+								
+								#{/if}
+					%{	original = helpers.MessagesHelper.getOriginal(original);
+						 } }%
+					
+					
+					
+					
+			    </div>
+
+  			</div>
+  			</div>
+  			  				<div class="panel-footer">
+  			  					<div class="bs-component">
+					#{if play.mvc.Http.Request.current().actionMethod.endsWith("inbox") } 			  					
+					%{ if (entity.direction == models.MessagesRec.CONS_2_PROV) { }%
+						<div class="col-md-6 col-padding top left">
+							<button type="button" class="btn btn-dark btn-block" onclick="location.href='@@{UbeosMessages.messageProviderReplyConsumer(entity.id)}'">&{'views.reply.message'}</button>
+                    	</div>
+                    %{ } else if (entity.direction == models.MessagesRec.PROV_2_CONS) { }%
+                 	    <div class="col-md-6 col-padding left">
+                    		<button type="button" class="btn btn-dark btn-block" onclick="location.href='@@{UbeosMessages.messageConsumerReplyProvider(entity.id)}'">&{'views.reply.message'}</button>
+                    	</div>
+                    %{ } }%
+                    #{/if}
+                    	<div class="col-md-6 col-padding pn">
+                    		<button type="button" class="btn btn-info btn-block" onclick="location.href='@@{TravelRequests.show(entity.travelRequest.id)}'">&{'views.gotoadventure'}</button>
+                    	</div>
+                    		
+	</div>
+	</div>
+	</div>
+			    #{/list}
+		
+		
+	</div>
+	
+	
+</div>		
+		
+
+
+	</div>
+</div>
+
+<div id="junk"></div>

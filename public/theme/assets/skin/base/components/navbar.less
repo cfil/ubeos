@@ -1,0 +1,508 @@
+/* ==============================================
+   Navbar
+================================================= */
+.navbar {
+    z-index: 1030;
+    margin-bottom: 0;
+    height: 60px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/*navbar menu*/
+.navbar .nav {
+    margin: 0;
+
+    // menu items
+    > li { float: left; }
+
+    // menu links
+    > li > a {
+        color: #777;
+        font-size: 13px;
+        font-weight: 600;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 59px;
+        max-height: 59px;
+    }
+    // menu item states
+    > li.open > a,
+    > li:hover > a,
+    > li:focus > a,
+    > li.active > a,
+    > li > a:hover,
+    > li > a:focus {
+        color: #333;
+        background-color: #DDD;
+    }
+
+    // menu item with open dropdown
+    > li.dropdown.open .dropdown-menu {
+        padding: 0;
+        margin-top: 10px;
+        border-radius: 2px;
+        border-top: 3px solid #4a89dc;
+        &:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            right: 8px;
+            bottom: 100%;
+            border-width: 0 10px 10px;
+            border-bottom-color: #4a89dc;
+        }
+    }
+
+    /* dropdown item divider */
+    .menu-divider {
+        color: rgba(0, 0, 0, 0.2);
+        font-size: 8px;
+        padding: 25px 10px;
+    }
+
+}
+
+/* navbar menu dropdown components */
+
+// menu item dropdown - links
+.navbar .dropdown-menu > li > a {
+    font-weight: 600;
+}
+
+// menu item dropdown - header
+//
+.navbar .dropdown-menu > li.dropdown-header {
+    padding: 8px;
+    background: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
+
+    // header title
+    .dropdown-title {
+        color: #666;
+        font-size: 13px;
+        font-weight: 600;
+        padding-left: 5px;
+        line-height: 30px;
+    }
+    // header label
+    .label {
+        font-size: 75%;
+        padding: .1em .6em .2em;
+        float: right;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+}
+
+// menu item dropdown - media list
+//
+.navbar .media-list > li.media {
+    margin: 0;
+    padding: 10px;
+
+    // top border
+    + li.media { border-top: 1px solid #EEE; }
+
+    // media image
+    > a {
+        padding: 0;
+        padding-right: 10px;
+        display: table-cell;
+    }
+
+    // media heading
+    .media-heading small {
+        color: #AAA;
+    }
+}
+
+
+
+/* Bootstrap list-group dropdown formatting */
+.navbar .list-group > li.list-group-item {
+    padding: 0;
+
+    // list-group link
+    > a {
+        padding: 12px;
+    }
+
+    // list-group label
+    > a .label {
+        font-size: 75%;
+        padding: .1em .65em .2em;
+        float: right;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    // list-group icon
+    > a .fa,
+    > a .glyphicon,
+    > a .glyphicons {
+         padding-right: 5px;
+     }
+
+}
+// List-group border
+.navbar .list-group > li.dropdown-header + li.list-group-item {
+    border-top: 0;
+}
+
+
+/*navbranding*/
+.navbar-branding {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    width: 230px;
+    height: 60px;
+    background-color: #1f70a8;
+    margin-right: 10px;
+    
+    // navbrand logo
+    a.navbar-brand {
+        height: 60px;
+        line-height: 58px;
+        padding: 0;
+        padding-left: 18px;
+        color: #777;
+        font-size: 17px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+    }
+    a.navbar-brand b {
+        font-weight: bold;
+    }
+}
+
+
+/*navbar toggle sidemenu button*/
+#toggle_sidemenu_l {
+    float: right;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    line-height: 58px;
+    max-height: 60px;
+    width: 60px;
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    &:hover {
+        color: #DDD;
+    }
+}
+
+/*left nav menu*/
+.navbar-nav.navbar-left {
+    float: left;
+    position: relative;
+    max-height: 60px;
+    // menu items
+    > li > a {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+}
+
+/*right nav menu*/
+.navbar-nav.navbar-right,
+.navbar-nav.navbar-right:last-child {
+    float: right;
+    margin: 0 15px 0 0;
+}
+
+/*navbar forms*/
+.navbar-form {
+    margin-top: 17px;
+    margin-bottom: 17px;
+    
+    // search bar
+    &.navbar-search input {
+        height: 26px;
+        padding: 0 12px;
+        border-radius: 20px;
+        border-color: transparent;
+        box-shadow: none;
+        -webkit-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+}
+
+
+/*navbar dropdown menu item hover border effects*/
+li.dropdown-border-hover,
+.dropdown-border-hover li {
+    border-left: 3px solid transparent;
+}
+li.dropdown-border-hover:hover,
+.dropdown-border-hover li:hover {
+    background: #f8f8f8;
+    border-left-color: #4a89dc;
+    -webkit-transition-delay: 0s !important;
+    -o-transition-delay: 0s !important;
+    transition-delay: 0s !important;
+    -webkit-transition: all linear 0s !important;
+    -o-transition: all linear 0s !important;
+    transition: all linear 0s !important;
+}
+
+/*multiselects in navbar user dropdown menu */
+.navbar .dropdown.open .btn-group.open .multiselect-container.dropdown-menu {
+    margin-top: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.10) !important;
+    border-color: rgba(0, 0, 0, 0.10);
+}
+.navbar .dropdown.open .btn-group.open .multiselect-container.dropdown-menu:after {
+    display: none;
+}
+#user-role + .btn-group > button.multiselect {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#user-status + .btn-group .multiselect-container.dropdown-menu {
+    right: auto !important;
+    left: 0 !important;
+}
+#user-status + .btn-group .multiselect-container.dropdown-menu,
+#user-role + .btn-group .multiselect-container.dropdown-menu {
+    top: 0 !important;
+    position: relative !important;
+    margin-top: 9px;
+    margin-bottom: 3px;
+    width: 212px;
+}
+#user-status + .btn-group .multiselect-container.dropdown-menu > li:first-child,
+#user-role + .btn-group .multiselect-container.dropdown-menu > li:first-child,
+#user-status + .btn-group .multiselect-container.dropdown-menu > li:first-child label,
+#user-role + .btn-group .multiselect-container.dropdown-menu > li:first-child label {
+    cursor: pointer;
+    position: relative;
+}
+#user-status + .btn-group .multiselect-container.dropdown-menu > li:first-child:after,
+#user-role + .btn-group .multiselect-container.dropdown-menu > li:first-child:after {
+    content: "\f00d";
+    font-family: "FontAwesome";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 6px;
+    right: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #AAA;
+    -webkit-transition: color 0.15s ease;
+    transition: color 0.15s ease;
+}
+#user-status + .btn-group .multiselect-container.dropdown-menu > li:first-child:hover:after,
+#user-role + .btn-group .multiselect-container.dropdown-menu > li:first-child:hover:after {
+    color: @brand-primary;
+}
+
+// navbar contextual skins
+//
+// applied via bg classes to ".navbar" 
+// eg: ".navbar .bg-primary"
+// --------------------------------------------------
+/* If navbar has a contextual bg we make menu links white*/
+.navbar[class*='bg-'] .navbar-brand,
+.navbar[class*='bg-'] .nav > li > a,
+.navbar[class*='bg-'] .nav > li.open > a {
+    color: #fff;
+}
+
+.navbar.bg-primary when (@skin-primary) {
+  .navbar-variant(@brand-primary);
+}
+.navbar.bg-success when (@skin-success) {
+  .navbar-variant(@brand-success);
+}
+.navbar.bg-info when (@skin-info) {
+  .navbar-variant(@brand-info);
+}
+.navbar.bg-warning when (@skin-warning) {
+  .navbar-variant(@brand-warning);
+}
+.navbar.bg-danger when (@skin-danger) {
+  .navbar-variant(@brand-danger);
+}
+.navbar.bg-alert when (@skin-alert) {
+  .navbar-variant(@brand-alert);
+}
+.navbar.bg-system when (@skin-system) {
+  .navbar-variant(@brand-system);
+}
+.navbar.bg-dark when (@skin-dark) {
+  .navbar-variant(@brand-dark);
+}
+.navbar.bg-light {
+  .navbar-light-variant(@brand-light);
+}
+
+
+
+// Changes added via updates
+// Update v1.2
+//
+
+// Navbar Bug Fixes 
+/* Modify whitespace for user menu dropdown - Firefox alignment bug fix */
+.navbar .navbar-right > li:last-child > .dropdown-menu > li > a {
+    white-space: inherit;
+}
+
+// Navbar Responsive Changes 
+@media (max-width: 1100px) {
+
+    // user menu dropdown modifications (hide name only display avatar)
+    .navbar .navbar-right:last-child { margin-right: 5px; }
+    .navbar .navbar-right > li:last-child > a > img { margin-right: 5px !important; }
+    .navbar .navbar-right > li:last-child > a > span { display: none; }
+    .navbar .navbar-right > li:last-child > a > span.caret { display: inline-block; }
+
+     // navbar Search Mobile Mode  
+     .navbar-form.navbar-search { 
+        padding: 21px 6px 19px;
+        margin: 0;
+        cursor: pointer;
+        width: auto;
+        float: left;
+     }
+     .navbar-form.navbar-search .form-group { margin: 0 !important;}
+     // convert search bar to single icon
+     .navbar-form.navbar-search:after { 
+        content: "\f02e";
+        position: relative;
+        font: normal normal 16px octicons;
+        line-height: 1;
+        display: inline-block;
+        text-decoration: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+     }
+     // transform searchbar input to menu slider
+     .navbar-form.navbar-search input { 
+        opacity: 0;
+        z-index: -1;
+        visibility: hidden;
+        position: absolute;
+        top: -60px;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        margin: 0;
+        font-size: 24px;
+        color: #AAA;    
+        border-radius: 0;
+        border: 0;
+        border-bottom: 1px solid #EEE;
+        text-align: center;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+     }
+     .navbar-form.navbar-search input:focus,
+     .navbar.bg-light .navbar-form.navbar-search input:focus { 
+        background-color: #FFF;
+     }
+     // slide menu down when set to open(search icon clicked)
+     .navbar-form.navbar-search.search-open input { 
+        top: 0;
+        opacity: 1;
+        visibility: visible;
+        z-index: 1040;
+     }
+     // close search bar icon
+     .navbar-form.navbar-search .search-remove { 
+        display: none;
+        z-index: 1040;
+        position: absolute;
+        color: #AAA;
+        top: 0;
+        right: 0;
+        height: 60px;
+        line-height: 59px;
+        padding-left: 15px;
+        padding-right: 25px;
+     }
+     .navbar-form.navbar-search .search-remove:after { 
+        position: relative;
+        content: "\e014";
+        font-family: 'Glyphicons Halflings';
+        text-align: center;
+        font-size: 20px;
+     }
+     .navbar-form.navbar-search.search-open .search-remove:hover { 
+        color: lighten(@brand-danger, 10%);
+     }
+
+}
+
+// Force Navbar Dropdowns to float and
+// to occupy 100% width at low resolutions 
+@media (max-width: 599px) {
+
+     // set parent to static
+     .sb-l-m .navbar > .navbar-right,
+     .navbar .navbar-nav > li.dropdown {
+        position: static !important;
+     }
+     .navbar .navbar-right:last-child {
+        margin-right: 0;
+     }
+
+     // recreate dropdown menus
+     .navbar-left .dropdown-menu,
+     .navbar-right .dropdown-menu,
+     .navbar-left .open .dropdown-menu,
+     .navbar-right .open .dropdown-menu {
+        z-index: 1000;
+        margin-top: 0 !important;
+        float: left;
+        position: absolute;
+        top: 100%;
+        left: -1px;
+        min-width: 101%;
+        list-style: none;
+
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background-clip: padding-box;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+     }
+
+     // revert usermenu dropdowns to absolute position
+     #user-status + .btn-group .multiselect-container.dropdown-menu,
+     #user-role + .btn-group .multiselect-container.dropdown-menu {
+        top: 34px !important;
+        position: absolute !important;
+        right: 0;
+        left: auto;
+     }
+     
+}
+
+
+
+
+
+
+
+

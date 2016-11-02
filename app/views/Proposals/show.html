@@ -1,0 +1,226 @@
+#{extends 'partials/_requestBase.html' /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set}  
+
+#{set pageTitle:messages.get('views.title.proposal.show') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.proposal.show') /}
+
+
+
+<div class="col-md-8">
+	<div class="panel panel-visible" id="spy2">
+		<div class="panel-heading">
+			<span class="panel-icon">
+		      <i class="ic-ub ic-ub_board"></i>
+		    </span>
+            <span class="panel-title">&{'views.title.proposal.show'}</span>
+        </div>
+		<div class="panel-body ">
+
+			<form class="form-horizontal" >
+			<div class="row">	
+				<div class="col-xs-2">
+					<img class="img-responsive mw100" src="@{Users.Image(provider.user.id)}">
+				</div>	
+				
+				<div class="col-xs-10">	
+				
+					<a class="ubeos-link" href="@{Providers.show(proposal.provider.company.name)}"><b>${proposal?.provider.company.name}</b></a>
+					<br>
+				
+									%{ double rating_val =  models.ProviderRating.getProviderRating(provider); }%
+			        #{if rating_val == 0.0 }
+			        &{'views.site.title'} 
+						<label class="text-grey""><i>&{'views.no.rating'}</i></label>
+					
+					#{/if}
+					#{else}
+						<div class="admin-form theme-warning" style="float: left; margin-left: -3px;">
+				            <input class="rating-input" id="${provider.id}r5" type="radio"  #{if (Math.round(rating_val) == 5) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${provider.id}r5"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${provider.id}r4" type="radio" #{if (Math.round(rating_val) == 4) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${provider.id}r4"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${provider.id}r3" type="radio" #{if (Math.round(rating_val) == 3) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${provider.id}r3"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${provider.id}r2" type="radio" #{if (Math.round(rating_val) == 2) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${provider.id}r2"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${provider.id}r1" type="radio" #{if (Math.round(rating_val) == 1) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${provider.id}r1"><i class="fa fa-star"></i>
+				            </label>
+						</div>
+					#{/else}
+					
+					<div >
+						<br><br>
+						<b class="custom-b">&{'company.rnavt'}: </b>
+						${proposal?.provider.company?.rnavt}
+						<br>
+						<b class="custom-b">&{'company.address'}: </b>
+						${proposal?.provider.company?.address}
+					</div>
+				</div>
+				
+				</div>
+			</form>		
+		
+		
+		<div class="form-tab"></div>
+		
+			<form class="form-horizontal" >
+				
+				 <div class="row">
+				      <input type="hidden" name="proposal.id" value="${proposal?.id}" class="form-control"/>
+				</div>
+				
+				
+				<div class="form-group #{ifError 'proposal.price'} has-error #{/ifError}">
+					<label class="col-lg-2 control-label">&{'proposal.price'}</label>
+					<div class="col-lg-9">
+						<div class="bs-component">
+							<div class="input-group">
+								<input class="form-control" type="text" name="proposal.price" value="${proposal?.price}" disabled>
+								<span class="input-group-addon ic-ub">
+									<i class="ic-ub_euro"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="form-group mt10 #{ifError 'proposal.dateFrom'} has-error #{/ifError}">
+				  <label class="col-lg-2 control-label" for="datetimepicker1">&{'request.date'}</label>
+				  
+				  <div class="col-lg-9">
+					  <div class="col-md-6 left">
+					  	<div class="input-group date #{ifError 'travelRequest.dateFrom'} has-error #{/ifError}">
+					    	<span class="input-group-addon cursor ic-ub">
+	                          <i class="ic-ub_calendar"></i>
+	                        </span>	
+					    	<input type="text" class="form-control" id="datetimepicker1" name="proposal.dateFrom" value="${proposal.date_from}" disabled>
+					  	</div>
+					  </div>
+					  
+					  <div class="col-md-6 right">
+						  <div class="input-group date #{ifError 'proposal.dateTo'} has-error #{/ifError}">
+						    <span class="input-group-addon cursor ic-ub">
+	                          <i class="ic-ub_calendar"></i>
+	                        </span>	
+						    <input type="text" class="form-control" id="datetimepicker2" name="proposal.dateTo" value="${proposal.date_to}" disabled>
+						  </div>
+						</div>
+					</div>
+				  
+				</div>
+				
+				#{if !utils.StringUtils.isNullOrEmpty(proposal.description) }
+				<div class="form-group #{ifError 'proposal.description'} has-error #{/ifError} ">
+				  <label class="col-lg-2 control-label" for="textArea">&{'proposal.customize.trasport'} </label>
+				  <div class="col-lg-9">
+				    <div class="bs-component">
+				      <textarea class="form-control" id="textArea" rows="3" name="proposal.description" placeholder="&{'proposal.describe1.placeholder'}" disabled>#{verbatim}${proposal?.description}#{/verbatim}</textarea>
+				    </div>
+				  </div>
+				</div>
+				#{/if}
+				
+				#{if !utils.StringUtils.isNullOrEmpty(proposal.descriptionThree) }
+				<div class="form-group #{ifError 'proposal.descriptionThree'} has-error #{/ifError}">
+				  <label class="col-lg-2 control-label" for="textArea2">&{'proposal.customize.accommodation'}</label>
+				  <div class="col-lg-9">
+				    <div class="bs-component">
+				      <textarea class="form-control" id="textArea2" rows="3" name="proposal.descriptionThree" placeholder="&{'proposal.describe3.placeholder'}" disabled>#{verbatim}${proposal?.descriptionThree}#{/verbatim}</textarea>
+				    </div>
+				  </div>
+				</div>
+				#{/if}
+				
+				
+				#{if !utils.StringUtils.isNullOrEmpty(proposal.descriptionFour) }
+				<div class="form-group #{ifError 'proposal.descriptionFour'} has-error #{/ifError}">
+				  <label class="col-lg-2 control-label" for="textArea3">&{'proposal.customize.activities'}</label>
+				  <div class="col-lg-9">
+				    <div class="bs-component">
+				      <textarea class="form-control" id="textArea3" rows="3" name="proposal.descriptionFour" placeholder="&{'proposal.describe4.placeholder'}" disabled>#{verbatim}${proposal?.descriptionFour}#{/verbatim}</textarea>
+				    </div>
+				  </div>
+				</div>
+				#{/if}
+				
+				#{if !utils.StringUtils.isNullOrEmpty(proposal.descriptionTwo) }
+				<div class="form-group #{ifError 'proposal.descriptionTwo'} has-error #{/ifError}">
+				  <label class="col-lg-2 control-label" for="textArea4">&{'proposal.customize.details'}</label>
+				  <div class="col-lg-9">
+				    <div class="bs-component">
+				      <textarea class="form-control" id="textArea4" rows="3" name="proposal.descriptionTwo" placeholder="&{'proposal.describe2.placeholder'}" disabled>#{verbatim}${proposal?.descriptionTwo}#{/verbatim}</textarea>
+				    </div>
+				  </div>
+				</div>
+				#{/if}
+			</form>	
+			
+			</div>
+				<div class="panel-footer">
+			
+				<div class="bs-component">
+						<div class="col-lg-2 col-md-0"></div>
+           			%{ models.User user = models.User.findById(Long.parseLong(session.ubeos_user)); 
+           				if (user.userRole.name == models.UserRole.CONSUMER || user.userRole.name == models.UserRole.ADMIN ) { }%
+						#{if proposal.state.proposalState == models.ProposalState.ACTIVE  }
+						<div class="col-lg-5 col-md-6 col-padding top">
+	             			<button type="button" class="btn btn-block btn-info" onclick="location.href='@{Proposals.accept(proposal.id)}'"><i class="ic-ub ic-ub_accept btn"></i>&{'application.accept.budget'}</button>
+	             		</div>
+	             		<div class="col-lg-4 col-md-6 col-padding right">
+	             			<button type="button" class="btn btn-block btn-dark" onclick="location.href='@{UbeosMessages.messageToProvider(travelRequest.id, proposal.id, null)}'"><i class="ic-ub ic-ub_message btn"></i>&{'views.send.message'}</button>
+             			</div>
+             			#{/if}
+						%{ } else if(user.userRole.name == models.UserRole.PROVIDER) {}%
+							#{if proposal.state.proposalState == models.ProposalState.ACTIVE  } 
+								<div class="col-lg-5 col-md-4 col-padding top">
+			             			<button type="button" class="btn btn-block btn-dark" onclick="location.href='@{Proposals.edit(proposal.id)}'"><i class="ic-ub ic-ub_settings btn"></i>&{'views.edit'}</button>
+		             			</div>
+	             			#{/if}
+	             				<div class="col-lg-4 col-md-4 col-padding right">
+									<button type="button" class="btn btn-dark btn-block" onclick="location.href='@{TravelRequests.show(proposal.request.id)}'">&{'application.back'}</button>
+							    </div>
+					%{ } }%
+					
+           		</div>
+       		
+		</div>
+	</div>
+	
+	
+	%{ if(user.userRole.name == models.UserRole.PROVIDER) {}%
+	#{if proposal.state.proposalState == models.ProposalState.ACCEPTED  } 
+		<div class="panel panel-visible" id="spy2">
+			<div class="panel-heading">
+				<span class="panel-icon">
+			      <i class="ic-ub ic-ub_profile"></i>
+			    </span>
+	            <span class="panel-title">&{'mail.user.info'}</span>
+	        </div>
+			<div class="panel-body ">
+				<b class="custom-b">&{'users.name'}:</b> ${billing.name}
+				<br><b class="custom-b">&{'users.email'}:</b> ${proposal.request.consumer.user.email}
+				<br><b class="custom-b">&{'users.phone'}:</b> ${billing.phone}
+				<br><b class="custom-b">&{'users.address'}:</b> ${billing.address}
+				<br><b class="custom-b">&{'users.city'}:</b> ${billing.city}
+				<br><b class="custom-b">&{'users.zipcode'}:</b> ${billing.zipcode}
+				<br><b class="custom-b">&{'users.country'}:</b> &{"country."+billing.country.code}
+			</div>
+		</div>
+	#{/if}
+				%{ } }%
+</div>

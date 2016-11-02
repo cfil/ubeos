@@ -1,0 +1,176 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.proposals.index') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.proposals.index') /}
+ 
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+    <!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+  
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	// Init tray navigation smooth scroll
+            $('.tray-nav a').smoothScroll({
+                offset: -145
+            });
+            
+            $('#datatable2').dataTable({
+            	"order": [[ 5, "desc" ]],
+                "iDisplayLength": 5,
+                responsive: true,
+                language : data_i18n,
+                bInfo: false,
+                "pagingType": "simple_numbers",
+                "aLengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
+                "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+                "oTableTools": {
+                    "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+                }
+            });
+        });
+	</script>
+#{/set}  
+ 
+ #{include 'partials/_ubeos_js_objects.html' /}
+ 
+	
+ 
+<!-- begin: .tray-center -->
+<div class="tray tray-center">
+	<div class="row">
+			<div class="col-md-12">
+           	<div class="panel panel-visible" id="spy2">
+				#{if proposals.size() > 0 } 
+			<div class="panel-heading">
+				#{if activeTab=='index'} 
+					<span class="panel-icon"><i class="ic-ub ic-ub_board"></i></span>
+					<span class="panel-title">&{'views.proposals.index.active'}</span> 
+				#{/if}
+				#{elseif activeTab=='accepted'}
+					<span class="panel-icon"><i class="ic-ub ic-ub_accept"></i></span> 
+					<span class="panel-title">&{'views.proposals.index.accepted'}</span>
+				#{/elseif}
+				#{elseif activeTab=='history'}
+					<span class="panel-icon"><i class="ic-ub ic-ub_calendar"></i></span> 
+					<span class="panel-title">&{'views.proposals.index.history'}</span> 
+				#{/elseif}
+				#{elseif activeTab=='ignored'}
+					<span class="panel-icon"><i class="ic-ub ic-ub_block"></i></span> 
+					<span class="panel-title">&{'views.proposals.index.ignored'}</span> 
+				#{/elseif}
+             </div>
+				<div class="panel-body pn">
+				
+                   	<table class="table table-hover nowrap" id="datatable2" cellspacing="0" width="100%">
+                       	<thead>
+                           	<tr class="tr-custom">
+                           		<th>&{'views.consumer'}</th>
+								<th>&{'views.rating'}</th>
+								<th>&{'views.destination'}</th>
+								<th>&{'proposal.price'}</th>
+								<th>&{'proposal.title'}</th>
+								<th>&{'request.state'}</th>
+                               </tr>
+						</thead>
+                           <tbody>
+                           #{list items:proposals, as:'entity'}
+                           	<tr
+                           		#{if entity.state.proposalState == models.ProposalState.ACTIVE  } 
+                           			onclick="window.document.location='@{TravelRequests.show(entity.request.id)}';"
+                           		#{/if}
+                           		#{elseif entity.state.proposalState == models.ProposalState.FEEDBACK  } 
+                           			onclick="window.document.location='@{ConsumerRatings.create(entity.id)}';"
+                           		#{/elseif}
+                           		#{else}
+                           			onclick="window.document.location='@{Proposals.show(entity.id)}';"
+                           		#{/else}
+                          	class="table-custom">
+								<td><img class="img-responsive w30 ib mr10 ml5" title="user" src="@{Users.Image(entity?.request?.consumer?.user?.id)}" alt="avatar"">
+									<a href="@{Consumers.show(entity.request.consumer.alias)}">${entity.request.consumer.user.firstName} ${entity.request.consumer.user.lastName}</a>
+								</td>
+								<td>
+								%{ double rating =  models.ConsumerRating.getConsumerRating(entity.request.consumer); }%
+									#{if rating == 0.0 }
+										<label><i>&{'views.no.rating'}</i></label>
+									#{/if}
+									#{else}
+									<div class="admin-form theme-warning float-left">
+							            <input class="rating-input" id="${entity.id}r5" type="radio"  #{if (Math.round(rating) == 5) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${entity.id}r5"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${entity.id}r4" type="radio" #{if (Math.round(rating) == 4) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${entity.id}r4"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${entity.id}r3" type="radio" #{if (Math.round(rating) == 3) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${entity.id}r3"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${entity.id}r2" type="radio" #{if (Math.round(rating) == 2) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${entity.id}r2"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${entity.id}r1" type="radio" #{if (Math.round(rating) == 1) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${entity.id}r1"><i class="fa fa-star"></i>
+							            </label>
+									</div>
+									#{/else}
+								</td>
+								<td>${entity?.request?.city_to}<br> &{"country."+entity?.request?.country_to?.code}</td>
+								<td>${entity.price} &#8364;</td>
+								<td><i>${entity?.title}</i></td>
+								
+								#{if entity.state.proposalState == models.ProposalState.ACTIVE  }
+									<td><span class="label bg-info">&{'state.'+entity.state.proposalState}</span></td>
+								#{/if} #{elseif entity.state.proposalState == models.ProposalState.REJECTED}
+									<td><span class="label bg-danger">&{'state.'+entity.state.proposalState}</span></td>
+								#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.FEEDBACK}
+									<td><span class="label bg-warning">&{'state.feedback'}</span></td>
+								#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.CLOSED}
+									<td><span class="label bg-info">&{'state.closed'}</span></td>
+								#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.ACCEPTED}
+									<td><span class="label bg-success">&{'state.accepted'}</span></td>
+								#{/elseif}
+								
+								
+								
+							</tr>
+						#{/list} 								
+						</tbody>
+                      	</table>
+                  	</div>
+				#{/if}
+			</div>
+		</div>
+				#{else}
+				
+					<div class="col-md-12" style="margin-top: 5%;">
+						<img src="@{'/public/images/img_empty_case.png'}" class="img-responsive w300 margin-center mb20" title="Adventure">
+						<div class="text-center"><b>&{'warning.no.proposals.provider'}</b><br>
+						<br>&{'warning.no.proposals.provider.text'}</div>
+					</div>
+				
+				#{/else}
+	</div>
+</div>
+ 
+ 
+
+
+

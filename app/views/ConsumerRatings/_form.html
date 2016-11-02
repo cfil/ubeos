@@ -1,0 +1,80 @@
+
+<div class="row" hidden="true">
+	  <input type="text" name="consumerRating.consumer.id" value="${consumerRating?.consumer?.id}" />
+</div>
+
+<div class="row" hidden="true">
+	  <input type="text" name="consumerRating.proposal.id" value="${consumerRating?.proposal?.id}" />
+</div>
+
+ <div class="row" >
+ 		<input hidden="true" type="text"  name="consumerRating.provider.id" value="${consumerRating?.provider?.id}" />
+</div>
+
+<!-- Begin: Admin Form -->
+<div class="admin-form theme-warning rating-center form">
+	
+		<div class="rating block rating-form">
+    			
+				<input class="rating-input" id="5" type="radio" name="5" value="5" ${selected ? 'checked'.raw() : ''}>
+				<label class="rating-star" for="5" id="label_5">
+					<i class="fa fa-star"></i>
+				</label>
+				
+				<input class="rating-input" id="4" type="radio" name="4" value="4" ${selected ? 'checked'.raw() : ''}>
+				<label class="rating-star" for="4" id="label_4">
+					<i class="fa fa-star"></i>
+				</label>
+				
+				<input class="rating-input" id="3" type="radio" name="3" value="3" ${selected ? 'checked'.raw() : ''}>
+				<label class="rating-star" for="3" id="label_3">
+					<i class="fa fa-star"></i>
+				</label>
+				
+				<input class="rating-input" id="2" type="radio" name="2" value="2" ${selected ? 'checked'.raw() : ''}>
+				<label class="rating-star" for="2" id="label_2">
+					<i class="fa fa-star"></i>
+				</label>
+				
+				<input class="rating-input" id="1" type="radio" name="1" value="1" ${selected ? 'checked'.raw() : ''}>
+				<label class="rating-star" for="1" id="label_1">
+					<i class="fa fa-star"></i>
+				</label>
+
+		</div>
+	</div>
+
+<div class="wrapper-form" hidden="true">
+	<select id="rating-value" name="consumerRating.value" >
+	<option id="" value="0"  selected="selected"></option>
+        <option id="1_select" value="1"  >1</option>
+	  	<option id="2_select" value="2"  >2</option>
+	  	<option id="3_select" value="3"  >3</option>
+	  	<option id="4_select" value="4"  >4</option>
+	  	<option id="5_select" value="5"  >5</option>
+	</select>
+</div>
+
+
+
+<div class="form-group #{ifError 'message'} has-error #{/ifError} ">
+	<label class="col-lg-2 control-label" for="textArea">&{'views.message'}</label>
+	<div class="col-lg-9">
+		<div class="bs-component">
+			<textarea class="form-control" id="textArea" rows="7" name="consumerRating.description" placeholder="&{'views.describe.consumer'}">${consumerRating.description}</textarea>
+		</div>
+	</div>
+</div>
+
+
+
+
+ <div class="row">
+  <div class="label"></div>
+  <div class="field">
+      <input type="hidden" name="consumerRating.id" value="${consumerRating?.id}"/>
+  </div>
+  <span class="error">${errors.forKey('consumerRating.id')}</span>
+</div>
+
+

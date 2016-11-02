@@ -1,0 +1,72 @@
+<div class="row">
+	<input type="hidden" name="consumer.id" value="${consumer?.id}"/>
+</div>
+
+<div class="row">
+	<input type="hidden" name="user.id" value="${user?.id}"/>
+</div>
+               
+<div class="row">
+	<input type="hidden" type="text" name="user.userRole.id" value="2"/>
+</div>
+               
+               <div class="section row">
+                  <div class="col-md-6">
+                   <div class="form-group #{ifError 'user.firstName'} has-error #{/ifError} mb0">
+                    <label for="user.firstName" class="field prepend-icon">
+<!--                       <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="First name..."> -->
+                      <input type="text" id="user.firstName" name="user.firstName" value="${user?.firstName}" class="gui-input" placeholder="&{'users.firstName'}" />
+                      <label for="user.firstName" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                    </div>
+                  </div>
+                  <!-- end section -->
+
+                  <div class="col-md-6">
+                    <label for="user.lastName" class="field prepend-icon">
+<!--                       <input type="text" name="lastname" id="lastname" class="gui-input" placeholder="Last name..."> -->
+                      <input type="text" id="user.lastName" name="user.lastName" value="${user?.lastName}" class="gui-input #{ifError 'user.lastName'} error #{/ifError}" placeholder="&{'users.lastName'}"/>
+                      <label for="user.lastName" class="field-icon">
+                        <i class="ic-ub ic-ub_profile"></i>
+                      </label>
+                    </label>
+                  </div>
+                  <!-- end section -->
+                </div>
+                <!-- end .section row section -->
+
+                <div class="section">
+                  <label for="user.email" class="field prepend-icon">
+<!--                     <input type="email" name="email" id="email" class="gui-input" placeholder="Email address"> -->
+                    <input type="text" id="user.email" name="user.email" value="${user?.email}" class="gui-input #{ifError 'user.email'} error #{/ifError}" placeholder="&{'users.email'}"/>
+                    <label for="user.email" class="field-icon">
+                      <i class="ic-ub ic-ub_message"></i>
+                    </label>
+                  </label>
+                </div>
+                <!-- end section -->
+
+
+                <div class="section">
+                  <label for="user.password" class="field prepend-icon">
+                    <input type="password" name="user.password" id="user.password" class="gui-input #{ifError 'user.password'} error #{/ifError}" placeholder="&{'users.password'}">
+                    <label for="user.password" class="field-icon">
+                      <i class="ic-ub ic-ub_lock"></i>
+                    </label>
+                  </label>
+                </div>
+                <!-- end section -->
+
+                <div class="section">
+                  <label for="user.passwordConfirm" class="field prepend-icon">
+                    <input type="password" name="user.passwordConfirm" id="user.passwordConfirm" class="gui-input #{ifError 'user.passwordConfirm'} error #{/ifError}" placeholder="&{'users.password.confirm'}">
+                    <label for="user.passwordConfirm" class="field-icon">
+                      <i class="ic-ub ic-ub_lock"></i>
+                    </label>
+                  </label>
+                </div>
+                <!-- end section -->
+
+

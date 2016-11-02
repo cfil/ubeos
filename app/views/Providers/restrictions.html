@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+
+
+<div class="wrapper-big">
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.firstName'}</div>
+  <input type="text" name="" value="${provider.user?.firstName}" class="form-row" readonly="readonly"/>
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.lastName'}</div>
+  <input type="text" name="" value="${provider.user?.lastName}" class="form-row " readonly="readonly"/>
+  
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form">
+  <div class="form-label">&{'users.email'}</div>
+  <input type="text" name="" value="${provider.user?.email}" class="form-row " readonly="readonly"/>
+  
+  <div class="clear"></div>
+</div>
+
+<div class="wrapper-form-medium ">
+	  <div class="form-label">Restrictions</div>
+	  <div class="field">
+	  	<select name="restriction.id" class="form-row " multiple>
+	  	#{list items:provider.restrictions, as:'restriction'}
+	  		<option value="${restriction.id}" selected>&{'country.'+restriction?.country?.code}</option>
+	  	#{/list}
+	  	</select>
+	  </div>
+	</div>
+
+#{form @Providers.saveRestrictions(provider.user.id), id:'updateRestrictionsForm', method: 'POST'}
+		
+
+	<div class="wrapper-form-medium right">
+	  <div class="form-label">Restrictions</div>
+	  <div class="field">
+	  	<select name="countryList" class="form-row " multiple style="height: 1500px;">
+	  	#{list items:countryList, as:'country'}
+	  	%{ if( controllers.Providers.hasCountryRestriction(provider, country)) { }%
+	  		<option value="${country.id}"	selected >&{'country.'+country.code}</option>
+		%{ } else { }%	  		
+			<option value="${country.id}" >&{'country.'+country.code}</option>
+		%{ } }%	
+	  	#{/list}
+	  	</select>
+	  </div>
+	</div>
+
+		<input id="" type="submit" name="submit" value="&{'views.save'}" class="btn" />
+	#{/form}
+</div>

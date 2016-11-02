@@ -1,0 +1,17 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName},
+<br><br>
+&{'mail.waiting.period.over'}
+<br><br>
+&{'mail.inform.check.proposals'}
+<br><br>
+&{'mail.check.proposals.click'}
+<br><br>
+@@{TravelRequests.show(travelRequest.id)}
+<br><br>
+&{'mail.assistance.question'}
+<br><br>
+&{'mail.have.nice.day'}
+<br>
+UBEOS

@@ -1,0 +1,119 @@
+#{extends 'main.html' /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+#{/set}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set} 
+
+#{set pageTitle:messages.get('views.title.request.create') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.create') /}
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_home"></i></span>
+                <span class="panel-title">&{'views.create.request.step4'}</span>
+              </div>
+              <div class="panel-body">
+              #{form @TravelRequests.saveStep4(), id:'createForm', class: 'form-horizontal'}
+                
+                <div class="form-group #{ifError 'travelRequest.accommodation'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.accommodation'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-accommodation" name="travelRequest.accommodation.id" class="form-control " >
+							<option value='' disabled selected style='display:none;'>&{'select.option'}</option>
+						  	  	#{list items:accommodations, as:'accommodation'}
+							  		%{ if (travelRequest?.accommodation?.id ==accommodation.id) { }%
+							  		<option value="${accommodation.id}" selected >&{accommodation.name}</option>
+							  		%{ } else { }%
+							  		<option value="${accommodation.id}" >&{accommodation.name}</option>
+							  		%{ } }%
+							  	#{/list}
+                        </select>
+                      </div>
+                    </div>
+             	</div>
+             	
+            	<div class="form-group #{ifError 'travelRequest.roomType'} has-error #{/ifError}"">
+                    <label class="col-lg-3 control-label" for="textArea3">&{'request.rooms'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <textarea name="travelRequest.roomType" class="form-control" rows="3" maxlength="1024">#{verbatim}${travelRequest?.roomType}#{/verbatim}</textarea>
+                      	<span class="help-block"><i class="ic-ub ic-ub_bell"></i> &{'views.form.rooms'}</span>
+                      </div>
+                    </div>
+                </div> 
+            
+
+                <div class="form-group #{ifError 'travelRequest.meal'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.meal'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-meal" name="travelRequest.meal.id" class="form-control " >
+							<option value='' disabled selected style='display:none;'>&{'select.option'}</option>
+						  	#{list items:meals, as:'meal'}
+						  		%{ if (travelRequest?.meal?.id ==meal.id) { }%
+						  		<option value="${meal.id}" selected >&{meal.name}</option>
+						  		%{ } else { }%
+						  		<option value="${meal.id}" >&{meal.name}</option>
+						  		%{ } }%
+						  	#{/list}
+                        </select>
+                      </div>
+                    </div>
+             	</div>
+            
+                <div class="form-group #{ifError 'travelRequest.stars'} has-error #{/ifError}">
+                    <label for="inputSelect" class="col-lg-3 control-label">&{'request.stars'} <span>*</span></label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <select id="user-stars" name="travelRequest.stars" class="form-control " >
+							<option value='' disabled selected style='display:none;'>&{'select.option'}</option>
+					  		<option value="1" #{if travelRequest.stars == 1} selected #{/if}>1</option>
+					  		<option value="2" #{if travelRequest.stars == 2} selected #{/if}>2</option>
+					  		<option value="3" #{if travelRequest.stars == 3} selected #{/if}>3</option>
+					  		<option value="4" #{if travelRequest.stars == 4} selected #{/if}>4</option>
+					  		<option value="5" #{if travelRequest.stars == 5} selected #{/if}>5</option>
+                        </select>
+                      </div>
+                    </div>
+             	</div>
+             	
+           	</div>
+      
+   		   <div class="panel-footer">   
+            
+              
+              <div class="bs-component">
+              	<div class="col-lg-3 col-md-0"></div>
+              #{if stepBack == 3 }
+				<div class="col-lg-3 col-md-4 col-padding top">
+					<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep3}'"/>	
+				</div>	
+              #{/if}
+              #{else}
+              	<div class="col-lg-3 col-md-4 col-padding top">
+              		<input type="button" id="cancel_back" value="&{'application.back'}" class="btn btn-dark btn-block " onclick="location.href='@{TravelRequests.createStep2}'"/>
+              	</div>
+              #{/else}
+              <div class="col-lg-3 col-md-4 col-padding">
+				<input type="submit" name="submit" value="&{'views.next'}" class="btn btn-info btn-block"/>
+				</div>
+              #{/form}
+              </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+
+	

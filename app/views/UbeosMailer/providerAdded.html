@@ -1,0 +1,15 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'},
+<br><br>
+&{'mail.welcome.add.provider.intro'}
+<br><br>
+@@{Providers.createNew(activation.token)}
+<br><br>
+&{'mail.link.not.working'}
+<br><br>
+&{'mail.question.partner.and.help'}
+<br><br>
+&{'mail.thank.you'}
+<br>
+UBEOS

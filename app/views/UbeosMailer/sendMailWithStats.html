@@ -1,0 +1,23 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+	
+UBEOS STATS REPORT
+<br><br>
+Data: ${date}
+<br><br>
+Novos Users: ${new_users}
+<br>
+Novos pedidos: ${new_requests}
+<br>
+Novas propostas: ${new_proposals}
+<br><br>
+Total Users: ${total_users}
+<br>
+Total pedidos: ${total_requests}
+<br>
+Total propostas: ${total_proposals}
+<br>
+<br>
+#{list items:stats, as:'stat'}
+	<label><b>${stat.getKey()}</b></label>: <label>${stat.getValue()}% Replied</label> 
+	<br>
+#{/list}

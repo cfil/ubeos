@@ -1,0 +1,195 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.request.index') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.index') /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+    
+#{/set}
+
+#{set 'moreScripts'}
+	
+	<!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+    
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	    	// Init tray navigation smooth scroll
+	        $('.tray-nav a').smoothScroll({
+	            offset: -145
+	        });
+	    });
+	</script>
+
+	#{get 'moreScripts' /}
+#{/set}
+
+
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center">
+	<div class="row">
+		#{if requests.size() > 0 }
+			#{list items:requests, as:'travelRequest'}
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mw500">
+				<div class="panel panel-visible image" id="spy1"
+				%{if (travelRequest.state == models.RequestState.findByName(models.RequestState.FEEDBACK)){ 
+	                   			models.Proposal prop = helpers.RequestHelper.getAcceptedProposal(travelRequest);
+	                   			}%
+	                   			onclick="location.href='@@{ProviderRatings.create(prop.id)}'">
+	                   		%{ } else { }%
+		                   		onclick="location.href='@@{TravelRequests.show(travelRequest.id)}'">
+	                   		%{ } }% 
+		            <div class="panel-heading image table-custom">
+		            	<div class="table-row">
+		            		<div class="table-cell">
+	                			<div class="panel-title custom-request">${travelRequest.title}</div>
+                			</div>
+               			</div>
+	                </div>
+					<div class="panel-body pn">
+	                   	<table class="table table-custom" id="datatable" cellspacing="0" width="100%">
+	                       	<thead>
+	                           	<tr>
+	                                <th class="th-image">
+	                                #{include 'TravelRequests/_imageSource.html' /}
+	                                </th>
+								</tr>
+							</thead>
+	                           <tbody>                          
+	                           	<tr>
+	                               	<td class="list-group list-group-links">
+	                               		<label class="list-group-item">
+                    						<i class="ic-ub ic-ub_briefcase mr5"></i>
+                    							&{'request.proposals'}
+                    							%{ int total_proposals = helpers.RequestHelper.getTotalRealProposals(travelRequest); }% 
+                    						<span class="label badge-default grey mt5">${total_proposals}</span>
+                    						%{ if (helpers.RequestHelper.hasNewProposals(travelRequest) || helpers.RequestHelper.hasEditedProposals(travelRequest) ) { }%
+                    							<span class="ic-ub ic-ub_bell text-danger float-right mr5 mt2"></span>
+                   							%{ } }%
+                    						
+                  						</label>
+	                               	</td>
+								</tr>
+								%{if (travelRequest.state == models.RequestState.findByName(models.RequestState.ACTIVE)){ }%
+									%{
+									    java.lang.Long time_left = helpers.RequestHelper.getTimeLeftOpen(travelRequest);
+									    long days = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(time_left);
+									    long hours = java.util.concurrent.TimeUnit.MILLISECONDS.toHours(time_left); 									    
+									}%
+
+									#{if time_left > 0 }
+										#{if days > 1 }
+											<td class="list-group list-group-links">
+			                               		<label class="list-group-item">
+		                    						<i class="ic-ub ic-ub_watch mr5"></i>
+		                    							&{'views.days.left'}
+		                    						<span class="label badge-default grey mt5">${days} &{'views.days'}</span>
+		                  						</label>
+			                               	</td>
+										#{/if}
+										#{else}
+											<td class="list-group list-group-links">
+			                               		<label class="list-group-item">
+		                    						<i class="ic-ub ic-ub_watch mr5"></i>
+		                    							&{'views.days.left'}
+		                    						<span class="label badge-warning mt5">${hours} &{'views.hours'}</span>
+		                  						</label>
+			                               	</td>
+										#{/else}
+									#{/if}
+									#{else}
+										%{
+										    java.lang.Long time_left_prop = helpers.ProposalHelper.getTimeLeftOpen(travelRequest);
+										    long days_prop = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(time_left_prop);
+										    long hours_prop = java.util.concurrent.TimeUnit.MILLISECONDS.toHours(time_left_prop); 									    
+										}%
+										#{if time_left_prop > 0}
+										#{if days_prop > 1 }
+												<td class="list-group list-group-links">
+				                               		<label class="list-group-item">
+			                    						<i class="ic-ub ic-ub_alarm mr5"></i>
+			                    							&{'views.days.left.accept'}
+			                    						<span class="label badge-danger mt5">${days_prop} &{'views.days'}</span>
+			                  						</label>
+			                               		</td>
+											#{/if}
+											#{else}
+												<td class="list-group list-group-links">
+				                               		<label class="list-group-item">
+			                    						<i class="ic-ub ic-ub_alarm mr5"></i>
+			                    							&{'views.days.left.accept'}
+			                    						<span class="label badge-danger mt5">${hours_prop} &{'views.hours'}</span>
+			                  						</label>
+			                               		</td>
+											#{/else}
+										#{/if}
+										
+									#{/else}
+								%{ } else { }%
+								
+									<td class="list-group list-group-links">
+	                               		<label class="list-group-item">
+	                   						<i class="ic-ub ic-ub_lock mr5"></i>
+	                   							&{'request.state'}
+<!-- 	                   						<span class="label badge-danger mt5">&{'state.'+travelRequest.state.requestState}</span> -->
+	                   						
+                   								#{if travelRequest.state.requestState == models.RequestState.ACTIVE  }
+													<span class="label badge-info mt5">&{'state.'+travelRequest.state.requestState}</span>	
+												#{/if} #{elseif travelRequest.state.requestState == models.RequestState.PENDING}
+													<span class="label badge-success mt5">&{'state.'+travelRequest.state.requestState}</span>
+												#{/elseif} #{elseif travelRequest.state.requestState == models.RequestState.CLOSED}
+													<span class="label badge-danger mt5">&{'state.'+travelRequest.state.requestState}</span>
+												#{/elseif} #{elseif travelRequest.state.requestState == models.RequestState.ACCEPTED}
+													<span class="label badge-warning mt5">&{'state.'+travelRequest.state.requestState}</span>
+												#{/elseif} #{elseif travelRequest.state.requestState == models.RequestState.FEEDBACK}
+													<span class="label badge-warning mt5">&{'state.'+travelRequest.state.requestState}</span>
+												#{/elseif}
+	                   						
+	                 						</label>
+	                               	</td>
+								%{ } }%
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>	
+		#{/list}
+		
+	#{/if}
+	#{else}
+	
+		<div class="col-md-12" style="margin-top: 5%;">
+			<img src="@{'/public/images/img_empty_case.png'}" class="img-responsive w300 margin-center mb20" title="Adventure">
+			<div class="text-center"><b>&{'warning.no.requests'}</b><br>
+			<br>&{'warning.no.requests.text'}</div>
+		</div>
+	
+	#{/else}
+	</div>
+</div>
+
+
+
+<div id="images"></div>
+
+<div id="r"></div>    
+
+
+
+
+

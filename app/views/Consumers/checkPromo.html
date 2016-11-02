@@ -1,0 +1,147 @@
+#{extends 'main.html' /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+#{/set}
+
+#{set 'moreScripts'}
+	
+	<!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+    
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	    	// Init tray navigation smooth scroll
+	        $('.tray-nav a').smoothScroll({
+	            offset: -145
+	        });
+	        $('#datatable1').dataTable({
+            	"order": [[ 1, "desc" ]],
+            	language : data_i18n,
+            	responsive: true,
+                "iDisplayLength": 5,
+                bInfo: false,
+                "pagingType": "simple_numbers",
+                "aLengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
+                "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+                "oTableTools": {
+                    "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+                }
+            });
+	    });
+	</script>
+	#{get 'moreScripts' /}
+#{/set}
+
+#{include 'partials/_ubeos_js_objects.html' /}
+
+#{set pageTitle:messages.get('views.title.settings.promo') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.settings.promo') /}
+
+
+
+<div class="panel" id="spy2">
+  <div class="panel-heading">
+    <span class="panel-icon">
+      <i class="ic-ub ic-ub_link"></i>
+    </span>
+    <span class="panel-title">&{'consumers.promocode'}</span>
+  </div>
+  <div class="panel-body">
+  <form class="form-horizontal">
+  				<div class="col-lg-3 col-md-0"></div>
+  				<div class="col-lg-9 col-padding">
+  					<div><b>&{'consumers.promocode.code.explanation'}</b></div><br>
+  				</div>
+  				<div class="form-group ">
+                    <label for="inputStandard" class="col-lg-3 control-label">&{'consumers.promocode.code'}</label>
+                    <div class="col-lg-8">
+                      <div class="bs-component">
+                        <input type="text" id="promocode" name="code" value="@@{Consumers.createPromo(consumer?.promoCode)}" class="form-control" readonly="readonly">
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+  </div>
+</div>
+
+<div class="panel" id="spy2">
+		<!-- Input Fields -->
+            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon"><i class="ic-ub ic-ub_message"></i></span>
+                <span class="panel-title">&{'consumers.send.promocode'}</span>
+              </div>
+              <div class="panel-body">
+                <div class="col-lg-3 col-md-0"></div>
+  				<div class="col-lg-9 col-padding">
+  					<div><b>&{'consumers.promocode.email.explanation'}</b></div><br>
+  				</div>
+			#{form action:@Consumers.sendPromo(email), method:'post', class: 'form-horizontal'} 
+           <div class="form-group">
+             <label for="inputStandard" class="col-lg-3 control-label">&{'users.email'}</label>
+             <div class="col-lg-8">
+               <div class="bs-component">
+                 <input type="text" name="email" value="${email}" class="form-control #{ifError 'email'} error #{/ifError}" placeholder="&{'users.email'}">
+               </div>
+             </div>
+           </div>
+                  
+                  </div>
+                  
+                  <div class="panel-footer">
+
+			<div class="bs-component">
+				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-lg-3 col-md-4 col-padding top">
+					<input type="submit" name="submit" value="&{'views.send'}" class="btn btn-info btn-block"/>
+				</div>
+			</div>
+	#{/form}
+              </div>
+            </div>
+
+</div>
+
+#{if !consumers.isEmpty() }
+<div class="panel" id="spy2">
+  				<div class="panel-heading">
+                	<div class="panel-title ">
+                   	<span class="glyphicon glyphicon-tasks"></span>&{'views.consumers.active.byme'}</div>
+                </div>
+				<div class="panel-body pn">
+				
+                   	<table class="table table-striped table-hover nowrap" id="datatable1" cellspacing="0" width="100%">
+                       	<thead>
+                           	<tr>
+								<th>&{'views.email'}</th>
+								<th>&{'users.firstName'}</th>
+								<th>&{'users.lastName'}</th>
+                            </tr>
+						</thead>
+                           <tbody>
+                           #{list items:consumers, as:'entity'} 
+                           	<tr>
+								<td>${entity.user.email}</td>
+								<td>${entity.user.firstName}</td>
+								<td>${entity.user.lastName}</td>
+							</tr>
+						#{/list} 								
+						</tbody>
+                      	</table>
+                  	</div>
+</div>
+#{/if}

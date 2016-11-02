@@ -1,0 +1,15 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${consumer.firstName},
+<br><br>
+&{'mail.request.feedback.consumer.intro'}
+<br><br>
+${proposal.provider.company.name}
+<br><br>
+&{'mail.feedback.link.follow1'} @@{ProviderRatings.create(proposal.id)} &{'mail.feedback.link.follow2'}
+<br>
+&{'mail.link.not.working'}
+<br><br>
+&{'mail.thank.using.ubeos'}
+<br><br>
+&{'mail.question.base'}

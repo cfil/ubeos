@@ -1,0 +1,11 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+	
+***** REPORT DE UM UTILIZADOR *****
+<br><br>
+Date / Data: ${date}
+<br>
+Reporter / Denunciante: ${reporter.firstName} ${reporter.lastName}, ${reporter.email}
+<br><br>
+User Reported / Utilizador denunciado: ${user_reported.firstName} ${user_reported.lastName}, ${user_reported.email}
+<br><br>
+${message}

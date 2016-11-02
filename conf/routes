@@ -1,0 +1,218 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.base
+GET		/travelagency							Application.agencybase
+
+#GET     /                                       Application.underWork
+
+GET     /lastminute                             Application.lastMinutePromo
+#GET     /lastminuteinfo                             Application.lastMinutePromoInfo
+POST     /lastminute                             Application.lastMinutePromoSave
+POST     /lastminute2                             Application.lastMinutePromoSave2
+
+GET		/generatealias							Application.generateAliasForAllConsumers
+GET     /dashboard                              Application.index
+GET		/about									Application.aboutUs
+GET		/en										Application.en
+GET		/pt										Application.pt
+GET		/contact								Application.contactUs
+POST	/contact								Application.contactUsSend
+GET		/404									Application.notfoundpage
+GET		/500									Application.internalerrorpage
+GET		/terms									Application.terms
+GET		/pt/terms								Application.termsPT
+GET		/en/terms								Application.termsEN
+GET		/privacy								Application.privacy
+GET		/pt/privacy								Application.privacyPT
+GET		/en/privacy								Application.privacyEN
+GET		/faqs									Application.faqs
+GET		/media									Application.media
+GET		/stats									Application.stats
+GET		/reviews								Application.testimonials
+GET		/a/alert								Application.providerAlert
+GET     /robots.txt                              staticFile:public/robots.txt
+GET     /sitemap.xml                              staticFile:public/sitemap.xml
+
+# Users
+GET		/forgotPassword							Users.forgotPassword
+PUT		/users/{<[0-9]+>id}/savepassword		Users.saveChangePass
+POST	/users/avatar							Users.updateAvatar
+GET		/users/{<[0-9]+>id}/enable				Users.enable
+GET		/users/{<[0-9]+>id}/disable				Users.disable
+GET		/users/{<[0-9]+>id}/report				Users.report
+POST	/users/{<[0-9]+>id}/report				Users.reportSave
+
+# Consumers
+GET		/u								Consumers.index
+GET     /u/csv                             		Consumers.index_csv
+GET		/u/create							Consumers.create
+POST	/u/create							Consumers.save
+GET 	/u/{id}			Consumers.show
+GET		/u/{id}/edit		Consumers.edit
+PUT		/u/{<[0-9]+>id}/editprofile		Consumers.update
+GET		/u/{<[0-9]+>id}/genpromo		Consumers.generatePromo
+GET		/invite/{token}							Consumers.createPromo
+POST	/invite/{token}							Consumers.savePromo
+GET		/u/promocode		Consumers.checkPromo
+POST	/u/sendPromo					Consumers.sendPromo
+
+
+# Providers
+GET		/a								Providers.index
+GET		/a/create					Providers.create
+POST	/travelagency					Providers.save
+GET		/users/add/provider					Providers.add
+POST	/users/add/provider					Providers.saveAdd
+GET		/users/create/provider/{token}		Providers.createNew
+POST	/users/create/provider/{token}		Providers.saveNew
+GET 	/a/{id}			Providers.show
+GET		/providers/{<[0-9]+>id}/edit		Providers.edit
+PUT		/providers/{<[0-9]+>id}/update			Providers.update
+GET		/providers/{<[0-9]+>id}/restrictions	Providers.restrictions
+POST	/providers/{<[0-9]+>id}/restrictions	Providers.saveRestrictions
+GET		/providers/{<[0-9]+>id}/restrictions/source	Providers.sourceRestrictions
+POST	/providers/{<[0-9]+>id}/restrictions/source	Providers.saveSourceRestrictions
+POST	/providers/{<[0-9]+>id}/restrictions/source/group	Providers.saveSourceGroupRestrictions
+
+# Authentication
+GET		/activation/{token}						Users.activate
+GET		/login									Security.login
+POST	/login									Security.authenticate
+GET		/logout									Security.logout
+POST	/recoverPassword						Users.recoverPassword
+GET		/recoverPassword/{token}				Users.recoverPasswordForm
+POST	/recoverPassword/{token}				Users.recoverPasswordChange
+GET		/users/image							Users.image
+#POST		/fblogin							Application.fblogin
+GET		/welcome								Application.registerConfirmPending
+
+# Requests
+
+GET		/requests/create/step1					TravelRequests.createStep1
+GET		/requests/create/step2					TravelRequests.createStep2
+GET		/requests/create/step3					TravelRequests.createStep3
+GET		/requests/create/step4					TravelRequests.createStep4
+GET		/requests/create/step5					TravelRequests.createStep5
+GET		/requests/create/resume					TravelRequests.createResume
+GET		/requests/cancel						TravelRequests.cancel
+POST	/requests/create/step1					TravelRequests.saveStep1
+POST	/requests/create/step2					TravelRequests.saveStep2
+POST	/requests/create/step3					TravelRequests.saveStep3
+POST	/requests/create/step4					TravelRequests.saveStep4
+POST	/requests/create/step5					TravelRequests.saveStep5
+POST	/requests/create/resume					TravelRequests.saveResume
+GET		/requests								TravelRequests.index
+GET		/requests/history						TravelRequests.history
+GET		/requests/accepted						TravelRequests.accepted
+GET		/requests/{<[0-9]+>id}					TravelRequests.show
+GET		/requests/{<[0-9]+>id}/edit				TravelRequests.edit
+PUT		/requests/{<[0-9]+>id}					TravelRequests.update
+GET     /requests/{<[0-9]+>id}/delete			TravelRequests.delete
+POST    /requests/{<[0-9]+>id}/delete			TravelRequests.deleteSave
+GET		/requests/search						TravelRequests.search
+GET		/requests/deleted						TravelRequests.requestDeleted
+
+GET		/requests/{<[0-9]+>id}/proposals		Proposals.requestProposals
+GET		/requests/{<[0-9]+>id}/sendMessage		TravelRequests.messageToConsumer
+POST	/requests/{<[0-9]+>id}/sendMessage		TravelRequests.sendMessageToConsumer
+
+# Proposals
+GET		/proposals/{<[0-9]+>request_id}/create	Proposals.create
+GET		/proposals/{<[0-9]+>proposal_id}/edit	Proposals.edit
+GET		/proposals/{<[0-9]+>request_id}/ignore	Proposals.ignore
+GET		/proposals/{<[0-9]+>request_id}/unignore	Proposals.unignore
+POST	/proposals/create						Proposals.save
+PUT		/proposals/{<[0-9]+>proposal_id}/edit	Proposals.update
+GET		/proposals								Proposals.index
+GET		/proposals/history						Proposals.history
+GET		/proposals/accepted						Proposals.accepted
+GET		/proposals/ignored						Proposals.ignored
+GET		/proposals/{<[0-9]+>id}					Proposals.show
+GET		/proposals/{<[0-9]+>id}/delete			Proposals.delete
+GET		/proposals/{<[0-9]+>id}/disable			Proposals.disable
+GET		/proposals/{<[0-9]+>id}/enable			Proposals.enable
+GET		/proposals/{<[0-9]+>id}/accept			Proposals.accept
+GET		/proposals/{<[0-9]+>id}/sendMessage		Proposals.messageToProvider
+POST	/proposals/{<[0-9]+>id}/sendMessage		Proposals.sendMessageToProvider
+
+
+# Billing
+GET		/proposals/{<[0-9]+>id}/confirmation	Billings.create
+POST	/proposals/confirmation					Billings.save
+
+# ConsumerRating
+GET		/rating/{<[0-9]+>id}/consumer			ConsumerRatings.create
+POST	/rating/consumer						ConsumerRatings.save
+
+# ProviderRating
+GET		/rating/{<[0-9]+>id}/provider			ProviderRatings.create
+POST	/rating/provider						ProviderRatings.save
+
+# UbeosMessages
+GET		/messages/inbox							UbeosMessages.inbox
+GET		/messages/sent							UbeosMessages.sent
+GET		/messages/sendA/{<[0-9]+>id}		UbeosMessages.messageToProvider
+POST	/messages/sendA/{<[0-9]+>id}/send		UbeosMessages.sendMessageToProvider
+
+GET		/messages/sendU/{<[0-9]+>id}		UbeosMessages.messageToConsumer
+POST	/messages/sendU/{<[0-9]+>id}/send					UbeosMessages.sendMessageToConsumer
+
+GET		/messages/replyU					UbeosMessages.messageProviderReplyConsumer
+GET		/messages/replyA					UbeosMessages.messageConsumerReplyProvider
+GET		/messages/readMessage/{<[0-9]+>id}		UbeosMessages.readMessage
+
+#Comments
+POST	/request/comment				Comments.save
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+#GET		/fixdatabase							FixDescriptions.index
+
+
+#API
+#Versioning
+GET		/api/version/{table_name}		api.Versionings.getVersion
+#GET		/api/version/country
+#GET		/api/version/accommodation
+#GET		/api/version/transport
+#GET		/api/version/experience
+#GET		/api/version/location
+#GET		/api/version/meal
+#GET		/api/version/preference
+#GET		/api/version/validity
+#GET			/api/version/country/{<[0-9]+>country_id}/locations
+
+
+# Test Auth
+POST	/api/login						api.Authentication.login
+POST	/api/logout						api.Authentication.logout
+GET		/api/refresh					api.Authentication.refreshToken
+
+#Requests
+GET		/api/country				api.RequestLists.getCountries
+GET		/api/country/{<[0-9]+>country_id}/locations				api.RequestLists.getLocations
+GET		/api/preference				api.RequestLists.getPreference
+GET		/api/validity				api.RequestLists.getRequestValidity
+GET		/api/meals				api.RequestLists.getMeals
+GET		/api/experiences				api.RequestLists.getExperiences
+GET		/api/transports				api.RequestLists.getTransports
+GET		/api/accommodations				api.RequestLists.getAccommodation
+
+POST	/api/travelRequest				api.TravelRequestOps.create
+
+GET		/api/requests/active			api.TravelRequestOps.index
+
+%{ if (play.mode.isDev()) { }%
+	*     /    module:messages
+
+# Catch all
+#*       /{controller}/{action}                  {controller}.{action}
+%{ } }%
+

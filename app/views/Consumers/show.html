@@ -1,0 +1,139 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  
+         <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+  
+#{/set}
+
+#{set pageTitle:messages.get('views.title.profile.consumer') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.profile.consumer') /}
+
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+
+<div class="row" hidden="true">
+		<span class="value">${consumer.id}</span>
+</div>
+  
+<div class="row" hidden="true">
+	<span class="value">${consumer.user.id}</span>
+</div>
+
+<div class="tray tray-center">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-visible" id="spy1">
+				<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_profile"></i></span>
+	                <span class="panel-title">&{'views.title.profile.consumer'}</span>
+	                #{if user_logged != consumer.user} <a href="@{Users.report(consumer.user.id)}"><i class="ic-ub ic-ub_flag float-right text-grey"></i></a>#{/if}
+				</div>
+				<div class="panel-body pb20">
+					<img class="img-responsive profile w200" src="@{Users.Image(consumer.user.id)}">
+					<div class="form-tab small"></div>
+					<div class="profile-title">${user.firstName} ${user.lastName}</div>
+					<div>
+					
+			        #{if models.ConsumerRating.getConsumerRating(consumer) == 0.0 }
+						<label class="text-grey" style="text-align: center; width: 100%;"><i>&{'views.no.rating'}</i></label>
+					#{/if}
+					#{else}
+						<div class="admin-form theme-warning rating-center">
+				            <input class="rating-input" id="${consumer.id}r5" type="radio"  #{if (Math.round(models.ConsumerRating.getConsumerRating(consumer)) == 5) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${consumer.id}r5"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${consumer.id}r4" type="radio" #{if (Math.round(models.ConsumerRating.getConsumerRating(consumer)) == 4) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${consumer.id}r4"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${consumer.id}r3" type="radio" #{if (Math.round(models.ConsumerRating.getConsumerRating(consumer)) == 3) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${consumer.id}r3"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${consumer.id}r2" type="radio" #{if (Math.round(models.ConsumerRating.getConsumerRating(consumer)) == 2) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${consumer.id}r2"><i class="fa fa-star"></i>
+				            </label>
+				            <input class="rating-input" id="${consumer.id}r1" type="radio" #{if (Math.round(models.ConsumerRating.getConsumerRating(consumer)) == 1) }checked #{/if} disabled="disabled">
+				            <label class="rating-star" for="${consumer.id}r1"><i class="fa fa-star"></i>
+				            </label>
+						</div>
+					#{/else}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-8">
+			<div class="panel panel-visible" id="spy2">
+				<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_star"></i></span>
+	                <span class="panel-title">&{'views.comments.rating'}</span>
+				</div>
+				<div class="panel-body pn">
+					
+					<table class="table">
+						<tbody>
+						
+							#{if !ratings.isEmpty()}
+								#{list items:ratings, as:'rating'}
+						
+							<tr>
+								<td class="p15">
+									<div class="col-xs-6 pn" style="overflow: hidden; max-height: 30px;">
+										<img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(rating.provider.user.id)}" alt="avatar"">
+										<a href="@{Providers.show(rating.provider.company.name)}"><b>${rating.provider.company.name}</b></a>
+										<label class="text-grey ml10 hidden-xs">${(rating.created_at).format('MMMM yyyy')}</label></p>
+									</div>
+									
+									<div class="admin-form theme-warning mt5 col-xs-6 pn">
+							            <input class="rating-input" id="${rating.id}r5" type="radio"  #{if (Math.round(rating.value) == 5) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${rating.id}r5"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${rating.id}r4" type="radio" #{if (Math.round(rating.value) == 4) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${rating.id}r4"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${rating.id}r3" type="radio" #{if (Math.round(rating.value) == 3) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${rating.id}r3"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${rating.id}r2" type="radio" #{if (Math.round(rating.value) == 2) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${rating.id}r2"><i class="fa fa-star"></i>
+							            </label>
+							            <input class="rating-input" id="${rating.id}r1" type="radio" #{if (Math.round(rating.value) == 1) }checked #{/if} disabled="disabled">
+							            <label class="rating-star" for="${rating.id}r1"><i class="fa fa-star"></i>
+							            </label>
+									</div>
+									
+									<div class="clear"></div>
+									
+									<div class="mt20">
+										<p>${rating.description}</p>
+									</div>
+								</td>
+							</tr>
+							
+								#{/list}
+							#{/if}
+							#{else}
+							
+							<tr>
+								<td class="p15">
+									<span>&{'reviews.empty'}</span>
+								</td>
+							</tr>
+							
+							#{/else}
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

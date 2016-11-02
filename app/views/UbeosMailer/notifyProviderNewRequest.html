@@ -1,0 +1,15 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName} ${user.lastName},
+<br><br>
+&{'mail.new.request.provider'} 
+<br><br>
+@@{Proposals.create(travelRequest.id)}
+<br><br>
+&{'mail.link.not.working'}
+<br><br>
+&{'mail.question.partner.make.proposal'}
+<br><br>
+&{'mail.thank.sincerely'}
+<br>
+UBEOS

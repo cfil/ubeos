@@ -1,0 +1,144 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{script 'orderListAlpha.js'/}
+
+  <!-- DateTime Plugin -->
+   <script src="@{'/public/theme/vendor/plugins/moment/moment.min.js'}"></script>
+  <script src="@{'/public/theme/vendor/plugins/datepicker/js/bootstrap-datetimepicker.js'}"></script>
+  
+    <!-- FileUpload Plugin -->
+  <script src="@{'/public/theme/vendor/plugins/fileupload/fileupload.js'}"></script>
+  <script src="@{'/public/theme/vendor/plugins/holder/holder.min.js'}"></script>
+  
+	<script type="text/javascript">
+        $(document).ready(function() {
+        	
+        	orderList("#user-country");
+        	
+			$('#datetimepicker2').datetimepicker({
+				format: "DD/MM/YYYY",
+				viewMode: "days", 
+			    minViewMode: "days",
+			    pickTime: false
+            });
+       	
+			
+			// Import image
+		      var $inputImage = $('#inputImage'),
+		        URL = window.URL || window.webkitURL,
+		        blobURL;
+
+		      if (URL) {
+		        $inputImage.change(function() {
+		          var files = this.files,
+		            file;
+
+		          if (files && files.length) {
+		            file = files[0];
+
+		            if (/^image\/\w+$/.test(file.type)) {
+		              blobURL = URL.createObjectURL(file);
+		              $image.one('built.cropper', function() {
+		                URL.revokeObjectURL(blobURL); // Revoke when load complete
+		              }).cropper('reset', true).cropper('replace', blobURL);
+		              $inputImage.val('');
+		            } else {
+		              showMessage('Please choose an image file.');
+		            }
+		          }
+		        });
+		      } else {
+		        $inputImage.parent().remove();
+		      }
+			
+			
+			
+        });
+        </script>
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datepicker/css/bootstrap-datetimepicker.css'}">
+  
+#{/set}
+
+
+#{set pageTitle:messages.get('views.title.settings') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.settings') /}
+
+
+
+<div class="panel" id="spy2">
+  <div class="panel-heading">
+    <span class="panel-icon">
+      <i class="ic-ub ic-ub_profile"></i>
+    </span>
+    <span class="panel-title">&{'users.avatar'}</span>
+  </div>
+  <div class="panel-body">
+  #{form @Users.updateAvatar(user.id, avatar), id:'updateAvatarForm', method: 'POST', enctype:'multipart/form-data'}
+      <input type="hidden" name="consumer.id" value="${consumer?.id}"/>
+      <input type="hidden" name="user.id" value="${user?.id}"/>
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+      <div class="col-lg-3 col-padding">
+	      <div class="fileupload-preview thumbnail mb20">
+	        <img src="@{Users.Image(user.id)}" alt="holder">
+	        <input id="uploadImage" type="file" name="avatar" class="form-row" style="display: none"/>
+	      </div>
+      </div>
+      <div class="col-lg-3">
+	      <div class="row">
+	      	<div class="col-lg-12 col-md-6 col-padding">
+	          <span class="btn btn-dark btn-file btn-block">
+	            <span class="fileupload-new">&{'views.upload.image'}</span>
+	            <span class="fileupload-exists">&{'views.cancel'}</span>
+	            <input type="file">
+	          </span>
+	        </div>
+		        <div class="col-lg-12 col-md-6 col-padding upload">
+		          <input type="submit" name="submit" id="submit-avatar" class="btn btn-info btn-block" value="&{'views.save'}">
+		       </div>
+	      </div>
+      </div>
+    </div>
+    
+	#{/form}
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	
+		#{include 'Providers/_formChangePass.html' /}
+		
+		%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+		%{ if ( user_logged.userRole.name == models.UserRole.ADMIN ) { }%
+		            <div class="panel">
+              <div class="panel-heading">
+              	<span class="panel-icon">
+			      <i class="ic-ub ic-ub_lock"></i>
+			    </span>
+                <span class="panel-title">&{'users.change.password'}</span>
+              </div>
+              <div class="panel-body">
+			#{form @Providers.update(user.id), id:'createForm', method: 'PUT', class: 'form-horizontal'}
+				#{include 'Providers/_form.html' /}
+				<div class="bs-component">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-3 col-padding single">
+						<input type="submit" name="submit" value="&{'views.save'}" class="btn btn-info btn-block"/>
+					</div>
+					</div>
+			#{/form}
+			        </div>
+		%{ } }%
+	</div>
+</div>
+
+
+

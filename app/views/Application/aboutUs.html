@@ -1,0 +1,43 @@
+#{extends 'main_front.html' /}
+
+#{set pageTitle:messages.get('views.title.about.us') + " | UBEOS" /}
+#{set pageDescription:messages.get('views.description.about.us') /}
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center mt60">
+	<div class="row">
+		<div class="col-md-6">
+           	<div class="panel panel-visible" id="spy2">
+           		<div class="panel-heading">
+	            	<span class="panel-icon"><i class="ic-ub ic-ub_profile"></i></span>
+	                <span class="panel-title">&{'application.about.us'}</span>
+                </div>
+				<div class="panel-body pn">
+                	<div class="p25">
+						<p>#{verbatim}&{'application.about.us.description'}#{/verbatim}</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="col-md-6">
+           	<div class="panel panel-visible" id="spy2">
+           		<div class="panel-heading">
+	            	<span class="panel-icon"><i class="ic-ub ic-ub_profile"></i></span>
+	                <span class="panel-title">&{'application.team'}</span>
+                </div>
+				<div class="panel-body pb30">
+                	<div class="col-md-6 text-center">
+						<img src="@{'/public/images/img_team_carlos.png'}" class="img-responsive mw200 margin-center mb40 mt10" title="Carlos">
+						<h4>Carlos Carvalho</h4>
+						<p>Saavy Adventurer</p>
+					</div>
+					<div class="col-md-6 text-center">
+						<img src="@{'/public/images/img_team_hugo.png'}" class="img-responsive mw200 margin-center mb40 mt10" title="Hugo">
+						<h4>Hugo Duarte</h4>
+						<p>Culturar Explorer</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>

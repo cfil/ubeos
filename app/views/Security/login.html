@@ -1,0 +1,70 @@
+#{extends 'main_front.html' /}
+	
+	#{set pageTitle:messages.get('views.title.login') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.login') /}
+	
+	      <div class="admin-form theme-info mw500 margin-center mt60" id="login">
+	
+	
+			#{if flash.success || flash.error}
+				#{include 'partials/_flashNotices.html'/}
+			#{/if}
+	
+<!-- 	        Login Panel/Form -->
+	        <div class="panel mt20 mb25">
+	
+	          #{form @Security.authenticate(), class: 'form-signin'}
+	            <div class="panel-body bg-light p25 pb15">
+		
+ 	              <!--Username Input -->
+	              <div class="section">
+	                <label for="username" class="field-label text-muted fs18 mb10">&{'users.email'}</label>
+	                <label for="username" class="field prepend-icon ">
+	                  <input type="text" name="username" id="username" class="gui-input " placeholder="&{'users.email'}" value="${flash.username}">
+	                  <label for="username" class="field-icon">
+	                    <i class="ic-ub ic-ub_profile"></i>
+	                  </label>
+	                </label>
+	              </div>
+	
+
+				  <!-- Password Input -->
+	              <div class="section">
+	                <label for="username" class="field-label text-muted fs18 mb10">&{'users.password'}</label>
+	                <label for="password" class="field prepend-icon">
+	                  <input type="password" name="password" id="password" class="gui-input" placeholder="&{'users.password'}">
+	                  <label for="password" class="field-icon">
+	                    <i class="ic-ub ic-ub_lock"></i>
+	                  </label>
+	                </label>
+	              </div>
+	
+	            </div>
+	
+	            <div class="panel-footer clearfix">
+	            	<div class="col-md-4 col-xs-0"></div>
+	            	<button type="submit" class="btn btn-info mr10 col-md-4 col-xs-12">&{'application.enter'}</button>
+	            	<div class="col-md-4 col-xs-0"></div>
+	            	
+	            	
+	            </div>
+
+	          #{/form}
+	        </div>
+	        
+<!-- 	        Registration Links -->
+	        <div class="login-links text-center">
+	          <p>
+	            <a href="@{Users.forgotPassword}" class="active" title="Sign In">&{'application.forgotPassword'}</a>
+	          </p>
+	          <p>&{'application.new.here.text'}
+	            <a href="@{Consumers.create}" title="Sign In" class="active">&{'application.new.here'}</a>
+	          </p>
+	        </div>
+	
+	      </div>
+
+
+
+	      
+

@@ -1,0 +1,280 @@
+#{extends 'main.html' /}
+
+#{set pageTitle:messages.get('views.title.request.show') /}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+	<!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/media/css/dataTables.bootstrap.css'}">
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/vendor/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css'}">
+       <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="@{'/public/theme/assets/admin-tools/admin-forms/css/admin-forms.css'}">
+    
+#{/set}
+
+
+#{set 'moreScripts'}
+	
+	<!-- Datatables -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/jquery.dataTables.js'}"></script>
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'}"></script>
+
+    <!-- Datatables Tabletools addon -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js'}"></script>
+
+ 	<!-- Datatables Bootstrap Modifications  -->
+    <script type="text/javascript" src="@{'/public/theme/vendor/plugins/datatables/media/js/dataTables.bootstrap.js'}"></script>
+    
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	    	// Init tray navigation smooth scroll
+	        $('.tray-nav a').smoothScroll({
+	            offset: -145
+	        });
+	        
+	    });
+	</script>
+	#{get 'moreScripts' /}
+#{/set}
+
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+
+<!-- begin: .tray-center -->
+<div class="tray tray-center">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-visible" id="spy1">
+	            <div class="panel-heading">
+	            	<span class="panel-icon">
+				      <i class="ic-ub ic-ub_briefcase"></i>
+				    </span>
+	                <span class="panel-title">&{'views.resume'}</span>
+	                
+                	#{if user_logged != travelRequest.consumer.user}<a href="@{Users.report(travelRequest.consumer.user.id)}"><i class="ic-ub ic-ub_flag float-right text-grey"></i></a>#{/if}
+	                
+                </div>
+				<div class="panel-body pn">
+                   	<table class="table " id="datatable" cellspacing="0" width="100%">
+                       	<thead>
+                       	
+                       	%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+                           	<tr>
+                               	<th class="p15">
+                               	
+                               		<img class="img-responsive mw50 ib mr10 float-left" title="user" src="@{Users.Image(travelRequest?.consumer?.user?.id)}" alt="avatar"">
+									<a class="float-left ubeos-link" href="@{Consumers.show(travelRequest.consumer.alias)}">${travelRequest.consumer.user.firstName} ${travelRequest.consumer.user.lastName}</a>
+                                %{ double rating =  models.ConsumerRating.getConsumerRating(travelRequest.consumer); }%
+                                	#{if rating == 0.0 }
+										<br><label class="mt10"><i>&{'views.no.rating'}</i></label>
+									#{/if}
+									#{else}
+										<br>
+										<div class="admin-form theme-warning float-left mt10">
+								            <input class="rating-input" id="r${travelRequest.id}r5" type="radio"  #{if (Math.round(rating) == 5) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="r${travelRequest.id}r5"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="r${travelRequest.id}r4" type="radio" #{if (Math.round(rating) == 4) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="r${travelRequest.id}r4"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="r${travelRequest.id}r3" type="radio" #{if (Math.round(rating) == 3) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="r${travelRequest.id}r3"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="r${travelRequest.id}r2" type="radio" #{if (Math.round(rating) == 2) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="r${travelRequest.id}r2"><i class="fa fa-star"></i>
+								            </label>
+								            <input class="rating-input" id="r${travelRequest.id}r1" type="radio" #{if (Math.round(rating) == 1) }checked #{/if} disabled="disabled">
+								            <label class="rating-star" for="r${travelRequest.id}r1"><i class="fa fa-star"></i>
+								            </label>
+										</div>
+									#{/else}
+                                </th>
+							</tr>
+						%{ } }%
+									
+ 								%{
+									    java.lang.Long time_left = helpers.RequestHelper.getTimeLeftOpen(travelRequest);
+									    long days = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(time_left);
+									    long hours = java.util.concurrent.TimeUnit.MILLISECONDS.toHours(time_left); 									    
+									}%
+							%{ if( time_left >0 && ( travelRequest.state.requestState.equals(models.RequestState.ACTIVE) || travelRequest.state.requestState.equals(models.RequestState.ACCEPTED)) ){ }%	
+							
+							</thead>
+                           <tbody>
+							
+							<tr>
+							    <td class="p15">
+											#{if days > 1 }
+												<b class="custom-b">&{'views.days.left'}: </b>
+												<span class="label badge-warning mt5 ">${days} &{'views.days'}</span>
+												%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+												<br><i class="description">&{'views.time.left.explain.provider'}</i>
+												%{ } else { }%
+												<br><i class="description">&{'views.time.left.explain.consumer'}</i>
+												%{ } }%
+											#{/if}
+											#{elseif hours > 0}
+												<b class="custom-b">&{'views.hours.left'}: </b>
+	                    						<span class="label badge-warning mt5 float-right">${hours} &{'views.hours'}</span>
+	                    						%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+												<br><i class="description">&{'views.time.left.explain.provider'}</i>
+												%{ } else { }%
+												<br><i class="description">&{'views.time.left.explain.consumer'}</i>
+												%{ } }%
+											#{/elseif}
+											#{else}
+												<b class="custom-b">&{'request.state'}: </b>
+												%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+												<span class="label badge-warning mt5 ">&{'travelRequest.state.analyzing'}</span>
+												%{ } else { }%
+												<span class="label badge-warning mt5 ">&{'request.making.decision'}</span>
+												%{ } }%
+											#{/else}
+										
+                                </td>
+							</tr>
+							%{ } else { }%
+							<tr>
+							    <td class="p15">
+								%{
+								    java.lang.Long time_left_prop = helpers.ProposalHelper.getTimeLeftOpen(travelRequest);
+								    long days_prop = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(time_left_prop);
+								    long hours_prop = java.util.concurrent.TimeUnit.MILLISECONDS.toHours(time_left_prop); 									    
+								}%
+
+								%{ if( time_left_prop >0 && ( travelRequest.state.requestState.equals(models.RequestState.ACTIVE) || travelRequest.state.requestState.equals(models.RequestState.ACCEPTED)) ){ }%
+								#{if days_prop > 1 }
+									<b class="custom-b">&{'views.days.left.accept'}: </b>
+									<span class="label badge-warning mt5 ">${days_prop} &{'views.days'}</span>
+									%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+									<br><i class="description">&{'views.time.left.explain.provider'}</i>
+									%{ } else { }%
+									<br><i class="description">&{'views.time.left.explain.consumer'}</i>
+									%{ } }%
+								#{/if}
+								#{else}
+									<b class="custom-b">&{'views.hours.left.accept'}: </b>
+									<span class="label badge-warning mt5 ">${hours_prop} &{'views.hours'}</span>
+									%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+									<br><i class="description">&{'views.time.left.accept.explain.provider'}</i>
+									%{ } else { }%
+									<br><i class="description">&{'views.time.left.accept.explain.consumer'}</i>
+									%{ } }%
+								#{/else}
+								%{ } else { }%
+									<b class="custom-b">&{'request.state'}: </b>
+									<span class="label badge-warning mt5 ">&{'request.making.decision'}</span>
+								%{ } }%
+							
+							</td>
+							</tr>
+							%{ } }%
+                       		
+						
+                           	<tr>
+                           	<td class="p15">
+                           %{ if (user_logged.userRole.name == models.UserRole.CONSUMER){ }%
+                               	<b class="custom-b">&{'request.title'}: </b>
+                                ${travelRequest.title}<br>
+							%{ } }%
+                               	
+                               	<b class="custom-b">&{'views.origin'}: </b>
+                               	#{if travelRequest.location != null}
+                                	#{verbatim}${travelRequest?.location?.name}#{/verbatim}, &{"country."+travelRequest?.location?.country.code}
+                               	#{/if}
+                               	#{else}
+                               		&{"country."+travelRequest?.country_location.code}
+                               	#{/else}
+                               	<br><b class="custom-b">&{'views.destination'}: </b>
+                                ${travelRequest.city_to}, &{"country."+travelRequest.country_to.code}
+                               	<br><b class="custom-b">&{'request.dateFrom'}: </b>
+                                ${(travelRequest.dateFrom).format('dd MMM yyyy')}
+                               	<b class="custom-b">&{'request.dateTo'}: </b>
+                                ${(travelRequest.dateTo).format('dd MMM yyyy')}
+                               	<br><b class="custom-b">&{'request.nights'}: </b>
+                                ${travelRequest.nights}
+                                <br><b class="custom-b">&{'views.request.flexible'}: </b>
+                                #{if travelRequest.flexible } &{'views.yes'} #{/if}
+                                #{else} &{'views.no'} #{/else}
+                                <br><b class="custom-b">&{'views.preference'}: </b>
+                                #{if travelRequest.maxBudget == 50} &{'request.best.price'} #{/if}
+		  						#{if travelRequest.maxBudget == 1000} &{'request.balanced'} #{/if}
+		  						#{if travelRequest.maxBudget == 2000} &{'request.quality'} #{/if}
+                               	<br><b class="custom-b">&{'request.adults'}: </b>
+                                ${travelRequest.adults}
+							#{if travelRequest.children > 0 }
+	                               	<b class="custom-b">&{'request.children'}: </b>
+	                                ${travelRequest.children}
+	                               	<br><b class="custom-b">&{'request.descriptionPeople'}: </b>
+	                                ${travelRequest.descriptionPeople}
+							#{/if}
+							#{if travelRequest.wantTransportation  }
+	                               	<br><br><b class="custom-b">&{'request.transport'}: </b>
+	                                &{travelRequest.transport.name}
+	                                #{if !utils.StringUtils.isNullOrEmpty(travelRequest.descriptionThree)}
+	                                	<br><i class="description"><span>&{'request.note'}: </span>#{verbatim}${travelRequest.descriptionThree}#{/verbatim}</i>
+	                                #{/if}
+							#{/if}
+							#{if travelRequest.wantAccommodation  }
+	                               	<br><br><b class="custom-b">&{'request.accommodation'}: </b>
+	                                &{travelRequest.accommodation.name}
+								#{if !utils.StringUtils.isNullOrEmpty(travelRequest.roomType)}
+		                                <br><i class="description"><span>&{'request.note'}: </span>#{verbatim}${travelRequest.roomType}#{/verbatim}</i>
+								#{/if}
+                               	<br><b class="custom-b">&{'request.meal'}: </b>
+                                &{travelRequest.meal.name}
+                                <br><b class="custom-b">&{'request.stars'}: </b>
+                                &{travelRequest.stars}
+							#{/if}
+							#{if travelRequest.wantActivities }
+                               	<br><br><b class="custom-b">&{'request.experiences'}: </b><br>
+                               	        %{ 
+								            travelRequest?.experiences.each() { f -> }%
+                            					<span class="label bg-info custom">&{f.name}</span>
+								            %{ }
+								          }%
+                               	<br><i class="description"><span>&{'request.note'}: </span>#{verbatim}${travelRequest.descriptionFour}#{/verbatim}</i></td>
+							</tr>   
+							#{/if}
+						</tbody>
+					</table>
+				</div>
+			</div>	
+			%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+			#{if travelRequest.state.requestState == models.RequestState.ACTIVE }
+				<div class="col-md-12 col-padding top right mb10">
+	      			<button type="button" class="btn btn-dark btn-block" onclick="location.href='@{UbeosMessages.messageToConsumer(travelRequest.id)}'"><i class="ic-ub ic-ub_message btn"></i>&{'views.send.message'}</button>
+	      		</div>
+	      		%{ if(helpers.ProposalHelper.isIgnore(travelRequest, user_logged)){ }%
+	      		<div class="col-md-12 col-padding bottom right">
+	      			<button type="button" class="btn btn-danger btn-block" onclick="location.href='@{Proposals.unignore(travelRequest.id)}'"><i class="ic-ub ic-ub_block btn"></i>&{'proposals.unignore'}</button>
+				</div>
+				%{ } else { }%
+	      		<div class="col-md-12 col-padding bottom right">
+	      			<button type="button" class="btn btn-danger btn-block" onclick="location.href='@{Proposals.ignore(travelRequest.id)}'"><i class="ic-ub ic-ub_block btn"></i>&{'proposals.ignore'}</button>
+				</div>
+				%{ } }%
+			#{/if}
+			%{ } }%
+			%{ if (user_logged.userRole.name == models.UserRole.CONSUMER){ }%
+				#{if travelRequest.state.requestState == models.RequestState.ACTIVE }
+					<div class="col-md-6 col-padding top">
+						<button type="button" class="btn btn-danger btn-block" onclick="location.href='@{TravelRequests.delete(travelRequest.id)}'"><i class="ic-ub ic-ub_trash btn"></i>&{'application.delete'}</button>
+					</div>
+					
+				#{/if}
+				#{if request.action == "Proposals.show"}
+					<div class="col-md-6 col-padding bottom right">
+						<button type="button" class="btn btn-dark btn-block" onclick="location.href='@{TravelRequests.show(travelRequest.id)}'">&{'application.back'}</button>
+				    </div>
+				#{/if}
+			%{ } }%
+			
+			
+		</div>
+		#{doLayout /}
+	
+	</div>
+</div>
+
+
+

@@ -1,0 +1,145 @@
+#{extends 'main_front.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  
+#{/set}
+
+#{set pageTitle:messages.get('views.title.register.provider') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.register.provider') /}
+
+
+
+  <div class="admin-form theme-primary mw600 margin-center mt60" style="margin-top: 3%;" id="register">
+
+			#{if flash.success || flash.error}
+				#{include 'partials/_flashNotices.html'/}
+			#{/if}
+
+          <!-- Registration Logo -->
+          <div class="row table-layout mt20">
+          </div>
+
+          <!-- Registration Panel/Form -->
+          <div class="panel">
+
+            #{form @Providers.saveNew(token), id:'createForm'}
+              <div class="panel-body bg-light p25 pb15">
+
+ 				<div class="row" hidden=true>
+	<input type="text" name="user.userRole.id" value="3"/>
+</div>
+
+<div class="row" hidden="true">
+	<input type="text" name="provider.user.id" value="${provider?.user?.id}" />
+</div>
+
+<div class="row">
+	<input type="hidden" name="provider.id" value="${provider?.id}"/>
+</div>
+
+<div class="row">
+	<input type="hidden" name="user.id" value="${user?.id}"/>
+</div>
+
+<div class="section row">
+   <div class="col-md-6">
+     <label for="user.firstName" class="field prepend-icon">
+       <input type="text" id="user.firstName" name="user.firstName" value="${user?.firstName}" class="gui-input#{ifError 'user.firstName'} error #{/ifError}" placeholder="&{'users.firstName'}" />
+       <label for="user.firstName" class="field-icon">
+         <i class="ic-ub ic-ub_profile"></i>
+       </label>
+     </label>
+   </div>
+   <!-- end section -->
+
+   <div class="col-md-6">
+     <label for="user.lastName" class="field prepend-icon">
+       <input type="text" id="user.lastName" name="user.lastName" value="${user?.lastName}" class="gui-input #{ifError 'user.lastName'} error #{/ifError}" placeholder="&{'users.lastName'}"/>
+       <label for="user.lastName" class="field-icon">
+         <i class="ic-ub ic-ub_profile"></i>
+       </label>
+     </label>
+   </div>
+   <!-- end section -->
+ </div>
+ <!-- end .section row section -->
+
+ <div class="section">
+   <label for="user.email" class="field prepend-icon">
+     <input type="text" id="user.email" name="user.email" value="${user?.email}" class="gui-input #{ifError 'user.email'} error #{/ifError}" disabled="disabled"/>
+     <label for="user.email" class="field-icon">
+       <i class="ic-ub ic-ub_message"></i>
+     </label>
+   </label>
+ </div>
+ <!-- end section -->
+
+<div class="section">
+	<label for="companyName" class="field prepend-icon">
+     <input type="text" id="companyName" name="companyName" value="${provider?.company?.name}" class="gui-input #{ifError 'provider.company.name'} error #{/ifError}" disabled="disabled"/>
+     <label for="companyName" class="field-icon">
+       <i class="ic-ub ic-ub_home"></i>
+     </label>
+   </label>
+</div>
+<!-- end section -->
+
+ <div class="section">
+   <label for="user.password" class="field prepend-icon">
+     <input type="password" name="user.password" id="user.password" class="gui-input #{ifError 'user.password'} error #{/ifError}" placeholder="&{'users.password'}">
+     <label for="user.password" class="field-icon">
+       <i class="ic-ub ic-ub_lock"></i>
+     </label>
+   </label>
+ </div>
+ <!-- end section -->
+
+ <div class="section">
+   <label for="user.passwordConfirm" class="field prepend-icon">
+     <input type="password" name="user.passwordConfirm" id="user.passwordConfirm" class="gui-input #{ifError 'user.passwordConfirm'} error #{/ifError}" placeholder="&{'users.password.confirm'}">
+     <label for="user.passwordConfirm" class="field-icon">
+       <i class="ic-ub ic-ub_lock"></i>
+     </label>
+   </label>
+ </div>
+ <!-- end section -->
+
+              </div>
+
+              <div class="panel-footer clearfix">
+              	<div class="col-md-4 col-xs-0"></div>
+                <button type="submit" class="btn btn-info mr10 col-md-4 col-xs-12">&{'application.register'}</button>
+                <div class="col-md-4 col-xs-0"></div>
+                
+<!--                 <label class="option block mt10"> -->
+<!--                   <input type="checkbox" name="terms"> -->
+<!--                   <span class="checkbox"></span>I agree to the -->
+<!--                   <a href="#" class="theme-link"> terms of use. </a> -->
+<!--                 </label> -->
+
+                
+              </div>
+
+			#{/form}
+            
+          </div>
+
+
+          <!-- Registration Links -->
+	        <div class="login-links text-center">
+	          <p>
+	            <a href="@{Users.forgotPassword}" class="active" title="Sign In">&{'application.forgotPassword'}</a>
+	          </p>
+	          <p>&{'views.reagister.as.consumer'}
+	            <a href="@{Consumers.create}" class="active" title="Sign In">&{'views.consumer'}</a>
+	        </p>
+	        </div>
+
+
+        </div>

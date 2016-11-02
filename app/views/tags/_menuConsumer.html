@@ -1,0 +1,23 @@
+
+	<li class="of-h">
+	    <a href="@{Consumers.show(_consumer.alias)}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_profile pr5"></span>&{'views.profile'}
+	    </a>
+	</li>
+	<li class="br-t of-h">
+	    <a href="@{Consumers.edit(_consumer.alias)}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_settings pr5"></span>&{'views.settings'}
+	    </a>
+	</li>
+	#{if !utils.StringUtils.isNullOrEmpty(_consumer.promoCode)}
+		<li class="br-t of-h">
+		    <a href="@{Consumers.checkPromo()}" class="fw600 p12 animated animated-short fadeInUp">
+		        <span class="ic-ub ic-ub_message pr5"></span>&{'views.promo.settings'}
+		    </a>
+		</li>
+	#{/if}
+	
+	<li class="br-t of-h">
+	    <a href="@{Security.logout}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_logout pr5"></span>&{'application.logout'}</a>
+	</li>

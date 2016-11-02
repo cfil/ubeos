@@ -1,0 +1,1919 @@
+# UserRoles
+ UserRole(admin):
+   name: "admin"
+   created_at: 2014-10-28
+   updated_at: 2014-10-28
+ 
+ UserRole(consumer):
+   name: "consumer"
+   created_at: 2014-10-28
+   updated_at: 2014-10-28
+ 
+ UserRole(provider):
+   name: "provider"
+   created_at: 2014-10-28
+   updated_at: 2014-10-28
+
+# RequestState
+ RequestState(active):
+   requestState: "active"
+ 
+ RequestState(disabled):
+   requestState: "disabled"
+ 
+ RequestState(canceled):
+   requestState: "canceled"
+
+ RequestState(accepted):
+   requestState: "accepted"
+ 
+ RequestState(pending):
+   requestState: "pending"
+ 
+ RequestState(closed):
+   requestState: "closed"
+ 
+ RequestState(feedback):
+   requestState: "feedback"
+
+# ProposalState
+ ProposalState(active):
+   proposalState: "active"
+ 
+ ProposalState(disabled):
+   proposalState: "disabled"
+ 
+ ProposalState(canceled):
+   proposalState: "canceled"
+
+ ProposalState(accepted):
+   proposalState: "accepted"
+ 
+ ProposalState(pending):
+   proposalState: "pending"
+ 
+ ProposalState(closed):
+   proposalState: "closed"
+ 
+ ProposalState(feedback):
+   proposalState: "feedback"
+ 
+ ProposalState(rejected):
+   proposalState: "rejected"
+
+# RejectMotive
+ RejectMotive(OTHER):
+   name: "motive.other"
+
+ RejectMotive(ACCOTHER):
+   name: "motive.acc.other"
+
+ RejectMotive(UNSAT):
+   name: "motive.unsat"
+
+ RejectMotive(PROV):
+   name: "motive.provider"
+
+ RejectMotive(PRICE):
+   name: "motive.price"
+
+ RejectMotive(DELETED):
+   name: "motive.deleted"
+
+# ActivationMotive
+ ActivationMotive(A):
+   motive: "A"
+
+ ActivationMotive(M):
+   motive: "M"
+
+ ActivationMotive(R):
+   motive: "R"
+
+ ActivationMotive(N):
+   motive: "N"
+
+# DeleteMotive
+ DeleteMotive(IMPOSSIBLE):
+   name: "motive.delete.impossible"
+
+ DeleteMotive(CHANGE):
+   name: "motive.delete.change"
+
+ DeleteMotive(OTHER):
+   name: "motive.delete.other"
+
+# Meals
+ Meal(NA):
+   name: "meal.na"
+
+ Meal(FULL):
+   name: "meal.full"
+
+ Meal(BREAKFAST):
+   name: "meal.breakfast"
+
+ Meal(HALF):
+   name: "meal.half"
+
+ Meal(ANY):
+   name: "meal.any"
+
+ Meal(TI):
+   name: "meal.ti"
+
+# Transport
+ Transport(NA):
+   name: "transport.na"
+
+ Transport(CAR):
+   name: "transport.car"
+
+ Transport(PLANE):
+   name: "transport.plane"
+
+ Transport(BOAT):
+   name: "transport.boat"
+   
+ Transport(BUS):
+   name: "transport.bus"
+   
+ Transport(TRAIN):
+   name: "transport.train"
+
+ Transport(ANY):
+   name: "transport.any"
+
+ Transport(MU):
+   name: "transport.mu"
+
+# Accommodation
+ Accommodation(NA):
+   name: "accommodation.na"
+
+ Accommodation(HOTEL):
+   name: "accommodation.hotel"
+
+ Accommodation(HOUSE):
+   name: "accommodation.house"
+
+ Accommodation(HOSTEL):
+   name: "accommodation.hostel"
+
+ Accommodation(CAMPING):
+   name: "accommodation.camping"
+
+ Accommodation(ANY):
+   name: "accommodation.any"
+
+# Experiences
+ Experience(ROMANTIC):
+   name: "experience.romantic"
+
+ Experience(CULTURAL):
+   name: "experience.cultural"
+
+ Experience(HISTORIC):
+   name: "experience.historic"
+
+ Experience(GASTRONOMIC):
+   name: "experience.gastronomic"
+
+ Experience(KIDS):
+   name: "experience.kids"
+
+ Experience(URBAN):
+   name: "experience.urban"   
+
+ Experience(BEACH):
+   name: "experience.beach"
+
+ Experience(RADICAL):
+   name: "experience.radical"
+
+ Experience(NATURE):
+   name: "experience.nature"
+
+ Experience(ADVENTURE):
+   name: "experience.adventure"
+
+ Experience(RELAX):
+   name: "experience.relax"
+
+ Experience(SNOW):
+   name: "experience.snow"
+
+ Experience(SPORT):
+   name: "experience.sport"
+
+ Experience(BUSINESS):
+   name: "experience.business"
+
+# CountryGroup
+ CountryGroup(SUPPORTED):
+   name: "supported"
+
+ CountryGroup(OTHER):
+   name: "other"
+  
+ CountryGroup(ALL):
+   name: "all"
+
+# Countries
+ Country(Afghanistan):
+   code: "AF"
+   contryGroup: OTHER
+ 
+ Country(AlandIslands):
+   code: "AX"
+   contryGroup: OTHER
+ 
+ Country(Albania):
+   code: "AL"
+   contryGroup: OTHER
+ 
+ Country(Algeria):
+   code: "DZ"
+   contryGroup: OTHER
+ 
+ Country(AmericanSamoa):
+   code: "AS"
+   contryGroup: OTHER
+ 
+ Country(Andorra):
+   code: "AD"
+   contryGroup: OTHER
+ 
+ Country(Angola):
+   code: "AO"
+   contryGroup: OTHER
+ 
+ Country(Anguilla):
+   code: "AI"
+   contryGroup: OTHER
+ 
+ Country(Antarctica):
+   code: "AQ"
+   contryGroup: OTHER
+ 
+ Country(AntiguaAndBarbuda):
+   code: "AG"
+   contryGroup: OTHER
+ 
+ Country(Argentina):
+   code: "AR"
+   contryGroup: OTHER
+ 
+ Country(Armenia):
+   code: "AM"
+   contryGroup: OTHER
+ 
+ Country(Aruba):
+   code: "AW"
+   contryGroup: OTHER
+ 
+ Country(Australia):
+   code: "AU"
+   contryGroup: OTHER
+ 
+ Country(Austria):
+   code: "AT"
+   contryGroup: OTHER
+ 
+ Country(Azerbaijan):
+   code: "AZ"
+   contryGroup: OTHER
+ 
+ Country(Bahamas):
+   code: "BS"
+   contryGroup: OTHER
+ 
+ Country(Bahrain):
+   code: "BH"
+   contryGroup: OTHER
+ 
+ Country(Bangladesh):
+   code: "BD"
+   contryGroup: OTHER
+ 
+ Country(Barbados):
+   code: "BB"
+   contryGroup: OTHER
+ 
+ Country(Belarus):
+   code: "BY"
+   contryGroup: OTHER
+ 
+ Country(Belgium):
+   code: "BE"
+   contryGroup: OTHER
+ 
+ Country(Belize):
+   code: "BZ"
+   contryGroup: OTHER
+ 
+ Country(Benin):
+   code: "BJ"
+   contryGroup: OTHER
+ 
+ Country(Bermuda):
+   code: "BM"
+   contryGroup: OTHER
+ 
+ Country(Bhutan):
+   code: "BT"
+   contryGroup: OTHER
+ 
+ Country(Bolivia):
+   code: "BO"
+   contryGroup: OTHER
+ 
+ Country(BosniaAndHerzegovina):
+   code: "BA"
+   contryGroup: OTHER
+ 
+ Country(Botswana):
+   code: "BW"
+   contryGroup: OTHER
+ 
+ Country(BouvetIsland):
+   code: "BV"
+   contryGroup: OTHER
+ 
+ Country(Brazil):
+   code: "BR"
+   contryGroup: OTHER
+ 
+ Country(BritishIndianOceanTerritory):
+   code: "IO"
+   contryGroup: OTHER
+ 
+ Country(BruneiDarussalam):
+   code: "BN"
+   contryGroup: OTHER
+ 
+ Country(Bulgaria):
+   code: "BG"
+   contryGroup: OTHER
+ 
+ Country(BurkinaFaso):
+   code: "BF"
+   contryGroup: OTHER
+ 
+ Country(Burundi):
+   code: "BI"
+   contryGroup: OTHER
+ 
+ Country(Cambodia):
+   code: "KH"
+   contryGroup: OTHER
+ 
+ Country(Cameroon):
+   code: "CM"
+   contryGroup: OTHER
+ 
+ Country(Canada):
+   code: "CA"
+   contryGroup: OTHER
+ 
+ Country(CapeVerde):
+   code: "CV"
+   contryGroup: OTHER
+ 
+ Country(CaymanIslands):
+   code: "KY"
+   contryGroup: OTHER
+ 
+ Country(CentralAfricanRepublic):
+   code: "CF"
+   contryGroup: OTHER
+ 
+ Country(Chad):
+   code: "TD"
+   contryGroup: OTHER
+ 
+ Country(Chile):
+   code: "CL"
+   contryGroup: OTHER
+ 
+ Country(China):
+   code: "CN"
+   contryGroup: OTHER
+ 
+ Country(ChristmasIsland):
+   code: "CX"
+   contryGroup: OTHER
+ 
+ Country(CocosIslands):
+   code: "CC"
+   contryGroup: OTHER
+ 
+ Country(Colombia):
+   code: "CO"
+   contryGroup: OTHER
+ 
+ Country(Comoros):
+   code: "KM"
+   contryGroup: OTHER
+ 
+ Country(Congo):
+   code: "CG"
+   contryGroup: OTHER
+ 
+ Country(Congo):
+   code: "CD"
+   contryGroup: OTHER
+ 
+ Country(CookIslands):
+   code: "CK"
+   contryGroup: OTHER
+ 
+ Country(CostaRica):
+   code: "CR"
+   contryGroup: OTHER
+ 
+ Country(CoteDivoire):
+   code: "CI"
+   contryGroup: OTHER
+ 
+ Country(Croatia):
+   code: "HR"
+   contryGroup: OTHER
+ 
+ Country(Cuba):
+   code: "CU"
+   contryGroup: OTHER
+ 
+ Country(Cyprus):
+   code: "CY"
+   contryGroup: OTHER
+ 
+ Country(CzechRepublic):
+   code: "CZ"
+   contryGroup: OTHER
+ 
+ Country(Denmark):
+   code: "DK"
+   contryGroup: OTHER
+ 
+ Country(Djibouti):
+   code: "DJ"
+   contryGroup: OTHER
+ 
+ Country(Dominica):
+   code: "DM"
+   contryGroup: OTHER
+ 
+ Country(DominicanRepublic):
+   code: "DO"
+   contryGroup: OTHER
+ 
+ Country(Ecuador):
+   code: "EC"
+   contryGroup: OTHER
+ 
+ Country(Egypt):
+   code: "EG"
+   contryGroup: OTHER
+ 
+ Country(ElSalvador):
+   code: "SV"
+   contryGroup: OTHER
+ 
+ Country(EquatorialGuinea):
+   code: "GQ"
+   contryGroup: OTHER
+ 
+ Country(Eritrea):
+   code: "ER"
+   contryGroup: OTHER
+ 
+ Country(Estonia):
+   code: "EE"
+   contryGroup: OTHER
+ 
+ Country(Ethiopia):
+   code: "ET"
+   contryGroup: OTHER
+ 
+ Country(FalklandIslands):
+   code: "FK"
+   contryGroup: OTHER
+ 
+ Country(FaroeIslands):
+   code: "FO"
+   contryGroup: OTHER
+ 
+ Country(Fiji):
+   code: "FJ"
+   contryGroup: OTHER
+ 
+ Country(Finland):
+   code: "FI"
+   contryGroup: OTHER
+ 
+ Country(France):
+   code: "FR"
+   contryGroup: OTHER
+ 
+ Country(FrenchGuiana):
+   code: "GF"
+   contryGroup: OTHER
+ 
+ Country(FrenchPolynesia):
+   code: "PF"
+   contryGroup: OTHER
+ 
+ Country(FrenchSouthernTerritories):
+   code: "TF"
+   contryGroup: OTHER
+ 
+ Country(Gabon):
+   code: "GA"
+   contryGroup: OTHER
+ 
+ Country(Gambia):
+   code: "GM"
+   contryGroup: OTHER
+ 
+ Country(Georgia):
+   code: "GE"
+   contryGroup: OTHER
+ 
+ Country(Germany):
+   code: "DE"
+   contryGroup: OTHER
+ 
+ Country(Ghana):
+   code: "GH"
+   contryGroup: OTHER
+ 
+ Country(Gibraltar):
+   code: "GI"
+   contryGroup: OTHER
+ 
+ Country(Greece):
+   code: "GR"
+   contryGroup: OTHER
+ 
+ Country(Greenland):
+   code: "GL"
+   contryGroup: OTHER
+ 
+ Country(Grenada):
+   code: "GD"
+   contryGroup: OTHER
+ 
+ Country(Guadeloupe):
+   code: "GP"
+   contryGroup: OTHER
+ 
+ Country(Guam):
+   code: "GU"
+   contryGroup: OTHER
+ 
+ Country(Guatemala):
+   code: "GT"
+   contryGroup: OTHER
+ 
+ Country(Guernsey):
+   code: "GG"
+   contryGroup: OTHER
+ 
+ Country(Guinea):
+   code: "GN"
+   contryGroup: OTHER
+ 
+ Country(GuineaBissau):
+   code: "GW"
+   contryGroup: OTHER
+ 
+ Country(Guyana):
+   code: "GY"
+   contryGroup: OTHER
+ 
+ Country(Haiti):
+   code: "HT"
+   contryGroup: OTHER
+ 
+ Country(HeardIslandMcdonaldIslands):
+   code: "HM"
+   contryGroup: OTHER
+ 
+ Country(HolySee):
+   code: "VA"
+   contryGroup: OTHER
+ 
+ Country(Honduras):
+   code: "HN"
+   contryGroup: OTHER
+ 
+ Country(HongKong):
+   code: "HK"
+   contryGroup: OTHER
+ 
+ Country(Hungary):
+   code: "HU"
+   contryGroup: OTHER
+ 
+ Country(Iceland):
+   code: "IS"
+   contryGroup: OTHER
+ 
+ Country(India):
+   code: "IN"
+   contryGroup: OTHER
+ 
+ Country(Indonesia):
+   code: "ID"
+   contryGroup: OTHER
+ 
+ Country(Iran):
+   code: "IR"
+   contryGroup: OTHER
+ 
+ Country(Iraq):
+   code: "IQ"
+   contryGroup: OTHER
+ 
+ Country(Ireland):
+   code: "IE"
+   contryGroup: OTHER
+ 
+ Country(IsleOfMan):
+   code: "IM"
+   contryGroup: OTHER
+ 
+ Country(Israel):
+   code: "IL"
+   contryGroup: OTHER
+ 
+ Country(Italy):
+   code: "IT"
+   contryGroup: OTHER
+ 
+ Country(Jamaica):
+   code: "JM"
+   contryGroup: OTHER
+ 
+ Country(Japan):
+   code: "JP"
+   contryGroup: OTHER
+ 
+ Country(Jersey):
+   code: "JE"
+   contryGroup: OTHER
+ 
+ Country(Jordan):
+   code: "JO"
+   contryGroup: OTHER
+ 
+ Country(Kazakhstan):
+   code: "KZ"
+   contryGroup: OTHER
+ 
+ Country(Kenya):
+   code: "KE"
+   contryGroup: OTHER
+ 
+ Country(Kiribati):
+   code: "KI"
+   contryGroup: OTHER
+ 
+ Country(KoreaDemocraticPeopleRepublic):
+   code: "KP"
+   contryGroup: OTHER
+ 
+ Country(KoreaRepublic):
+   code: "KR"
+   contryGroup: OTHER
+ 
+ Country(Kuwait):
+   code: "KW"
+   contryGroup: OTHER
+ 
+ Country(Kyrgyzstan):
+   code: "KG"
+   contryGroup: OTHER
+ 
+ Country(Lao):
+   code: "LA"
+   contryGroup: OTHER
+ 
+ Country(Latvia):
+   code: "LV"
+   contryGroup: OTHER
+ 
+ Country(Lebanon):
+   code: "LB"
+   contryGroup: OTHER
+ 
+ Country(Lesotho):
+   code: "LS"
+   contryGroup: OTHER
+ 
+ Country(Liberia):
+   code: "LR"
+   contryGroup: OTHER
+ 
+ Country(Libyan):
+   code: "LY"
+   contryGroup: OTHER
+ 
+ Country(Liechtenstein):
+   code: "LI"
+   contryGroup: OTHER
+ 
+ Country(Lithuania):
+   code: "LT"
+   contryGroup: OTHER
+ 
+ Country(Luxembourg):
+   code: "LU"
+   contryGroup: OTHER
+ 
+ Country(Macao):
+   code: "MO"
+   contryGroup: OTHER
+ 
+ Country(Macedonia):
+   code: "MK"
+   contryGroup: OTHER
+ 
+ Country(Madagascar):
+   code: "MG"
+   contryGroup: OTHER
+ 
+ Country(Malawi):
+   code: "MW"
+   contryGroup: OTHER
+ 
+ Country(Malaysia):
+   code: "MY"
+   contryGroup: OTHER
+ 
+ Country(Maldives):
+   code: "MV"
+   contryGroup: OTHER
+ 
+ Country(Mali):
+   code: "ML"
+   contryGroup: OTHER
+ 
+ Country(Malta):
+   code: "MT"
+   contryGroup: OTHER
+ 
+ Country(MarshallIslands):
+   code: "MH"
+   contryGroup: OTHER
+ 
+ Country(Martinique):
+   code: "MQ"
+   contryGroup: OTHER
+ 
+ Country(Mauritania):
+   code: "MR"
+   contryGroup: OTHER
+ 
+ Country(Mauritius):
+   code: "MU"
+   contryGroup: OTHER
+ 
+ Country(Mayotte):
+   code: "YT"
+   contryGroup: OTHER
+ 
+ Country(Mexico):
+   code: "MX"
+   contryGroup: OTHER
+ 
+ Country(Micronesia):
+   code: "FM"
+   contryGroup: OTHER
+ 
+ Country(Moldova):
+   code: "MD"
+   contryGroup: OTHER
+ 
+ Country(Monaco):
+   code: "MC"
+   contryGroup: OTHER
+ 
+ Country(Mongolia):
+   code: "MN"
+   contryGroup: OTHER
+ 
+ Country(Montenegro):
+   code: "ME"
+   contryGroup: OTHER
+ 
+ Country(Montserrat):
+   code: "MS"
+   contryGroup: OTHER
+ 
+ Country(Morocco):
+   code: "MA"
+   contryGroup: OTHER
+ 
+ Country(Mozambique):
+   code: "MZ"
+   contryGroup: OTHER
+ 
+ Country(Myanmar):
+   code: "MM"
+   contryGroup: OTHER
+ 
+ Country(Namibia):
+   code: "NA"
+   contryGroup: OTHER
+ 
+ Country(Nauru):
+   code: "NR"
+   contryGroup: OTHER
+ 
+ Country(Nepal):
+   code: "NP"
+   contryGroup: OTHER
+ 
+ Country(Netherlands):
+   code: "NL"
+   contryGroup: OTHER
+ 
+ Country(NetherlandsAntilles):
+   code: "AN"
+   contryGroup: OTHER
+ 
+ Country(NewCaledonia):
+   code: "NC"
+   contryGroup: OTHER
+ 
+ Country(NewZealand):
+   code: "NZ"
+   contryGroup: OTHER
+ 
+ Country(Nicaragua):
+   code: "NI"
+   contryGroup: OTHER
+ 
+ Country(Niger):
+   code: "NE"
+   contryGroup: OTHER
+ 
+ Country(Nigeria):
+   code: "NG"
+   contryGroup: OTHER
+ 
+ Country(Niue):
+   code: "NU"
+   contryGroup: OTHER
+ 
+ Country(NorfolkIsland):
+   code: "NF"
+   contryGroup: OTHER
+ 
+ Country(NorthernMarianaIslands):
+   code: "MP"
+   contryGroup: OTHER
+
+ Country(Norway):
+   code: "NO"
+   contryGroup: OTHER
+ 
+ Country(Oman):
+   code: "OM"
+   contryGroup: OTHER
+ 
+ Country(Pakistan):
+   code: "PK"
+   contryGroup: OTHER
+ 
+ Country(Palau):
+   code: "PW"
+   contryGroup: OTHER
+ 
+ Country(PalestinianTerritory):
+   code: "PS"
+   contryGroup: OTHER
+ 
+ Country(Panama):
+   code: "PA"
+   contryGroup: OTHER
+ 
+ Country(PapuaNewGuinea):
+   code: "PG"
+   contryGroup: OTHER
+ 
+ Country(Paraguay):
+   code: "PY"
+   contryGroup: OTHER
+ 
+ Country(Peru):
+   code: "PE"
+   contryGroup: OTHER
+ 
+ Country(Philippines):
+   code: "PH"
+   contryGroup: OTHER
+ 
+ Country(Pitcairn):
+   code: "PN"
+   contryGroup: OTHER
+ 
+ Country(Poland):
+   code: "PL"
+   contryGroup: OTHER
+ 
+ Country(Portugal):
+   code: "PT"
+   contryGroup: SUPPORTED
+ 
+ Country(PuertoRico):
+   code: "PR"
+   contryGroup: OTHER
+ 
+ Country(Qatar):
+   code: "QA"
+   contryGroup: OTHER
+ 
+ Country(Reunion):
+   code: "RE"
+   contryGroup: OTHER
+ 
+ Country(Romania):
+   code: "RO"
+   contryGroup: OTHER
+ 
+ Country(RussianFederation):
+   code: "RU"
+   contryGroup: OTHER
+ 
+ Country(Rwanda):
+   code: "RW"
+   contryGroup: OTHER
+ 
+ Country(SaintHelena):
+   code: "SH"
+   contryGroup: OTHER
+ 
+ Country(SaintKittsNevis):
+   code: "KN"
+   contryGroup: OTHER
+ 
+ Country(SaintLucia):
+   code: "LC"
+   contryGroup: OTHER
+ 
+ Country(SaintPierreMiquelon):
+   code: "PM"
+   contryGroup: OTHER
+ 
+ Country(SaintVincentGrenadines):
+   code: "VC"
+   contryGroup: OTHER
+ 
+ Country(Samoa):
+   code: "WS"
+   contryGroup: OTHER
+ 
+ Country(SanMarino):
+   code: "SM"
+   contryGroup: OTHER
+ 
+ Country(SaoTomePrincipe):
+   code: "ST"
+   contryGroup: OTHER
+ 
+ Country(SaudiArabia):
+   code: "SA"
+   contryGroup: OTHER
+ 
+ Country(Senegal):
+   code: "SN"
+   contryGroup: OTHER
+ 
+ Country(Serbia):
+   code: "RS"
+   contryGroup: OTHER
+ 
+ Country(Seychelles):
+   code: "SC"
+   contryGroup: OTHER
+ 
+ Country(SierraLeone):
+   code: "SL"
+   contryGroup: OTHER
+ 
+ Country(Singapore):
+   code: "SG"
+   contryGroup: OTHER
+ 
+ Country(Slovakia):
+   code: "SK"
+   contryGroup: OTHER
+ 
+ Country(Slovenia):
+   code: "SI"
+   contryGroup: OTHER
+ 
+ Country(SolomonIslands):
+   code: "SB"
+   contryGroup: OTHER
+ 
+ Country(Somalia):
+   code: "SO"
+   contryGroup: OTHER
+ 
+ Country(SouthAfrica):
+   code: "ZA"
+   contryGroup: OTHER
+ 
+ Country(SouthGeorgiaSouthSandwichIslands):
+   code: "GS"
+   contryGroup: OTHER
+ 
+ Country(Spain):
+   code: "ES"
+   contryGroup: OTHER
+ 
+ Country(SriLanka):
+   code: "LK"
+   contryGroup: OTHER
+ 
+ Country(Sudan):
+   code: "SD"
+   contryGroup: OTHER
+ 
+ Country(Suriname):
+   code: "SR"
+   contryGroup: OTHER
+ 
+ Country(SvalbardJanMayen):
+   code: "SJ"
+   contryGroup: OTHER
+ 
+ Country(Swaziland):
+   code: "SZ"
+   contryGroup: OTHER
+ 
+ Country(Sweden):
+   code: "SE"
+   contryGroup: OTHER
+ 
+ Country(Switzerland):
+   code: "CH"
+   contryGroup: OTHER
+ 
+ Country(Syrian):
+   code: "SY"
+   contryGroup: OTHER
+ 
+ Country(Taiwan):
+   code: "TW"
+   contryGroup: OTHER
+ 
+ Country(Tajikistan):
+   code: "TJ"
+   contryGroup: OTHER
+ 
+ Country(Tanzania):
+   code: "TZ"
+   contryGroup: OTHER
+ 
+ Country(Thailand):
+   code: "TH"
+   contryGroup: OTHER
+ 
+ Country(TimorLeste):
+   code: "TL"
+   contryGroup: OTHER
+ 
+ Country(Togo):
+   code: "TG"
+   contryGroup: OTHER
+ 
+ Country(Tokelau):
+   code: "TK"
+   contryGroup: OTHER
+ 
+ Country(Tonga):
+   code: "TO"
+   contryGroup: OTHER
+ 
+ Country(TrinidadTobago):
+   code: "TT"
+   contryGroup: OTHER
+ 
+ Country(Tunisia):
+   code: "TN"
+   contryGroup: OTHER
+ 
+ Country(Turkey):
+   code: "TR"
+   contryGroup: OTHER
+ 
+ Country(Turkmenistan):
+   code: "TM"
+   contryGroup: OTHER
+ 
+ Country(TurksCaicosIslands):
+   code: "TC"
+   contryGroup: OTHER
+ 
+ Country(Tuvalu):
+   code: "TV"
+   contryGroup: OTHER
+ 
+ Country(Uganda):
+   code: "UG"
+   contryGroup: OTHER
+ 
+ Country(Ukraine):
+   code: "UA"
+   contryGroup: OTHER
+ 
+ Country(UnitedArabEmirates):
+   code: "AE"
+   contryGroup: OTHER
+ 
+ Country(UnitedKingdom):
+   code: "GB"
+   contryGroup: OTHER
+ 
+ Country(UnitedStates):
+   code: "US"
+   contryGroup: OTHER
+ 
+ Country(UnitedStatesMinorOutlyingIslands):
+   code: "UM"
+   contryGroup: OTHER
+ 
+ Country(Uruguay):
+   code: "UY"
+   contryGroup: OTHER
+ 
+ Country(Uzbekistan):
+   code: "UZ"
+   contryGroup: OTHER
+ 
+ Country(Vanuatu):
+   code: "VU"
+   contryGroup: OTHER
+ 
+ Country(Venezuela):
+   code: "VE"
+   contryGroup: OTHER
+ 
+ Country(VietNam):
+   code: "VN"
+   contryGroup: OTHER
+ 
+ Country(VirginIslandsBritish):
+   code: "VG"
+   contryGroup: OTHER
+ 
+ Country(VirginIslands):
+   code: "VI"
+   contryGroup: OTHER
+ 
+ Country(WallisFutuna):
+   code: "WF"
+   contryGroup: OTHER
+ 
+ Country(WesternSahara):
+   code: "EH"
+   contryGroup: OTHER
+ 
+ Country(Yemen):
+   code: "YE"
+   contryGroup: OTHER
+ 
+ Country(Zambia):
+   code: "ZM"
+   contryGroup: OTHER
+ 
+ Country(Zimbabwe):
+   code: "ZW"
+   contryGroup: OTHER
+
+# Locations
+ Location(Afghanistan):
+   name: "Abrantes"
+   contry: Portugal
+
+ Location(Agualva):
+   name: "Agualva-Cac&eacute;m"
+   contry: Portugal
+
+ Location(Agueda):
+   name: "&Aacute;gueda"
+   contry: Portugal
+
+ Location(Albergaria):
+   name: "Albergaria-a-Velha"
+   contry: Portugal
+
+ Location(Albufeira):
+   name: "Albufeira"
+   contry: Portugal          
+
+ Location(Alcacer):
+   name: "Alc&Aacute;cer do Sal"
+   contry: Portugal
+
+ Location(Alcobaca):
+   name: "Alcoba&ccedil;a"
+   contry: Portugal
+
+ Location(Alfena):
+   name: "Alfena"
+   contry: Portugal
+
+ Location(Alenquer):
+   name: "Alenquer"
+   contry: Portugal
+
+ Location(Alges):
+   name: "Alg&eacute;s"
+   contry: Portugal
+
+ Location(Amada):
+   name: "Almada"
+   contry: Portugal
+
+ Location(Almeirim):
+   name: "Almeirim"
+   contry: Portugal
+
+ Location(Alverca):
+   name: "Alverca do Ribatejo"
+   contry: Portugal
+
+ Location(Amadora):
+   name: "Almadora"
+   contry: Portugal
+
+ Location(Amarante):
+   name: "Almarante"
+   contry: Portugal
+
+ Location(Amora):
+   name: "Amora"
+   contry: Portugal
+
+ Location(Anadia):
+   name: "Anadia"
+   contry: Portugal
+
+ Location(Angra):
+   name: "Angra do Hero&iacute;smo"
+   contry: Portugal
+
+ Location(Aveiro):
+   name: "Aveiro"
+   contry: Portugal
+
+ Location(Barcelos):
+   name: "Barcelos"
+   contry: Portugal
+
+ Location(Barreiro):
+   name: "Barreiro"
+   contry: Portugal
+
+ Location(Beja):
+   name: "Beja"
+   contry: Portugal
+
+ Location(Borba):
+   name: "Borba"
+   contry: Portugal
+
+ Location(BragaFerr):
+   name: "Braga - Ferreiros"
+   contry: Portugal
+
+ Location(BragaVV):
+   name: "Braga - Vila Verde"
+   contry: Portugal
+
+ Location(Braganca):
+   name: "Bragan&ccedil;a"
+   contry: Portugal
+
+ Location(Caldas):
+   name: 'C&acirc;mara de Lobos'
+   contry: Portugal
+
+ Location(Canico):
+   name: 'Cani&ccedil;o'
+   contry: Portugal
+
+ Location(Cantanhede):
+   name: 'Cantanhede'
+   contry: Portugal
+
+ Location(Cartaxo):
+   name: 'Cartaxo'
+   contry: Portugal
+
+ Location(CasteloBranco):
+   name: 'Castelo Branco'
+   contry: Portugal
+
+ Location(Chaves):
+   name: 'Chaves'
+   contry: Portugal
+
+ Location(Coimbra):
+   name: 'Coimbra'
+   contry: Portugal
+
+ Location(CostaCaparica):
+   name: 'Costa da Caparica'
+   contry: Portugal
+
+ Location(Covilha):
+   name: 'Covilh&atilde;'
+   contry: Portugal
+
+ Location(Elvas):
+   name: 'Elvas'
+   contry: Portugal
+
+ Location(Entroncamento):
+   name: 'Entroncamento'
+   contry: Portugal
+
+ Location(Ermesinde):
+   name: 'Ermesinde'
+   contry: Portugal
+
+ Location(Esmoriz):
+   name: 'Esmoriz'
+   contry: Portugal
+
+ Location(Espinho):
+   name: 'Espinho'
+   contry: Portugal
+
+ Location(Esposende):
+   name: 'Esposende'
+   contry: Portugal
+
+ Location(Estarreja):
+   name: 'Estarreja'
+   contry: Portugal
+
+ Location(Estremoz):
+   name: 'Estremoz'
+   contry: Portugal
+
+ Location(Evora):
+   name: '&eacute;vora'
+   contry: Portugal
+
+ Location(Fafe):
+   name: 'Fafe'
+   contry: Portugal
+
+ Location(Caldas):
+   name: 'Faro'
+   contry: Portugal
+
+ Location(Fatima):
+   name: 'F&Aacute;tima'
+   contry: Portugal
+
+ Location(Felgueiras):
+   name: 'Felgueiras'
+   contry: Portugal
+
+ Location(FigueiraFoz):
+   name: 'Figueira da Foz'
+   contry: Portugal
+
+ Location(Fiaes):
+   name: 'Fi&atilde;es'
+   contry: Portugal
+
+ Location(Freamunde):
+   name: 'Freamunde'
+   contry: Portugal
+
+ Location(Funchal):
+   name: 'Funchal'
+   contry: Portugal
+
+ Location(Fundao):
+   name: 'Fund&atilde;o'
+   contry: Portugal
+
+ Location(GafanhaNazare):
+   name: 'Gafanha da Nazar&eacute;'
+   contry: Portugal
+
+ Location(Gandra):
+   name: 'Gandra'
+   contry: Portugal
+
+ Location(Gondomar):
+   name: 'Gondomar'
+   contry: Portugal
+
+ Location(Gouveia):
+   name: 'Gouveia'
+   contry: Portugal
+
+ Location(Guarda):
+   name: 'Guarda'
+   contry: Portugal
+
+ Location(Guimaraes):
+   name: 'Guimar&atilde;es'
+   contry: Portugal
+
+ Location(Horta):
+   name: 'Horta'
+   contry: Portugal
+
+ Location(Ilhavo):
+   name: '&iacute;lhavo'
+   contry: Portugal
+
+ Location(LagoaAcores):
+   name: 'Lagoa (A&ccedil;ores)'
+   contry: Portugal
+
+ Location(LagoaAlgarve):
+   name: 'Lagoa (Algarve)'
+   contry: Portugal
+
+ Location(Lagos):
+   name: 'Lagos'
+   contry: Portugal
+
+ Location(Lamego):
+   name: 'Lamego'
+   contry: Portugal
+
+ Location(Leiria):
+   name: 'Leiria'
+   contry: Portugal
+
+ Location(Lisboa):
+   name: 'Lisboa'
+   contry: Portugal
+
+ Location(LisboaOriente):
+   name: 'Lisboa - Oriente'
+   contry: Portugal
+
+ Location(LisboaAreeiro):
+   name: 'Lisboa - Areeiro'
+   contry: Portugal
+
+ Location(LisboaSaldanha):
+   name: 'Lisboa - Saldanha'
+   contry: Portugal
+
+ Location(LisboaCP):
+   name: 'Lisboa - Campo Pequeno'
+   contry: Portugal
+
+ Location(LisboaAlvalade):
+   name: 'Lisboa - Alvalade'
+   contry: Portugal
+
+ Location(LisboaBenfica):
+   name: 'Lisboa - Benfica'
+   contry: Portugal
+
+ Location(LisboaBaixa):
+   name: 'Lisboa - Baixa/Chiado'
+   contry: Portugal
+
+ Location(LisboaConchas):
+   name: 'Lisboa - Quinta das Conchas'
+   contry: Portugal
+
+ Location(LisboaEntrecampos):
+   name: 'Lisboa - Entrecampos'
+   contry: Portugal
+
+ Location(LisboaRoma):
+   name: 'Lisboa - Roma'
+   contry: Portugal
+
+ Location(Lixa):
+   name: 'Lixa'
+   contry: Portugal
+
+ Location(Loule):
+   name: 'Loul&eacute;'
+   contry: Portugal
+
+ Location(Loures):
+   name: 'Loures'
+   contry: Portugal
+
+ Location(Lourinha):
+   name: 'Lourinh&atilde;'
+   contry: Portugal
+
+ Location(Lourosa):
+   name: 'Lourosa'
+   contry: Portugal
+
+ Location(MacedoCavaleiros):
+   name: 'Macedo de Cavaleiros'
+   contry: Portugal
+
+ Location(Machico):
+   name: 'Machico'
+   contry: Portugal
+
+ Location(Maia):
+   name: 'Maia'
+   contry: Portugal
+
+ Location(Mangualde):
+   name: 'Mangualde'
+   contry: Portugal
+
+ Location(MarcoCanaveses):
+   name: 'Marco de Canaveses'
+   contry: Portugal
+
+ Location(MarinhaGrande):
+   name: 'Marinha Grande'
+   contry: Portugal
+
+ Location(Matosinhos):
+   name: 'Matosinhos'
+   contry: Portugal
+
+ Location(Mealhada):
+   name: 'Mealhada'
+   contry: Portugal
+
+ Location(Meda):
+   name: 'M&ecirc;da'
+   contry: Portugal
+
+ Location(MirandaDouro):
+   name: 'Miranda do Douro'
+   contry: Portugal
+
+ Location(Mirandela):
+   name: 'Mirandela'
+   contry: Portugal
+
+ Location(Montemor):
+   name: 'Montemor-o-Novo'
+   contry: Portugal
+
+ Location(Montijo):
+   name: 'Montijo'
+   contry: Portugal
+
+ Location(Moura):
+   name: 'Moura'
+   contry: Portugal
+
+ Location(Oeiras):
+   name: 'Oeiras'
+   contry: Portugal
+
+ Location(Odivelas):
+   name: 'Odivelas'
+   contry: Portugal
+
+ Location(Olhao):
+   name: 'Olh&atilde;o da Restaura&ccedil;&atilde;o'
+   contry: Portugal
+
+ Location(OliveiraAzemeis):
+   name: 'Oliveira de Azem&eacute;is'
+   contry: Portugal
+
+ Location(OliveiraBairro):
+   name: 'Oliveira do Bairro'
+   contry: Portugal
+
+ Location(OluveiraHospital):
+   name: 'Oliveira do Hospital'
+   contry: Portugal
+
+ Location(Ourem):
+   name: 'Our&eacute;m'
+   contry: Portugal
+
+ Location(Ovar):
+   name: 'Ovar'
+   contry: Portugal
+
+ Location(PacosFerreira):
+   name: 'Pa&ccedil;os de Ferreira'
+   contry: Portugal
+
+ Location(Paredes):
+   name: 'Paredes'
+   contry: Portugal
+
+ Location(Penafiel):
+   name: 'Penafiel'
+   contry: Portugal
+
+ Location(Peniche):
+   name: 'Peniche'
+   contry: Portugal
+
+ Location(PesoRegua):
+   name: 'Peso da R&eacute;gua'
+   contry: Portugal
+
+ Location(Pinhel):
+   name: 'Pinhel'
+   contry: Portugal
+
+ Location(Pombal):
+   name: 'Pombal'
+   contry: Portugal
+
+ Location(PontaDelgada):
+   name: 'Ponta Delgada'
+   contry: Portugal
+
+ Location(PonteSor):
+   name: 'Ponte de Sor'
+   contry: Portugal
+
+ Location(Portalegre):
+   name: 'Portalegre'
+   contry: Portugal
+
+ Location(Portimao):
+   name: 'Portim&atilde;o'
+   contry: Portugal
+
+ Location(Porto):
+   name: 'Porto'
+   contry: Portugal
+
+ Location(PovoaSantaIria):
+   name: 'P&oacute;voa de Santa Iria'
+   contry: Portugal
+
+ Location(PovoaVarzim):
+   name: 'P&oacute;voa de Varzim'
+   contry: Portugal
+
+ Location(PraiVitoria):
+   name: 'Praia da Vit&oacute;ria'
+   contry: Portugal
+
+ Location(Quarteira):
+   name: 'Quarteira'
+   contry: Portugal
+
+ Location(Queluz):
+   name: 'Queluz'
+   contry: Portugal
+
+ Location(Rebordosa):
+   name: 'Rebordosa'
+   contry: Portugal
+
+ Location(Reguengos):
+   name: 'Reguengos de Monsaraz'
+   contry: Portugal
+
+ Location(RibeiraGrande):
+   name: 'Ribeira Grande'
+   contry: Portugal
+
+ Location(RioMaior):
+   name: 'Rio Maior'
+   contry: Portugal
+
+ Location(RioTinto):
+   name: 'Rio Tinto'
+   contry: Portugal
+
+ Location(Sabugal):
+   name: 'Sabugal'
+   contry: Portugal
+
+ Location(Sacavem):
+   name: 'Sacav&eacute;m'
+   contry: Portugal
+
+ Location(SamoraCorreia):
+   name: 'Samora Correia'
+   contry: Portugal
+
+ Location(SantaCombaDao):
+   name: 'Santa Comba D&atilde;o'
+   contry: Portugal
+
+ Location(SantaCruz):
+   name: 'Santa Cruz'
+   contry: Portugal
+
+ Location(SantaMariaFeira):
+   name: 'Santa Maria da Feira'
+   contry: Portugal
+
+ Location(Santana):
+   name: 'Santana'
+   contry: Portugal
+
+ Location(Santarem):
+   name: 'Santar&eacute;m'
+   contry: Portugal
+
+ Location(SantiagoCacem):
+   name: 'Santiago do Cac&eacute;m'
+   contry: Portugal
+
+ Location(SantoTirso):
+   name: 'Santo Tirso'
+   contry: Portugal
+
+ Location(SaoJoaoMadeira):
+   name: 'S&atilde;o Jo&atilde;o da Madeira'
+   contry: Portugal
+
+ Location(SaoMamedeInfesta):
+   name: 'S&atilde;o Mamede de Infesta'
+   contry: Portugal
+
+ Location(SaoPedroSul):
+   name: 'S&atilde;o Pedro do Sul'
+   contry: Portugal
+
+ Location(SaoSalvadorLordelo):
+   name: 'S&atilde;o Salvador de Lordelo'
+   contry: Portugal
+
+ Location(Seia):
+   name: 'Seia'
+   contry: Portugal
+
+ Location(Seixal):
+   name: 'Seixal'
+   contry: Portugal
+
+ Location(SenhoraHora):
+   name: 'Senhora da Hora'
+   contry: Portugal
+
+ Location(Serpa):
+   name: 'Serpa'
+   contry: Portugal
+
+ Location(Setubal):
+   name: 'Set&uacute;bal'
+   contry: Portugal
+
+ Location(Sesimbra):
+   name: 'Sesimbra'
+   contry: Portugal
+
+ Location(Silves):
+   name: 'Silves'
+   contry: Portugal
+
+ Location(Sines):
+   name: 'Sines'
+   contry: Portugal
+
+ Location(Sintra):
+   name: 'Sintra'
+   contry: Portugal
+
+ Location(Tarouca):
+   name: 'Tarouca'
+   contry: Portugal
+
+ Location(Tavira):
+   name: 'Tavira'
+   contry: Portugal
+
+ Location(Tomar):
+   name: 'Tomar'
+   contry: Portugal
+
+ Location(Tondela):
+   name: 'Tondela'
+   contry: Portugal
+
+ Location(TorresNovas):
+   name: 'Torres Novas'
+   contry: Portugal
+
+ Location(TorresVedras):
+   name: 'Torres Vedras'
+   contry: Portugal
+
+ Location(Trancoso):
+   name: 'Trancoso'
+   contry: Portugal
+
+ Location(Trofa):
+   name: 'Trofa'
+   contry: Portugal
+
+ Location(Valbom):
+   name: 'Valbom'
+   contry: Portugal
+
+ Location(ValeCambra):
+   name: 'Vale de Cambra'
+   contry: Portugal
+
+ Location(Valenca):
+   name: 'Valen&ccedil;a'
+   contry: Portugal
+
+ Location(Valongo):
+   name: 'Valongo'
+   contry: Portugal
+
+ Location(Valpacos):
+   name: 'Valpa&ccedil;os'
+   contry: Portugal
+
+ Location(VendasNovas):
+   name: 'Vendas Novas'
+   contry: Portugal
+
+ Location(VianaCastelo):
+   name: 'Viana do Castelo'
+   contry: Portugal
+
+ Location(VilaBaleira):
+   name: 'Vila Baleira'
+   contry: Portugal
+
+ Location(VilaConde):
+   name: 'Vila do Conde'
+   contry: Portugal
+
+ Location(VilaFrancaXira):
+   name: 'Vila Franca de Xira'
+   contry: Portugal
+
+ Location(Famalicao):
+   name: 'Vila Nova de Famalic&atilde;o'
+   contry: Portugal
+
+ Location(FozCoa):
+   name: 'Vila Nova de Foz C&ocirc;a'
+   contry: Portugal
+
+ Location(Gaia):
+   name: 'Vila Nova de Gaia'
+   contry: Portugal
+
+ Location(VilaNovaSantoAndre):
+   name: 'Vila Nova de Santo Andr&eacute;'
+   contry: Portugal
+
+ Location(VilaReal):
+   name: 'Vila Real'
+   contry: Portugal
+
+ Location(VilaRealSantoAntonio):
+   name: 'Vila Real de Santo Ant&oacute;nio'
+   contry: Portugal
+
+ Location(Viseu):
+   name: 'Viseu'
+   contry: Portugal
+
+ Location(Vizela):
+   name: 'Vizela'
+   contry: Portugal
+
+ Location(Cascais):
+   name: 'Cascais'
+   contry: Portugal
+
+ Location(LisboaBelem):
+   name: 'Lisboa - Belem'
+   contry: Portugal
+ 
+# User admin with pass admin   
+ User(admin):
+   email: "carloscarvalho@ubeos.com"
+   hashPassword: x61Ey612Kl2gpFL56FT9weDnpSo4AV8j8+qx2AuTHdRyY036xxzTTrw10Wq3+4qQyB+XURPWx1ONxp3Y3pB37A==
+   lang: "en"
+   firstName: "Carlos"
+   lastName: "Carvalho"
+   userType: admin
+   userRole: admin
+   enable: true
+   country: Portugal
+   gender: male

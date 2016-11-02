@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+
+
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+  
+#{/set}
+
+#{set pageTitle:messages.get('views.title.billing') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.billing') /}
+
+
+<div class="row">
+	<div class="col-md-12">
+	
+	
+		#{include 'Billings/_form.html' /}
+		
+	</div>
+</div>
+
+

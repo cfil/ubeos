@@ -1,0 +1,137 @@
+       
+<!-- Start: Header -->
+<header class="navbar navbar-fixed-top bg-light">
+	#{if session.ubeos_user && !helpers.TemplatesHelper.isOutsideTemplate()}
+      <div class="navbar-branding">
+        <a class="navbar-brand" href="@{Application.index}">
+          <img class="" width="74px" alt="UBEOS" src="@{'/public/images/img_ubeos_logo_sm.png'}">
+        </a>
+        <span id="toggle_sidemenu_l" class="ad ad-lines" ></span>
+      </div>
+      #{/if}
+      #{elseif session.ubeos_user }
+        <div class="navbar-branding-custom visible-xs-block">
+	    	<a class="navbar-brand-custom" href="@{Application.base}">
+	    		<img class="" width="74px" alt="UBEOS" src="@{'/public/images/img_ubeos_logo_dark.png'}">
+	    	</a>
+	    </div>
+	    <div class="navbar-branding-custom hidden-xs">
+	    	<a class="navbar-brand-custom" href="@{Application.base}">
+	    		<img class="" width="74px" alt="UBEOS" src="@{'/public/images/img_ubeos_logo_sm_dark.png'}">
+	    	</a>
+	    </div>
+      #{/elseif}
+      #{else}
+        <div class="navbar-branding-custom visible-xs-block">
+	    	<a class="navbar-brand-custom" href="@{Application.base}">
+	    		<img class="" width="74px" alt="UBEOS" src="@{'/public/images/img_ubeos_logo_dark.png'}">
+	        </a>
+	    </div>
+	    <div class="navbar-branding-custom hidden-xs">
+	    	<a class="navbar-brand-custom" href="@{Application.base}">
+	    		<img class="" width="74px" alt="UBEOS" src="@{'/public/images/img_ubeos_logo_sm_dark.png'}">
+	        </a>
+	    </div>
+      #{/else}
+
+    <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+         #{if play.i18n.Lang.get() == "pt" }
+            <a class="dropdown-toggle" data-toggle="dropdown" href="@{Application.pt}">
+                <span class="flag-xs flag-pt"></span>
+                <span class="fw600">PT</span>
+            </a>
+            <ul class="dropdown-menu animated animated-short fadeIn" role="menu">
+                <li>
+                    <a href="@{Application.en}" class="fw600">
+                        <span class="flag-xs flag-us mr10"></span>EN</a>
+                </li>
+            </ul>
+          #{/if}
+          #{else}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="@{Application.en}">
+                <span class="flag-xs flag-us"></span>
+                <span class="fw600">EN</span>
+            </a>
+            <ul class="dropdown-menu animated animated-shorter fadeIn" role="menu">
+                <li>
+                    <a href="@{Application.pt}" class="fw600 ">
+                        <span class="flag-xs flag-pt mr10 "></span>PT</a>
+                </li>
+            </ul>
+          #{/else}
+          
+        </li>
+        <li class="ph10 pv20 hidden-xs"> <i class="fa fa-circle text-tp fs8"></i>
+        </li>
+        
+        #{if session.ubeos_user}
+        <li class="dropdown">
+        %{ models.User user_l = models.User.findById(Long.parseLong(session.ubeos_user)); user_l.refresh();}%
+            <a href="#" class="dropdown-toggle fw600 p15" data-toggle="dropdown"> <img src="@{Users.Image(user_l?.id)}" alt="avatar" class="mw30 br64 mr15">
+                %{ if (user_l.userRole.name == models.UserRole.PROVIDER) { 
+				   		models.Provider provider = models.Provider.find("byUser", user_l).first();
+				   }%
+					<span>${provider.company.name}</span>
+				%{ } else { }%
+	                <span>${user_l.firstName} ${user_l.lastName}</span>
+				%{ } }%
+                <span class="ic-ub_arrow-down text-grey hidden-xs"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-persist pn w250 bg-white animated animated-shorter fadeIn" role="menu">
+                %{	if (user_l.userRole.name == models.UserRole.CONSUMER) { 
+				   		models.Consumer consumer = models.Consumer.find("byUser", user_l).first();
+				   	}%
+					#{_menuConsumer user_l: user_l, consumer: consumer, activeHeader: activeHeader /}
+				%{ } }%
+				
+				%{ if (user_l.userRole.name == models.UserRole.PROVIDER) { 
+				   		models.Provider provider = models.Provider.find("byUser", user_l).first();
+				   }%
+					#{_menuProvider user_l: user_l, provider: provider, activeHeader: activeHeader /}
+				%{ } }%
+				
+				%{ if (user_l.userRole.name == models.UserRole.ADMIN) { 
+				   }%
+					#{_menuAdmin user_l: user_l, activeHeader: activeHeader /}
+				%{ } }%
+            </ul>
+        </li>
+        #{/if}
+        #{else}
+        <li class="dropdown visible-xs-block">
+        	<a href="#" class="dropdown-toggle fw600 p15" data-toggle="dropdown">
+                <span class="ad ad-lines custom mw30"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-persist pn w250 bg-white animated animated-shorter fadeIn" role="menu">
+            	<li class="of-h">
+				    <a href="@{Security.login}" class="fw600 p12 animated animated-short fadeInUp">
+				        <span class="pr5"></span>&{'application.login'}
+				    </a>
+				</li>
+				<li class="br-t of-h">
+				    <a href="@{Consumers.create}" class="fw600 p12 animated animated-short fadeInUp">
+				        <span class="pr5"></span>&{'application.register'}
+				    </a>
+				</li>
+            </ul>
+        </li>
+        
+        <li class="hidden-xs">
+            <a href="@{Security.login}" class="p15">
+                <span class="navbar-links #{if activeHeaderLogin } active #{/if}">&{'application.login'}</span>
+            </a>
+        </li>
+        
+        <li class="hidden-xs">
+            <a href="@{Consumers.create} " class="p15 right">
+                <span class="navbar-links #{if activeHeaderRegister } active #{/if}">&{'application.register'}</span>
+            </a>
+        </li>
+
+		#{/else}
+    </ul>
+</header>
+<!-- End: Header -->
+
+

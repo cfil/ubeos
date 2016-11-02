@@ -1,0 +1,162 @@
+#{extends 'main_front.html' /}
+
+#{set 'moreScripts'}
+	#{get 'moreScripts' /}
+<script>
+	#{if flash.success || flash.error}
+		document.getElementById( 'createForm_1' ).scrollIntoView();
+	#{/if}
+</script>
+#{/set}
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+ 
+#{/set}  
+
+#{set pageTitle:"UBEOS - " + messages.get('views.title.base')/}
+#{set pageDescription:messages.get('views.description.base') /}
+
+<div class="wrapper-landing">
+
+	<section>
+		<div class="section-02 pt10">
+			<div><h2 class="text-center pt50 fw700 mt60">&{'views.landing.howitworks'}</h2></div>
+			<div class="landing-tab"></div>
+			<div class="mw1000 row margin-center">
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_a.png'}" class="img-responsive mw200 margin-center" title="TELL US WHAT YOU NEED">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept1.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept1.text.provider'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_b.png'}" class="img-responsive mw200 margin-center" title="THE OFFERS WILL COME TO YOU">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept2.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept2.text.provider'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_c.png'}" class="img-responsive mw200 margin-center" title="ENJOY YOUR TRAVEL">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept3.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept3.text.provider'}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
+	<section>
+		<div class="section-02 testimonials pt10">
+			<div><h2 class="text-center fw700 mt60">&{'views.landing.whyregister'}</h2></div>
+			<div class="landing-tab"></div>
+			<div class="mw1000 row margin-center">
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_d.png'}" class="img-responsive mw200 margin-center" title="TELL US WHAT YOU NEED">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept4.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept4.text.provider'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_e.png'}" class="img-responsive mw200 margin-center" title="THE OFFERS WILL COME TO YOU">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept5.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept5.text.provider'}</p>
+				</div>
+				<div class="col-md-4 mb50">
+					<img src="@{'/public/images/img_agency_f.png'}" class="img-responsive mw200 margin-center" title="ENJOY YOUR TRAVEL">
+					<h4 class="text-center fw800 up mt40 pr10 pl10">&{'views.landing.concept6.title.provider'}</h4>
+					<p class="text-center p10">&{'views.landing.concept6.text.provider'}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
+	<section>
+		<div class="section-02 pt10" style="padding-bottom: 80px;">
+			<div><h2 class="text-center fw700 pt50">&{'application.faqs'}</h2></div>
+			<div class="landing-tab"></div>
+			<div class="mw1000 row margin-center" style="padding-left: 20px; padding-right: 20px;">
+				
+				<div class="panel-group accordion accordion-lg" id="accordion1">
+                    
+                    
+                    <div class="panel">
+                      <div class="panel-heading">
+                        <a class="accordion-toggle accordion-icon link-unstyled collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accord9" aria-expanded="false">
+                          &{'faqs.9.title'}</a>
+                      </div>
+                      <div id="accord9" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">
+                        <div class="panel-body">&{'faqs.9.text'}</div>
+                      </div>
+                    </div>
+                    <div class="panel">
+                      <div class="panel-heading">
+                        <a class="accordion-toggle accordion-icon link-unstyled collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accord10" aria-expanded="false">
+                          &{'faqs.10.title'}</a>
+                      </div>
+                      <div id="accord10" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">
+                        <div class="panel-body">&{'faqs.10.text'}</div>
+                      </div>
+                    </div>
+                    <div class="panel">
+                      <div class="panel-heading">
+                        <a class="accordion-toggle accordion-icon link-unstyled collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accord11" aria-expanded="false">
+                          &{'faqs.11.title'}</a>
+                      </div>
+                      <div id="accord11" class="panel-collapse collapse" style="height: 0px;" aria-expanded="false">
+                        <div class="panel-body">&{'faqs.11.text'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+				
+	</section>
+	
+
+<section id="_3">
+		<div class="section-02 testimonials pt10" style="padding-bottom: 80px;">
+			<div><h2 class="text-center pt50 fw700">&{'views.provider.register'}</h2></div>
+			<div class="landing-tab"></div>
+
+ 			 <div class="admin-form theme-primary mw600 margin-center" id="register" style="padding-left: 20px; padding-right: 20px;">
+
+			#{if flash.success || flash.error}
+				#{include 'partials/_flashNotices.html'/}
+			#{/if}
+
+          <!-- Registration Logo -->
+          <div class="row table-layout mt20">
+          </div>
+
+          <!-- Registration Panel/Form -->
+          <div class="panel">
+
+            #{form @Providers.save(companyName), id:'createForm_1'}
+              <div class="panel-body bg-light p25 pb15">
+
+ 				#{include 'Providers/_formRegister.html' /}
+
+              </div>
+
+              <div class="panel-footer clearfix">
+              	<div class="col-md-4 col-xs-0"></div>
+                <button type="submit" class="btn btn-info mr10 col-md-4 col-xs-12">&{'application.register'}</button>
+                <div class="col-md-4 col-xs-0"></div>
+
+                
+              </div>
+
+			#{/form}
+            
+          </div>
+
+
+
+        </div>
+        </div>
+
+</section>
+
+</div>
+
+

@@ -1,0 +1,19 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+
+&{'mail.howdy'} ${user.firstName},
+<br><br>
+&{'mail.new.proposal.consumer.intro'}
+<br>
+&{'mail.new.proposal.consumer.intro2'}
+<br><br>
+&{'mail.check.new.proposal'} 
+<br><br>
+@@{Proposals.show(proposal.id)}
+<br><br>
+&{'mail.link.not.working'}
+<br><br>
+&{'mail.question.new.proposal'}
+<br><br>
+&{'mail.best.regards'}
+<br>
+UBEOS

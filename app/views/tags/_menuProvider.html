@@ -1,0 +1,20 @@
+	<li class="of-h">
+	    <a href="@{Providers.show(_provider.company.name)}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_profile pr5"></span>&{'views.profile'}
+	    </a>
+	</li>
+	<li class="br-t of-h">
+	    <a href="@{Providers.edit(_user_l.id)}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_settings pr5"></span>&{'views.settings'}
+	    </a>
+	</li>
+	#{if helpers.ProviderHelper.isCompanyOwner(_user_l) }
+	<li class="br-t of-h">
+	    <a href="@{Providers.add()}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_team pr5"></span>&{'views.manage.team'}</a>
+	</li>
+	#{/if}
+	<li class="br-t of-h">
+	    <a href="@{Security.logout}" class="fw600 p12 animated animated-short fadeInUp">
+	        <span class="ic-ub ic-ub_logout pr5"></span>&{'application.logout'}</a>
+	</li>

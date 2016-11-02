@@ -1,0 +1,169 @@
+
+<div id="billing-div" hidden="hidden">
+	<div class="wrapper-form">
+		<div class="form-label"></div>
+		<input type="hidden" name="billing.id" value="${billing?.id}" />
+	</div>
+	<div class="wrapper-form">
+		<div class="form-label"></div>
+		<input type="hidden" name="billing.proposal.id"
+			value="${billing.proposal.id}" />
+	</div>
+</div>
+
+
+<!-- Input Fields -->
+<div class="panel">
+	<div class="panel-heading">
+		<span class="panel-icon">
+	      <i class="ic-ub ic-ub_tasks"></i>
+	    </span>
+        <span class="panel-title">&{'views.billing.info'}</span>
+	</div>
+	<div class="panel-body">
+	
+	<div class="col-lg-3 col-md-0"></div>
+              	<div class="col-lg-8 col-padding">
+              		<div class=""><b>&{'views.billing.explain'}</b></div><br>
+              	</div>
+	#{form @Billings.save(id), id:'createForm', class:'form-horizontal'}
+		
+		<div class="wrapper-form">
+			<input type="hidden" name="proposal.id" value="${proposal?.id}" />
+		</div>
+		
+		
+		<div class="wrapper-form">
+			<input type="hidden" name="consumer.id" value="${consumer?.id}" />
+		</div>
+
+		<div class="wrapper-form">
+			<input type="hidden" name="consumer.user.id"
+				value="${consumer?.user?.id}" />
+		</div>
+
+		<div class="wrapper-form">
+			<input type="hidden" name="user.id" value="${user?.id}" />
+		</div>
+
+		<div class="row" hidden=true>
+			<input type="text" name="user.userType" value="consumer" />
+		</div>
+
+		<div class="row" hidden=true>
+			<input type="text" name="user.userRole.id" value="2" />
+		</div>
+
+
+		<div class="form-group #{ifError 'user.firstName'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.firstName'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.firstName" name="user.firstName"
+						value="${user?.firstName}"
+						class="form-control "
+						placeholder="&{'users.firstName'}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group #{ifError 'user.lastName'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.lastName'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.lastName" name="user.lastName"
+						value="${user?.lastName}"
+						class="form-control "
+						placeholder="&{'users.lastName'}">
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="disabledInput" class="col-lg-3 control-label">&{'users.email'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input
+						class="form-control #{ifError 'user.email'} error #{/ifError}"
+						name="user.email" value="${user?.email}" type="text" disabled>
+				</div>
+			</div>
+		</div>
+		<div class="form-group #{ifError 'user.address'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.address'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.address" name="user.address"
+						value="${user?.address}"
+						class="form-control "
+						placeholder="&{'users.address'}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group #{ifError 'user.city'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.city'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.city" name="user.city"
+						value="${user?.city}"
+						class="form-control "
+						placeholder="&{'users.city'}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group #{ifError 'user.zipcode'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.zipcode'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.zipcode" name="user.zipcode"
+						value="${user?.zipcode}"
+						class="form-control "
+						placeholder="&{'users.zipcode'}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputSelect" class="col-lg-3 control-label">&{'users.country'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<select id="user-country" name="user.country.id"
+						class="form-control #{ifError 'user.country'} error #{/ifError}">
+						<option disabled selected>&{'select.option'}</option> #{list
+						items:countries, as:'country'} %{ if (user?.country?.id	==country.id) { }%
+						<option value="${country.id}" selected>&{'country.'+country.code}</option>
+						%{ } else { }%
+						<option value="${country.id}">&{'country.'+country.code}</option>
+						%{ } }% #{/list}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group #{ifError 'user.zipcode'} has-error #{/ifError}">
+			<label for="inputStandard" class="col-lg-3 control-label">&{'users.phone'}</label>
+			<div class="col-lg-8">
+				<div class="bs-component">
+					<input type="text" id="user.phone" name="user.phone"
+						value="${user?.phone}"
+						class="form-control "
+						placeholder="&{'users.phone'}">
+				</div>
+			</div>
+		</div>
+		
+		</div>
+		<div class="panel-footer">
+
+		<div class="bs-component">
+			<div class="col-lg-3 col-md-0"></div>
+			<div class="col-lg-3 col-md-4 col-padding top">
+				<input type="submit" name="submit" value="&{'views.save'}"
+					class="btn btn-info btn-block" />
+			</div>
+			<div class="col-lg-3 col-md-4 col-padding">
+				<input type="button" id="cancel_back"
+					value="&{'application.cancel'}" class="btn btn-dark btn-block "
+					onclick="location.href='@{Proposals.show(billing.proposal.id)}'" />
+			</div>
+		</div>
+		#{/form}
+	</div>
+</div>

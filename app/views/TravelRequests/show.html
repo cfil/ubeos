@@ -1,0 +1,245 @@
+#{extends 'partials/_requestBase.html' /}
+
+#{set pageTitle:messages.get('views.title.request.show') + " | UBEOS"  /}
+#{set pageDescription:messages.get('views.description.request.show') /}
+
+
+#{set 'moreStyles'}
+	#{get 'moreStyles' /}
+#{/set}
+
+
+#{set 'moreScripts'}
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        	    
+            $('#datatable1').dataTable({
+				   responsive: true,
+
+	            "iDisplayLength": 5,
+	            language : data_i18n,
+	            bInfo: false,
+	            "pagingType": "simple_numbers",
+	            "aLengthMenu": [
+	                [5, 10, 25, 50, -1],
+	                [5, 10, 25, 50, "All"]
+	            ],
+	            "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+	            "oTableTools": {
+	                "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+	            }
+	        });
+	     	
+	        $('#datatable2').dataTable({
+	        	"order": [[ 1, "desc" ]],
+	        	   responsive: true,
+	            "iDisplayLength": 5,
+	            language : data_i18n,
+	            bInfo: false,
+	            "pagingType": "simple_numbers",
+	            "aLengthMenu": [
+	                [5, 10, 25, 50, -1],
+	                [5, 10, 25, 50, "All"]
+	            ],
+	            "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+	            "oTableTools": {
+	                "sSwfPath": "@{'/public/theme/vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'}"
+	            }
+	        });
+	    });
+	</script>
+	#{get 'moreScripts' /}
+#{/set}
+
+#{include 'partials/_ubeos_js_objects.html' /}
+
+%{ models.User user_logged = models.User.findById(Long.parseLong(session.ubeos_user)); }%
+
+		
+		<div class="col-md-8">
+		
+		<div class="panel panel-visible" id="spy2">
+				<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_chat"></i></span>
+               		<span class="panel-title">&{'views.notes'}</span>
+               	</div>
+				<div class="panel-body p15">
+		
+					%{ if (user_logged.userRole.name == models.UserRole.PROVIDER){ }%
+			
+			#{form @Comments.save(), id:'createForm', class:'form-horizontal', method: 'post'}
+                
+                #{if c_comments.size() > 0}
+                #{list c_comments, as:'old_comment'}
+				<div class="wrapper-messages-note">
+					<label class="text-grey">#{verbatim}${(old_comment.created_at).format('dd/MM/yyyy HH:mm')} #{/verbatim}</label>
+					<br><label>#{verbatim} ${old_comment.text}#{/verbatim}</label>
+		   		</div>
+				#{/list} 
+				#{/if}
+                <div id="message_builder" class="form-group #{ifError 'message'} has-error #{/ifError} ">
+					  <label class="col-lg-2 control-label" for="textArea">&{'views.notes.add'}</label>
+					  <div class="col-lg-9">
+					    <div class="bs-component">
+					      <textarea class="form-control" id="textArea" rows="3" name="comment.text"></textarea>
+					    </div>
+					  </div>
+					</div>
+				
+				<div hidden="hidden">
+					<input type="hidden" name="comment.request.id" value="${travelRequest.id}" />
+				</div>
+				<div class="col-lg-2"></div>
+				<div class="col-lg-5 col-padding">
+			 		<button type="submit" class="btn btn-info btn-block">&{'views.submit'}</button>
+                </div>
+              
+              #{/form}
+			
+					
+			
+			%{ } }%
+		
+		</div></div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			<div class="panel panel-visible" id="spy2">
+				<div class="panel-heading">
+					<span class="panel-icon"><i class="ic-ub ic-ub_board"></i></span>
+               		<span class="panel-title">&{'request.proposals'}</span>
+               	</div>
+				<div class="panel-body #{if proposals.size() > 0 }pn #{/if}">
+				
+				#{if proposals.size() > 0 } 
+               		%{ if (user_logged.userRole.name == models.UserRole.CONSUMER || user_logged.userRole.name == models.UserRole.ADMIN ) { }%
+                    	<div id="example_wrapper" class="dataTables_wrapper">
+                    	<table class="table table-hover nowrap" id="datatable1" cellspacing="0" width="100%">
+	                       	<thead>
+	                           	<tr class="tr-custom">
+	                           		<th class="p15">&{'views.provider'}</th>
+	                           		<th class="p15">&{'views.rating'}</th>
+									<th class="p15">&{'proposal.price'}</th>
+									<th class="p15">&{'request.state'}</th>
+                               </tr>
+							</thead>
+							<tbody>
+	                           	#{list items:proposals, as:'entity'}
+	                           	<tr onclick="window.document.location='@{Proposals.show(entity.id)}';" class="table-custom">
+									<td class="p15"><img class="img-responsive mw30 ib mr10" title="user" src="@{Users.Image(entity?.provider?.user?.id)}" alt="avatar"">
+										<a href="@{Providers.show(entity.provider.company.name)}">${entity.provider.company.name}</a>
+									</td>
+									<td>
+									%{ double rating =  models.ProviderRating.getProviderRating(entity.provider); }%
+										#{if rating == 0.0 }
+											<label class="">&{'views.no.rating'}</label>
+										#{/if}
+										#{else}
+											<div class="admin-form theme-warning float-left">
+									            <input class="rating-input" id="${entity.id}r5" type="radio"  #{if (Math.round(rating) == 5) }checked #{/if} disabled="disabled">
+									            <label class="rating-star" for="${entity.id}r5"><i class="fa fa-star"></i>
+									            </label>
+									            <input class="rating-input" id="${entity.id}r4" type="radio" #{if (Math.round(rating) == 4) }checked #{/if} disabled="disabled">
+									            <label class="rating-star" for="${entity.id}r4"><i class="fa fa-star"></i>
+									            </label>
+									            <input class="rating-input" id="${entity.id}r3" type="radio" #{if (Math.round(rating) == 3) }checked #{/if} disabled="disabled">
+									            <label class="rating-star" for="${entity.id}r3"><i class="fa fa-star"></i>
+									            </label>
+									            <input class="rating-input" id="${entity.id}r2" type="radio" #{if (Math.round(rating) == 2) }checked #{/if} disabled="disabled">
+									            <label class="rating-star" for="${entity.id}r2"><i class="fa fa-star"></i>
+									            </label>
+									            <input class="rating-input" id="${entity.id}r1" type="radio" #{if (Math.round(rating) == 1) }checked #{/if} disabled="disabled">
+									            <label class="rating-star" for="${entity.id}r1"><i class="fa fa-star"></i>
+									            </label>
+											</div>
+										#{/else}
+									</td>
+									<td>${entity.price} &#8364;</td>
+									#{if entity.isNew == 1}
+										<td><span class="label bg-warning">&{'state.new'}</span></td>
+									#{/if}
+									#{elseif entity.isNew == 2}
+										<td><span class="label bg-warning">&{'state.edited'}</span></td>
+									#{/elseif}
+									#{elseif entity.state.proposalState == models.ProposalState.ACTIVE  }
+										<td><span class="label bg-info">&{'state.'+entity.state.proposalState}</span></td>
+										#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.REJECTED}
+										<td><span class="label bg-danger">&{'state.'+entity.state.proposalState}</span></td>
+										#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.FEEDBACK}
+										<td><span class="label bg-warning">&{'state.feedback'}</span></td>
+										#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.CLOSED}
+										<td><span class="label bg-info">&{'state.accepted'}</span></td>
+									#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.ACCEPTED}
+										<td><span class="label bg-success">&{'state.accepted'}</span></td>
+									#{/elseif}
+								</tr>
+								#{/list} 								
+							</tbody>
+                      	</table>
+                    </div>
+                    %{ } else {  }%
+	                   	<table class="table table-hover" id="datatable2" cellspacing="0" width="100%">
+	                       	<thead>
+	                           	<tr class="tr-custom">
+									<th>&{'proposal.price'}</th>
+									<th>&{'proposal.title'}</th>
+									<th>&{'request.state'}</th>
+	                               </tr>
+							</thead>
+								<tbody>
+	                           #{list items:proposals, as:'entity'}
+	                           	<tr onclick="window.document.location='@{Proposals.show(entity.id)}';" class="table-custom">
+									
+									<td class="p15">${entity.price} &#8364;</td>
+									<td class="p15"><i>${entity?.title}</i></td>
+									#{if entity.state.proposalState == models.ProposalState.ACTIVE  }
+										<td><span class="label bg-info">&{'state.'+entity.state.proposalState}</span></td>
+										#{/if} #{elseif entity.state.proposalState == models.ProposalState.REJECTED}
+										<td><span class="label bg-danger">&{'state.'+entity.state.proposalState}</span></td>
+										#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.CLOSED}
+										<td><span class="label bg-success">&{'state.accepted'}</span></td>
+										#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.ACCEPTED}
+										<td><span class="label bg-success">&{'state.accepted'}</span></td>
+									#{/elseif} #{elseif entity.state.proposalState == models.ProposalState.FEEDBACK}
+										<td><span class="label bg-warning">&{'state.feedback'}</span></td>
+										#{/elseif}
+								</tr>
+							#{/list} 								
+							</tbody>
+	                      	</table>
+                   	%{ }  }%
+				#{/if}
+				#{else}
+					#{if user_logged.userRole.name == models.UserRole.CONSUMER}
+						<div><b class="custom-b">&{'warning.no.proposals'}</b><br><br>&{'warning.no.proposals.text'}</div>
+					#{/if}
+					#{else}				
+						<div>&{'warning.no.proposals.provider'}<br><br>&{'warning.no.proposals.provider.req.text'}</div>
+					#{/else}
+				#{/else}
+
+               	</div>
+			</div>
+				%{ if (user_logged.userRole.name == models.UserRole.PROVIDER || user_logged.userRole.name == models.UserRole.ADMIN ) { }%
+				#{if travelRequest.state.requestState == models.RequestState.ACTIVE }
+				%{ if (!helpers.ProposalHelper.isIgnore(travelRequest, user_logged)) { }%
+					<div class="col-md-6 col-padding top bottom left">
+						<button type="button" class="btn btn-info btn-block" onclick="location.href='@{Proposals.create(travelRequest.id)}'"><i class="ic-ub ic-ub_board btn"></i>&{'proposals.create'}</button>
+					</div>
+					<div class="col-md-6"></div>
+				%{ } }%
+				#{/if}
+			%{ } }%
+		</div>
+		
+
+
+
+

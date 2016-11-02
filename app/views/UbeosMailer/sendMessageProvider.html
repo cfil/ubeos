@@ -1,0 +1,17 @@
+#{extends 'UbeosMailer/mailTemplate.html' /}
+		
+&{'mail.howdy'} ${user.firstName} ${user.lastName},
+<br><br>
+&{'mail.message.from.consumer.into'} ${message.consumer.user.firstName} ${message.consumer.user.lastName}
+<br><br>
+"${message.message}"
+<br><br>
+&{'mail.message.link.reply.to'} 
+<br><br>
+@@{UbeosMessages.inbox()}
+<br><br>
+&{'mail.question.partner.and.help'}
+<br><br>
+&{'mail.thank.sincerely'}
+<br>
+UBEOS
