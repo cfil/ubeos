@@ -274,7 +274,6 @@ public class UbeosMessages extends MyController {
 		User user = UserTypeHelper.getLoggedUser(session);
 
 		if(user == null){
-			LoggerHelper.debug_Logger("exit_1");
 			renderHtml("");
 		}
 		
@@ -285,19 +284,16 @@ public class UbeosMessages extends MyController {
 			 if(message.direction == MessagesRec.PROV_2_CONS){
 				Consumer consumer = Consumer.findByUser(user);
 				if(consumer == null || message.consumer != consumer){
-					LoggerHelper.debug_Logger("exit_3");
 					renderHtml("");
 				}
 				message.isNew = false;
 				message.save();
-				LoggerHelper.debug_Logger("exit_4");
 				renderHtml("");
 			}
 		} else if(UserTypeHelper.isProvider(session)){
 			if(message.direction == MessagesRec.CONS_2_PROV){
 				Provider provider = Provider.findByUser(user);
 				if(provider == null || message.provider != provider){
-					LoggerHelper.debug_Logger("exit_5");
 					renderHtml("");
 				}
 				message.isNew = false;
